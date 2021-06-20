@@ -1,10 +1,48 @@
 {
   "scripts": {
-    "start": "snowpack dev",
-    "build": "snowpack build",
-    "test": "echo \"This template does not include a test runner by default.\" && exit 1"
+    "start": "snowpack dev"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.6.3",
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "framer-motion": "^4.1.17",
+    "mobx": "^6.3.2",
+    "mobx-react-lite": "^3.2.0",
+    "mobx-state-tree": "^5.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
+    "react-table": "^7.7.0"
   },
   "devDependencies": {
-    "snowpack": "^3.3.7"
+    "@snowpack/plugin-react-refresh": "^2.5.0",
+    "eslint": "^7.28.0",
+    "prettier": "^2.3.1",
+    "snowpack": "^3.5.6"
+  },
+  "snowpack": {
+    "mount": {
+      "public": "/",
+      "src": "/dist"
+    },
+    "plugins": [
+      "@snowpack/plugin-react-refresh"
+    ]
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2020,
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "es5",
+    "arrowParens": "avoid"
   }
 }
