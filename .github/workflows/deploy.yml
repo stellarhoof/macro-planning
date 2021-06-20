@@ -1,0 +1,17 @@
+name: Deploy to Github Pages
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Repository"
+        uses: actions/checkout@v2
+      - name: "Install Dependencies"
+        run: npm install
+      - name: "Deploy to Github Pages"
+        if: ${{ github.ref == 'refs/heads/master' }} # Only deploy master
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
