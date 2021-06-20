@@ -1,13 +1,13 @@
-import React from "../_snowpack/pkg/react.js";
-import ReactDOM from "../_snowpack/pkg/react-dom.js";
+import React from "./pkg/react.js";
+import ReactDOM from "./pkg/react-dom.js";
 import {
   extendTheme,
   ChakraProvider,
   Stack,
   TableCaption
-} from "../_snowpack/pkg/@chakra-ui/react.js";
-import {configure} from "../_snowpack/pkg/mobx.js";
-import {unprotect, onSnapshot} from "../_snowpack/pkg/mobx-state-tree.js";
+} from "./pkg/@chakra-ui/react.js";
+import {configure} from "./pkg/mobx.js";
+import {unprotect, onSnapshot} from "./pkg/mobx-state-tree.js";
 import dbModel from "./dbModel.js";
 import dbData from "./dbData.js";
 import Foods from "./Foods.js";

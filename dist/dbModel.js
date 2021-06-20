@@ -1,4 +1,4 @@
-import { types } from '../_snowpack/pkg/mobx-state-tree.js'
+import { types } from './pkg/mobx-state-tree.js'
 import { isValidDate, formatDate } from './util.js'
 
 let Food = types.model({

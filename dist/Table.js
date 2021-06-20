@@ -1,5 +1,5 @@
-import React from "../_snowpack/pkg/react.js";
-import {Box, Table} from "../_snowpack/pkg/@chakra-ui/react.js";
+import React from "./pkg/react.js";
+import {Box, Table} from "./pkg/@chakra-ui/react.js";
 export default ({
   variant,
   size,

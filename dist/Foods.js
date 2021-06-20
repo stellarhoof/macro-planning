@@ -1,5 +1,5 @@
-import React from "../_snowpack/pkg/react.js";
-import {useTable, useFilters, useSortBy} from "../_snowpack/pkg/react-table.js";
+import React from "./pkg/react.js";
+import {useTable, useFilters, useSortBy} from "./pkg/react-table.js";
 import {
   TableCaption,
   Thead,
@@ -11,13 +11,13 @@ import {
   Input,
   Stack,
   Box
-} from "../_snowpack/pkg/@chakra-ui/react.js";
+} from "./pkg/@chakra-ui/react.js";
 import {
   TiArrowUnsorted,
   TiArrowSortedDown,
   TiArrowSortedUp
-} from "../_snowpack/pkg/react-icons/ti.js";
-import {IoAddCircle} from "../_snowpack/pkg/react-icons/io5.js";
+} from "./pkg/react-icons/ti.js";
+import {IoAddCircle} from "./pkg/react-icons/io5.js";
 import Table from "./Table.js";
 import {formatGrams} from "./util.js";
 let columns = [

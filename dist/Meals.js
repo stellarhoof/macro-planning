@@ -1,5 +1,5 @@
-import React from "../_snowpack/pkg/react.js";
-import {observer} from "../_snowpack/pkg/mobx-react-lite.js";
+import React from "./pkg/react.js";
+import {observer} from "./pkg/mobx-react-lite.js";
 import {
   chakra,
   Stack,
@@ -16,9 +16,9 @@ import {
   IconButton,
   Box,
   Input
-} from "../_snowpack/pkg/@chakra-ui/react.js";
-import {MdRemoveCircle} from "../_snowpack/pkg/react-icons/md.js";
-import {IoClose} from "../_snowpack/pkg/react-icons/io5.js";
+} from "./pkg/@chakra-ui/react.js";
+import {MdRemoveCircle} from "./pkg/react-icons/md.js";
+import {IoClose} from "./pkg/react-icons/io5.js";
 import Table from "./Table.js";
 import {formatNumber, formatGrams, sum} from "./util.js";
 let gramsInput = (obj, key) => ({
