@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTable, useFilters, useSortBy } from 'react-table'
 import {
-  TableCaption,
   Thead,
   Tbody,
   Tr,
@@ -67,7 +66,10 @@ let columns = [
 let rowProps = (store, row) => ({
   cursor: 'pointer',
   sx: { ':hover': { bg: 'gray.100' } },
-  onClick: () => store.meals[store.currentMeal].addFood(row.values),
+  onClick() {
+    let meal = store.meals[store.currentMeal]
+    if (meal) meal.addFood(row.values)
+  },
 })
 
 export default ({ store, ...props }) => {
@@ -90,8 +92,17 @@ export default ({ store, ...props }) => {
   rows.forEach(prepareRow)
 
   return (
-    <Table {...props}>
-      <TableCaption>Foods</TableCaption>
+    <Table
+      sx={{
+        tr: { pos: 'relative' },
+        th: {
+          pos: 'sticky',
+          top: 0,
+          zIndex: 1,
+        },
+      }}
+      {...props}
+    >
       <Thead>
         {headerGroups.map(headerGroup => (
           <Tr {...headerGroup.getHeaderGroupProps()}>

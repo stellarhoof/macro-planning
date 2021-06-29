@@ -1,51 +1,32 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {
-  extendTheme,
-  ChakraProvider,
-  Stack,
-  TableCaption,
-} from '@chakra-ui/react'
-import { configure } from 'mobx'
-import { unprotect, onSnapshot } from 'mobx-state-tree'
-import dbModel from './dbModel'
-import dbData from './dbData'
+import { ChakraProvider, Stack } from '@chakra-ui/react'
+import { UndoManager } from 'mst-middlewares'
+import { onSnapshot } from 'mobx-state-tree'
+import model from './storeModel'
+import data from './storeData'
 import Foods from './Foods'
 import Meals from './Meals'
+import Help from './Help'
+import theme from './theme'
+import { onKeyPress } from './kbd'
+import { localStorage } from './util'
 
-let storage = window.localStorage
-let storedDb = storage.getItem('db')
-let store = dbModel.create(
-  storedDb ? { ...JSON.parse(storedDb), foods: dbData.foods } : dbData
-)
-onSnapshot(store, ({ foods, ...snap }) =>
-  storage.setItem('db', JSON.stringify(snap))
-)
+// Store
+let storeStorage = localStorage('store')
+let store = model.create({ ...data, ...storeStorage.get() })
+onSnapshot(store, ({ foods, ...snap }) => storeStorage.set(snap))
 
-// Do not complain when we mutate a mobx observable manually
-configure({ enforceActions: 'never' })
+// // History
+// let historyStorage = localStorage('history')
+// let history = UndoManager.create(historyStorage.get(), {
+//   targetStore: store,
+//   maxHistoryLength: 50,
+// })
+// onSnapshot(history, historyStorage.set)
 
-// Allow mutating the store manually
-unprotect(store)
-
-let theme = extendTheme({
-  fonts: { body: 'monospace' },
-  components: {
-    Heading: { defaultProps: { size: 'sm' } },
-    Table: {
-      defaultProps: { size: 'sm' },
-      baseStyle: ({ colorScheme: c }) => ({
-        caption: { bg: `${c}.100`, m: '0', fontWeight: 'bold' },
-        tfoot: { bg: `${c}.50` },
-      }),
-      sizes: {
-        sm: { caption: { fontSize: 'sm' } },
-      },
-    },
-  },
-})
-
-TableCaption.defaultProps = { placement: 'top' }
+// // Setup app keymaps
+// document.addEventListener('keypress', onKeyPress({ store, history }))
 
 ReactDOM.render(
   <ChakraProvider theme={theme}>
@@ -64,14 +45,8 @@ ReactDOM.render(
     >
       <Meals store={store} />
       <Foods store={store} />
+      <Help store={store} />
     </Stack>
   </ChakraProvider>,
   document.getElementById('root')
 )
-
-// Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
-// Learn more: https://www.snowpack.dev/concepts/hot-module-replacement
-if (undefined /* [snowpack] import.meta.hot */) {
-  undefined /* [snowpack] import.meta.hot */
-    .accept()
-}

@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite'
 import {
   chakra,
   Stack,
-  TableCaption,
   Thead,
   Tbody,
   Tfoot,
@@ -22,9 +21,9 @@ import { IoClose } from 'react-icons/io5'
 import Table from './Table'
 import { formatNumber, formatGrams, sum } from './util'
 
-let gramsInput = (obj, key) => ({
+let storeInput = (obj, key) => ({
   value: formatGrams(Math.floor(obj[key])),
-  onChange: value => (obj[key] = parseInt(value)),
+  onChange: value => obj.set(key, parseInt(value) || 0),
 })
 
 let calories = x => x.carbs * 4 + x.proteins * 4 + x.fats * 9
@@ -81,13 +80,12 @@ let MealsInfo = observer(({ store }) => {
           <MacrosHeaders />
         </Tr>
       </Thead>
-      <TableCaption>Summary</TableCaption>
       <Tbody>
         <Tr>
           <Td>Target</Td>
-          <TdNumberInput {...gramsInput(store.target, 'carbs')} />
-          <TdNumberInput {...gramsInput(store.target, 'proteins')} />
-          <TdNumberInput {...gramsInput(store.target, 'fats')} />
+          <TdNumberInput {...storeInput(store.target, 'carbs')} />
+          <TdNumberInput {...storeInput(store.target, 'proteins')} />
+          <TdNumberInput {...storeInput(store.target, 'fats')} />
           <Td isNumeric>{formatNumber(calories(store.target))}</Td>
         </Tr>
         <Tr>
@@ -111,54 +109,60 @@ let MealsInfo = observer(({ store }) => {
   )
 })
 
-let Meal = observer(({ meal, isActive, makeActive, remove, ...props }) => {
+let Meal = observer(({ meal, isSelected, select, remove, ...props }) => {
   let total = {
     carbs: getMealTotal(meal, 'carbs'),
     proteins: getMealTotal(meal, 'proteins'),
     fats: getMealTotal(meal, 'fats'),
   }
-  let colorScheme = isActive ? 'green' : 'gray'
+  let colorScheme = isSelected ? 'green' : 'gray'
   return (
-    <Table colorScheme={colorScheme} onClick={makeActive} {...props}>
+    <Table colorScheme={colorScheme} onClick={select} {...props}>
       <Thead>
         <Tr>
-          <Th></Th>
+          <Th>
+            <Stack align="center" direction="row">
+              <Box>{meal.name}</Box>
+              <IconButton
+                size="sm"
+                variant="ghost"
+                colorScheme={colorScheme}
+                icon={<Icon as={IoClose} />}
+                onClick={remove}
+              />
+            </Stack>
+          </Th>
           <MacrosHeaders />
           <Th isNumeric>Amount</Th>
         </Tr>
       </Thead>
-      <TableCaption pr="0" pt="0" pb="0">
-        <Stack justify="space-between" align="center" direction="row">
-          <Box>{meal.name}</Box>
-          <IconButton
-            size="sm"
-            colorScheme={colorScheme}
-            icon={<Icon as={IoClose} />}
-            borderRadius="0"
-            onClick={remove}
-          />
-        </Stack>
-      </TableCaption>
       <Tbody>
-        {meal.foods.map((food, index) => (
-          <Tr key={index}>
-            <Td
-              cursor="pointer"
-              onClick={() => meal.foods.splice(index, 1)}
-              sx={{ ':hover': { bg: `${colorScheme}.100` } }}
-            >
-              <Stack direction="row" align="center">
-                <Icon as={MdRemoveCircle} color="red.400" />
-                <span>{food.id.name}</span>
-              </Stack>
-            </Td>
-            <Td isNumeric>{formatGrams(macroAmount(food, 'carbs'))}</Td>
-            <Td isNumeric>{formatGrams(macroAmount(food, 'proteins'))}</Td>
-            <Td isNumeric>{formatGrams(macroAmount(food, 'fats'))}</Td>
-            <Td isNumeric>{formatNumber(calories(food.id))}</Td>
-            <TdNumberInput {...gramsInput(food, 'amount')} />
-          </Tr>
-        ))}
+        {meal.foods.map((food, index) => {
+          let macros = {
+            carbs: macroAmount(food, 'carbs'),
+            proteins: macroAmount(food, 'proteins'),
+            fats: macroAmount(food, 'fats'),
+          }
+          return (
+            <Tr key={index}>
+              <Td
+                cursor="pointer"
+                onClick={() => meal.removeFood(index)}
+                sx={{ ':hover': { bg: `${colorScheme}.100` } }}
+              >
+                <Stack direction="row" align="center">
+                  <Icon as={MdRemoveCircle} color="red.400" />
+                  <span>{food.id.name}</span>
+                </Stack>
+              </Td>
+              <Td isNumeric>{formatGrams(macros.carbs)}</Td>
+              <Td isNumeric>{formatGrams(macros.proteins)}</Td>
+              <Td isNumeric>{formatGrams(macros.fats)}</Td>
+              <Td isNumeric>{formatNumber(calories(macros))}</Td>
+              <TdNumberInput {...storeInput(food, 'amount')} />
+            </Tr>
+          )
+        })}
       </Tbody>
       <Tfoot>
         <Tr>
@@ -175,23 +179,8 @@ let Meal = observer(({ meal, isActive, makeActive, remove, ...props }) => {
 })
 
 export default observer(({ store, ...props }) => (
-  <Stack spacing="4" sx={{ '> *': { flexShrink: 0 } }} {...props}>
+  <Stack spacing="4" w="100ch" sx={{ '> *': { flexShrink: 0 } }} {...props}>
     <MealsInfo store={store} />
-    {store.meals.map((meal, index) => (
-      <Meal
-        key={index}
-        meal={meal}
-        cursor="pointer"
-        isActive={store.currentMeal === index}
-        makeActive={() => {
-          store.currentMeal = index
-        }}
-        remove={e => {
-          e.stopPropagation()
-          store.removeMeal(index)
-        }}
-      />
-    ))}
     <chakra.form
       onSubmit={e => {
         e.preventDefault()
@@ -210,5 +199,18 @@ export default observer(({ store, ...props }) => (
         placeholder="Add Meal..."
       />
     </chakra.form>
+    {store.meals.map((meal, index) => (
+      <Meal
+        key={index}
+        meal={meal}
+        cursor="pointer"
+        isSelected={store.currentMeal === index}
+        select={() => store.selectMeal(index)}
+        remove={e => {
+          e.stopPropagation()
+          store.removeMeal(index)
+        }}
+      />
+    ))}
   </Stack>
 ))
