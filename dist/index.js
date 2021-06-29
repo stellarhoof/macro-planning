@@ -1,40 +1,19 @@
 import React from "./pkg/react.js";
 import ReactDOM from "./pkg/react-dom.js";
-import {
-  extendTheme,
-  ChakraProvider,
-  Stack,
-  TableCaption
-} from "./pkg/@chakra-ui/react.js";
-import {configure} from "./pkg/mobx.js";
-import {unprotect, onSnapshot} from "./pkg/mobx-state-tree.js";
-import dbModel from "./dbModel.js";
-import dbData from "./dbData.js";
+import {ChakraProvider, Stack} from "./pkg/@chakra-ui/react.js";
+import {UndoManager} from "./pkg/mst-middlewares.js";
+import {onSnapshot} from "./pkg/mobx-state-tree.js";
+import model from "./storeModel.js";
+import data from "./storeData.js";
 import Foods from "./Foods.js";
 import Meals from "./Meals.js";
-let storage = window.localStorage;
-let storedDb = storage.getItem("db");
-let store = dbModel.create(storedDb ? {...JSON.parse(storedDb), foods: dbData.foods} : dbData);
-onSnapshot(store, ({foods, ...snap}) => storage.setItem("db", JSON.stringify(snap)));
-configure({enforceActions: "never"});
-unprotect(store);
-let theme = extendTheme({
-  fonts: {body: "monospace"},
-  components: {
-    Heading: {defaultProps: {size: "sm"}},
-    Table: {
-      defaultProps: {size: "sm"},
-      baseStyle: ({colorScheme: c}) => ({
-        caption: {bg: `${c}.100`, m: "0", fontWeight: "bold"},
-        tfoot: {bg: `${c}.50`}
-      }),
-      sizes: {
-        sm: {caption: {fontSize: "sm"}}
-      }
-    }
-  }
-});
-TableCaption.defaultProps = {placement: "top"};
+import Help from "./Help.js";
+import theme from "./theme.js";
+import {onKeyPress} from "./kbd.js";
+import {localStorage} from "./util.js";
+let storeStorage = localStorage("store");
+let store = model.create({...data, ...storeStorage.get()});
+onSnapshot(store, ({foods, ...snap}) => storeStorage.set(snap));
 ReactDOM.render(/* @__PURE__ */ React.createElement(ChakraProvider, {
   theme
 }, /* @__PURE__ */ React.createElement(Stack, {
@@ -53,7 +32,6 @@ ReactDOM.render(/* @__PURE__ */ React.createElement(ChakraProvider, {
   store
 }), /* @__PURE__ */ React.createElement(Foods, {
   store
+}), /* @__PURE__ */ React.createElement(Help, {
+  store
 }))), document.getElementById("root"));
-if (void 0) {
-  (void 0).accept();
-}

@@ -3,7 +3,6 @@ import {observer} from "./pkg/mobx-react-lite.js";
 import {
   chakra,
   Stack,
-  TableCaption,
   Thead,
   Tbody,
   Tfoot,
@@ -21,9 +20,9 @@ import {MdRemoveCircle} from "./pkg/react-icons/md.js";
 import {IoClose} from "./pkg/react-icons/io5.js";
 import Table from "./Table.js";
 import {formatNumber, formatGrams, sum} from "./util.js";
-let gramsInput = (obj, key) => ({
+let storeInput = (obj, key) => ({
   value: formatGrams(Math.floor(obj[key])),
-  onChange: (value) => obj[key] = parseInt(value)
+  onChange: (value) => obj.set(key, parseInt(value) || 0)
 });
 let calories = (x) => x.carbs * 4 + x.proteins * 4 + x.fats * 9;
 let macroAmount = (food, key) => Math.round(food.id[key] * (food.amount / 100));
@@ -66,12 +65,12 @@ let MealsInfo = observer(({store}) => {
     proteins: Math.max(0, store.target.proteins - total.proteins),
     fats: Math.max(0, store.target.fats - total.fats)
   };
-  return /* @__PURE__ */ React.createElement(Table, null, /* @__PURE__ */ React.createElement(Thead, null, /* @__PURE__ */ React.createElement(Tr, null, /* @__PURE__ */ React.createElement(Th, null), /* @__PURE__ */ React.createElement(MacrosHeaders, null))), /* @__PURE__ */ React.createElement(TableCaption, null, "Summary"), /* @__PURE__ */ React.createElement(Tbody, null, /* @__PURE__ */ React.createElement(Tr, null, /* @__PURE__ */ React.createElement(Td, null, "Target"), /* @__PURE__ */ React.createElement(TdNumberInput, {
-    ...gramsInput(store.target, "carbs")
+  return /* @__PURE__ */ React.createElement(Table, null, /* @__PURE__ */ React.createElement(Thead, null, /* @__PURE__ */ React.createElement(Tr, null, /* @__PURE__ */ React.createElement(Th, null), /* @__PURE__ */ React.createElement(MacrosHeaders, null))), /* @__PURE__ */ React.createElement(Tbody, null, /* @__PURE__ */ React.createElement(Tr, null, /* @__PURE__ */ React.createElement(Td, null, "Target"), /* @__PURE__ */ React.createElement(TdNumberInput, {
+    ...storeInput(store.target, "carbs")
   }), /* @__PURE__ */ React.createElement(TdNumberInput, {
-    ...gramsInput(store.target, "proteins")
+    ...storeInput(store.target, "proteins")
   }), /* @__PURE__ */ React.createElement(TdNumberInput, {
-    ...gramsInput(store.target, "fats")
+    ...storeInput(store.target, "fats")
   }), /* @__PURE__ */ React.createElement(Td, {
     isNumeric: true
   }, formatNumber(calories(store.target)))), /* @__PURE__ */ React.createElement(Tr, null, /* @__PURE__ */ React.createElement(Td, null, "Total"), /* @__PURE__ */ React.createElement(Td, {
@@ -90,58 +89,60 @@ let MealsInfo = observer(({store}) => {
     isNumeric: true
   }, formatGrams(remaining.fats)), /* @__PURE__ */ React.createElement(Th, null))));
 });
-let Meal = observer(({meal, isActive, makeActive, remove, ...props}) => {
+let Meal = observer(({meal, isSelected, select, remove, ...props}) => {
   let total = {
     carbs: getMealTotal(meal, "carbs"),
     proteins: getMealTotal(meal, "proteins"),
     fats: getMealTotal(meal, "fats")
   };
-  let colorScheme = isActive ? "green" : "gray";
+  let colorScheme = isSelected ? "green" : "gray";
   return /* @__PURE__ */ React.createElement(Table, {
     colorScheme,
-    onClick: makeActive,
+    onClick: select,
     ...props
-  }, /* @__PURE__ */ React.createElement(Thead, null, /* @__PURE__ */ React.createElement(Tr, null, /* @__PURE__ */ React.createElement(Th, null), /* @__PURE__ */ React.createElement(MacrosHeaders, null), /* @__PURE__ */ React.createElement(Th, {
-    isNumeric: true
-  }, "Amount"))), /* @__PURE__ */ React.createElement(TableCaption, {
-    pr: "0",
-    pt: "0",
-    pb: "0"
-  }, /* @__PURE__ */ React.createElement(Stack, {
-    justify: "space-between",
+  }, /* @__PURE__ */ React.createElement(Thead, null, /* @__PURE__ */ React.createElement(Tr, null, /* @__PURE__ */ React.createElement(Th, null, /* @__PURE__ */ React.createElement(Stack, {
     align: "center",
     direction: "row"
   }, /* @__PURE__ */ React.createElement(Box, null, meal.name), /* @__PURE__ */ React.createElement(IconButton, {
     size: "sm",
+    variant: "ghost",
     colorScheme,
     icon: /* @__PURE__ */ React.createElement(Icon, {
       as: IoClose
     }),
-    borderRadius: "0",
     onClick: remove
-  }))), /* @__PURE__ */ React.createElement(Tbody, null, meal.foods.map((food, index) => /* @__PURE__ */ React.createElement(Tr, {
-    key: index
-  }, /* @__PURE__ */ React.createElement(Td, {
-    cursor: "pointer",
-    onClick: () => meal.foods.splice(index, 1),
-    sx: {":hover": {bg: `${colorScheme}.100`}}
-  }, /* @__PURE__ */ React.createElement(Stack, {
-    direction: "row",
-    align: "center"
-  }, /* @__PURE__ */ React.createElement(Icon, {
-    as: MdRemoveCircle,
-    color: "red.400"
-  }), /* @__PURE__ */ React.createElement("span", null, food.id.name))), /* @__PURE__ */ React.createElement(Td, {
+  }))), /* @__PURE__ */ React.createElement(MacrosHeaders, null), /* @__PURE__ */ React.createElement(Th, {
     isNumeric: true
-  }, formatGrams(macroAmount(food, "carbs"))), /* @__PURE__ */ React.createElement(Td, {
-    isNumeric: true
-  }, formatGrams(macroAmount(food, "proteins"))), /* @__PURE__ */ React.createElement(Td, {
-    isNumeric: true
-  }, formatGrams(macroAmount(food, "fats"))), /* @__PURE__ */ React.createElement(Td, {
-    isNumeric: true
-  }, formatNumber(calories(food.id))), /* @__PURE__ */ React.createElement(TdNumberInput, {
-    ...gramsInput(food, "amount")
-  })))), /* @__PURE__ */ React.createElement(Tfoot, null, /* @__PURE__ */ React.createElement(Tr, null, /* @__PURE__ */ React.createElement(Th, null, "Total"), /* @__PURE__ */ React.createElement(Th, {
+  }, "Amount"))), /* @__PURE__ */ React.createElement(Tbody, null, meal.foods.map((food, index) => {
+    let macros = {
+      carbs: macroAmount(food, "carbs"),
+      proteins: macroAmount(food, "proteins"),
+      fats: macroAmount(food, "fats")
+    };
+    return /* @__PURE__ */ React.createElement(Tr, {
+      key: index
+    }, /* @__PURE__ */ React.createElement(Td, {
+      cursor: "pointer",
+      onClick: () => meal.removeFood(index),
+      sx: {":hover": {bg: `${colorScheme}.100`}}
+    }, /* @__PURE__ */ React.createElement(Stack, {
+      direction: "row",
+      align: "center"
+    }, /* @__PURE__ */ React.createElement(Icon, {
+      as: MdRemoveCircle,
+      color: "red.400"
+    }), /* @__PURE__ */ React.createElement("span", null, food.id.name))), /* @__PURE__ */ React.createElement(Td, {
+      isNumeric: true
+    }, formatGrams(macros.carbs)), /* @__PURE__ */ React.createElement(Td, {
+      isNumeric: true
+    }, formatGrams(macros.proteins)), /* @__PURE__ */ React.createElement(Td, {
+      isNumeric: true
+    }, formatGrams(macros.fats)), /* @__PURE__ */ React.createElement(Td, {
+      isNumeric: true
+    }, formatNumber(calories(macros))), /* @__PURE__ */ React.createElement(TdNumberInput, {
+      ...storeInput(food, "amount")
+    }));
+  })), /* @__PURE__ */ React.createElement(Tfoot, null, /* @__PURE__ */ React.createElement(Tr, null, /* @__PURE__ */ React.createElement(Th, null, "Total"), /* @__PURE__ */ React.createElement(Th, {
     isNumeric: true
   }, formatGrams(total.carbs)), /* @__PURE__ */ React.createElement(Th, {
     isNumeric: true
@@ -153,23 +154,12 @@ let Meal = observer(({meal, isActive, makeActive, remove, ...props}) => {
 });
 export default observer(({store, ...props}) => /* @__PURE__ */ React.createElement(Stack, {
   spacing: "4",
+  w: "100ch",
   sx: {"> *": {flexShrink: 0}},
   ...props
 }, /* @__PURE__ */ React.createElement(MealsInfo, {
   store
-}), store.meals.map((meal, index) => /* @__PURE__ */ React.createElement(Meal, {
-  key: index,
-  meal,
-  cursor: "pointer",
-  isActive: store.currentMeal === index,
-  makeActive: () => {
-    store.currentMeal = index;
-  },
-  remove: (e) => {
-    e.stopPropagation();
-    store.removeMeal(index);
-  }
-})), /* @__PURE__ */ React.createElement(chakra.form, {
+}), /* @__PURE__ */ React.createElement(chakra.form, {
   onSubmit: (e) => {
     e.preventDefault();
     let form = e.target;
@@ -184,4 +174,14 @@ export default observer(({store, ...props}) => /* @__PURE__ */ React.createEleme
   name: "name",
   autoComplete: "off",
   placeholder: "Add Meal..."
+})), store.meals.map((meal, index) => /* @__PURE__ */ React.createElement(Meal, {
+  key: index,
+  meal,
+  cursor: "pointer",
+  isSelected: store.currentMeal === index,
+  select: () => store.selectMeal(index),
+  remove: (e) => {
+    e.stopPropagation();
+    store.removeMeal(index);
+  }
 }))));

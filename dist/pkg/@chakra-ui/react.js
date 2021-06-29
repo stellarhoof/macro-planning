@@ -12043,6 +12043,44 @@ Input$1.id = "Input";
  */
 var Box = chakra("div");
 
+function _extends$q() { _extends$q = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$q.apply(this, arguments); }
+
+function _objectWithoutPropertiesLoose$8(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+/**
+ * Links are accessible elements used primarily for navigation.
+ *
+ * It integrates well with other routing libraries like
+ * React Router, Reach Router and Next.js Link.
+ *
+ * @example
+ *
+ * ```jsx
+ * <Link as={ReactRouterLink} to="/home">Home</Link>
+ * ```
+ *
+ * @see Docs https://chakra-ui.com/docs/layout/link
+ */
+var Link$1 = /*#__PURE__*/forwardRef((props, ref) => {
+  var styles = useStyleConfig("Link", props);
+
+  var _omitThemingProps = omitThemingProps(props),
+      {
+    className,
+    isExternal
+  } = _omitThemingProps,
+      rest = _objectWithoutPropertiesLoose$8(_omitThemingProps, ["className", "isExternal"]);
+
+  return /*#__PURE__*/react.createElement(chakra.a, _extends$q({
+    target: isExternal ? "_blank" : undefined,
+    rel: isExternal ? "noopener noreferrer" : undefined,
+    ref: ref,
+    className: cx("chakra-link", className)
+  }, rest, {
+    __css: styles
+  }));
+});
+
 /**
  * If we ever run into SSR issues with this, check this post to find a fix for it:
  * @see https://medium.com/@emmenko/patching-lobotomized-owl-selector-for-emotion-ssr-5a582a3c424c
@@ -12120,13 +12158,13 @@ function getDividerStyles(options) {
   };
 }
 
-function _objectWithoutPropertiesLoose$8(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _objectWithoutPropertiesLoose$9(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-function _extends$q() { _extends$q = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$q.apply(this, arguments); }
-var StackItem = props => /*#__PURE__*/react.createElement(chakra.div, _extends$q({
+function _extends$r() { _extends$r = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$r.apply(this, arguments); }
+var StackItem = props => /*#__PURE__*/react.createElement(chakra.div, _extends$r({
   className: "chakra-stack__item"
 }, props, {
-  __css: _extends$q({
+  __css: _extends$r({
     display: "inline-block",
     flex: "0 0 auto",
     minWidth: 0
@@ -12157,7 +12195,7 @@ var Stack = /*#__PURE__*/forwardRef((props, ref) => {
     className,
     shouldWrapChildren
   } = props,
-      rest = _objectWithoutPropertiesLoose$8(props, ["isInline", "direction", "align", "justify", "spacing", "wrap", "children", "divider", "className", "shouldWrapChildren"]);
+      rest = _objectWithoutPropertiesLoose$9(props, ["isInline", "direction", "align", "justify", "spacing", "wrap", "children", "divider", "className", "shouldWrapChildren"]);
 
   var direction = isInline ? "row" : directionProp != null ? directionProp : "column";
   var styles = react.useMemo(() => getStackStyles({
@@ -12193,7 +12231,7 @@ var Stack = /*#__PURE__*/forwardRef((props, ref) => {
 
   var _className = cx("chakra-stack", className);
 
-  return /*#__PURE__*/react.createElement(chakra.div, _extends$q({
+  return /*#__PURE__*/react.createElement(chakra.div, _extends$r({
     ref: ref,
     display: "flex",
     alignItems: align,
@@ -12207,9 +12245,9 @@ var Stack = /*#__PURE__*/forwardRef((props, ref) => {
   }, rest), clones);
 });
 
-function _extends$r() { _extends$r = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$r.apply(this, arguments); }
+function _extends$s() { _extends$s = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$s.apply(this, arguments); }
 
-function _objectWithoutPropertiesLoose$9(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _objectWithoutPropertiesLoose$a(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 var Table$1 = /*#__PURE__*/forwardRef((props, ref) => {
   var styles = useMultiStyleConfig("Table", props);
 
@@ -12217,11 +12255,11 @@ var Table$1 = /*#__PURE__*/forwardRef((props, ref) => {
       {
     className
   } = _omitThemingProps,
-      tableProps = _objectWithoutPropertiesLoose$9(_omitThemingProps, ["className"]);
+      tableProps = _objectWithoutPropertiesLoose$a(_omitThemingProps, ["className"]);
 
   return /*#__PURE__*/react.createElement(StylesProvider, {
     value: styles
-  }, /*#__PURE__*/react.createElement(chakra.table, _extends$r({
+  }, /*#__PURE__*/react.createElement(chakra.table, _extends$s({
     role: "table",
     ref: ref,
     __css: styles.table,
@@ -12233,12 +12271,12 @@ var TableCaption = /*#__PURE__*/forwardRef((props, ref) => {
   var {
     placement = "bottom"
   } = props,
-      rest = _objectWithoutPropertiesLoose$9(props, ["placement"]);
+      rest = _objectWithoutPropertiesLoose$a(props, ["placement"]);
 
   var styles = useStyles();
-  return /*#__PURE__*/react.createElement(chakra.caption, _extends$r({}, rest, {
+  return /*#__PURE__*/react.createElement(chakra.caption, _extends$s({}, rest, {
     ref: ref,
-    __css: _extends$r({}, styles.caption, {
+    __css: _extends$s({}, styles.caption, {
       captionSide: placement
     })
   }));
@@ -12246,21 +12284,21 @@ var TableCaption = /*#__PURE__*/forwardRef((props, ref) => {
 
 var Thead = /*#__PURE__*/forwardRef((props, ref) => {
   var styles = useStyles();
-  return /*#__PURE__*/react.createElement(chakra.thead, _extends$r({}, props, {
+  return /*#__PURE__*/react.createElement(chakra.thead, _extends$s({}, props, {
     ref: ref,
     __css: styles.thead
   }));
 });
 var Tbody = /*#__PURE__*/forwardRef((props, ref) => {
   var styles = useStyles();
-  return /*#__PURE__*/react.createElement(chakra.tbody, _extends$r({}, props, {
+  return /*#__PURE__*/react.createElement(chakra.tbody, _extends$s({}, props, {
     ref: ref,
     __css: styles.tbody
   }));
 });
 var Tfoot = /*#__PURE__*/forwardRef((props, ref) => {
   var styles = useStyles();
-  return /*#__PURE__*/react.createElement(chakra.tfoot, _extends$r({}, props, {
+  return /*#__PURE__*/react.createElement(chakra.tfoot, _extends$s({}, props, {
     ref: ref,
     __css: styles.tfoot
   }));
@@ -12269,10 +12307,10 @@ var Th = /*#__PURE__*/forwardRef((_ref2, ref) => {
   var {
     isNumeric
   } = _ref2,
-      rest = _objectWithoutPropertiesLoose$9(_ref2, ["isNumeric"]);
+      rest = _objectWithoutPropertiesLoose$a(_ref2, ["isNumeric"]);
 
   var styles = useStyles();
-  return /*#__PURE__*/react.createElement(chakra.th, _extends$r({}, rest, {
+  return /*#__PURE__*/react.createElement(chakra.th, _extends$s({}, rest, {
     ref: ref,
     __css: styles.th,
     "data-is-numeric": isNumeric
@@ -12280,7 +12318,7 @@ var Th = /*#__PURE__*/forwardRef((_ref2, ref) => {
 });
 var Tr = /*#__PURE__*/forwardRef((props, ref) => {
   var styles = useStyles();
-  return /*#__PURE__*/react.createElement(chakra.tr, _extends$r({
+  return /*#__PURE__*/react.createElement(chakra.tr, _extends$s({
     role: "row"
   }, props, {
     ref: ref,
@@ -12291,10 +12329,10 @@ var Td = /*#__PURE__*/forwardRef((_ref3, ref) => {
   var {
     isNumeric
   } = _ref3,
-      rest = _objectWithoutPropertiesLoose$9(_ref3, ["isNumeric"]);
+      rest = _objectWithoutPropertiesLoose$a(_ref3, ["isNumeric"]);
 
   var styles = useStyles();
-  return /*#__PURE__*/react.createElement(chakra.td, _extends$r({
+  return /*#__PURE__*/react.createElement(chakra.td, _extends$s({
     role: "gridcell"
   }, rest, {
     ref: ref,
@@ -12427,9 +12465,9 @@ function isValidNumericKeyboardEvent(event) {
   return isFloatingPointNumericCharacter(event.key);
 }
 
-function _extends$s() { _extends$s = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$s.apply(this, arguments); }
+function _extends$t() { _extends$t = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$t.apply(this, arguments); }
 
-function _objectWithoutPropertiesLoose$a(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _objectWithoutPropertiesLoose$b(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 var sanitize = value => value.split("").filter(isFloatingPointNumericCharacter).join("");
 /**
@@ -12473,7 +12511,7 @@ function useNumberInput(props) {
     onFocus,
     onBlur
   } = props,
-      htmlProps = _objectWithoutPropertiesLoose$a(props, ["focusInputOnChange", "clampValueOnBlur", "keepWithinRange", "min", "max", "step", "isReadOnly", "isDisabled", "isRequired", "getAriaValueText", "isInvalid", "pattern", "inputMode", "allowMouseWheel", "id", "onChange", "precision", "name", "aria-describedby", "aria-label", "aria-labelledby", "onFocus", "onBlur"]);
+      htmlProps = _objectWithoutPropertiesLoose$b(props, ["focusInputOnChange", "clampValueOnBlur", "keepWithinRange", "min", "max", "step", "isReadOnly", "isDisabled", "isRequired", "getAriaValueText", "isInvalid", "pattern", "inputMode", "allowMouseWheel", "id", "onChange", "precision", "name", "aria-describedby", "aria-label", "aria-labelledby", "onFocus", "onBlur"]);
 
   var onFocusProp = useCallbackRef(onFocus);
   var onBlurProp = useCallbackRef(onBlur);
@@ -12686,7 +12724,7 @@ function useNumberInput(props) {
     }
 
     var disabled = isDisabled || keepWithinRange && counter.isAtMax;
-    return _extends$s({}, props, {
+    return _extends$t({}, props, {
       ref,
       role: "button",
       tabIndex: -1,
@@ -12708,7 +12746,7 @@ function useNumberInput(props) {
     }
 
     var disabled = isDisabled || keepWithinRange && counter.isAtMin;
-    return _extends$s({}, props, {
+    return _extends$t({}, props, {
       ref,
       role: "button",
       tabIndex: -1,
@@ -12731,7 +12769,7 @@ function useNumberInput(props) {
       ref = null;
     }
 
-    return _extends$s({
+    return _extends$t({
       name,
       inputMode,
       type: "text",
@@ -12775,9 +12813,9 @@ function useNumberInput(props) {
   };
 }
 
-function _extends$t() { _extends$t = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$t.apply(this, arguments); }
+function _extends$u() { _extends$u = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$u.apply(this, arguments); }
 
-function _objectWithoutPropertiesLoose$b(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _objectWithoutPropertiesLoose$c(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 /**
  * React context used to communicate between components
@@ -12806,17 +12844,17 @@ var NumberInput$1 = /*#__PURE__*/forwardRef((props, ref) => {
       {
     htmlProps
   } = _useNumberInput,
-      context = _objectWithoutPropertiesLoose$b(_useNumberInput, ["htmlProps"]);
+      context = _objectWithoutPropertiesLoose$c(_useNumberInput, ["htmlProps"]);
 
   var ctx = react.useMemo(() => context, [context]);
   return /*#__PURE__*/react.createElement(NumberInputProvider, {
     value: ctx
   }, /*#__PURE__*/react.createElement(StylesProvider, {
     value: styles
-  }, /*#__PURE__*/react.createElement(chakra.div, _extends$t({}, htmlProps, {
+  }, /*#__PURE__*/react.createElement(chakra.div, _extends$u({}, htmlProps, {
     ref: ref,
     className: cx("chakra-numberinput", props.className),
-    __css: _extends$t({
+    __css: _extends$u({
       position: "relative",
       zIndex: 0
     }, styles.root)
@@ -12840,9 +12878,9 @@ var NumberInputField = /*#__PURE__*/forwardRef((props, ref) => {
   } = useNumberInputContext();
   var input = getInputProps(props, ref);
   var styles = useStyles();
-  return /*#__PURE__*/react.createElement(chakra.input, _extends$t({}, input, {
+  return /*#__PURE__*/react.createElement(chakra.input, _extends$u({}, input, {
     className: cx("chakra-numberinput__field", props.className),
-    __css: _extends$t({
+    __css: _extends$u({
       width: "100%"
     }, styles.field)
   }));
@@ -12861,4 +12899,4 @@ var StyledStepper = chakra("div", {
   }
 });
 
-export { Box, ChakraProvider, Icon, IconButton, Input$1 as Input, NumberInput$1 as NumberInput, NumberInputField, Stack, Table$1 as Table, TableCaption, Tbody, Td, Tfoot, Th, Thead, Tr, chakra, extendTheme };
+export { Box, ChakraProvider, Icon, IconButton, Input$1 as Input, Link$1 as Link, NumberInput$1 as NumberInput, NumberInputField, Stack, Table$1 as Table, TableCaption, Tbody, Td, Tfoot, Th, Thead, Tr, chakra, extendTheme };

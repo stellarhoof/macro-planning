@@ -24,3 +24,16 @@ export let genId = () => {
 }
 
 export let sum = arr => arr.reduce((acc, val) => acc + val, 0)
+
+export let localStorage = (key, fallback = {}) => ({
+  get() {
+    let item = window.localStorage.getItem(key)
+    return item ? JSON.parse(item) : fallback
+  },
+  set(value) {
+    window.localStorage.setItem(
+      key,
+      JSON.stringify(value === undefined ? fallback : value)
+    )
+  },
+})

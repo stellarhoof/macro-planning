@@ -1,9 +1,9 @@
 {
   "imports": {
     "@chakra-ui/react": "./@chakra-ui/react.js",
-    "mobx": "./mobx.js",
     "mobx-react-lite": "./mobx-react-lite.js",
     "mobx-state-tree": "./mobx-state-tree.js",
+    "mst-middlewares": "./mst-middlewares.js",
     "react": "./react.js",
     "react-dom": "./react-dom.js",
     "react-icons/io5": "./react-icons/io5.js",

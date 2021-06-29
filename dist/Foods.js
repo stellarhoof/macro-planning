@@ -1,7 +1,6 @@
 import React from "./pkg/react.js";
 import {useTable, useFilters, useSortBy} from "./pkg/react-table.js";
 import {
-  TableCaption,
   Thead,
   Tbody,
   Tr,
@@ -63,7 +62,11 @@ let columns = [
 let rowProps = (store, row) => ({
   cursor: "pointer",
   sx: {":hover": {bg: "gray.100"}},
-  onClick: () => store.meals[store.currentMeal].addFood(row.values)
+  onClick() {
+    let meal = store.meals[store.currentMeal];
+    if (meal)
+      meal.addFood(row.values);
+  }
 });
 export default ({store, ...props}) => {
   let table = useTable({
@@ -78,8 +81,16 @@ export default ({store, ...props}) => {
   let {getTableBodyProps, headerGroups, prepareRow, rows} = table;
   rows.forEach(prepareRow);
   return /* @__PURE__ */ React.createElement(Table, {
+    sx: {
+      tr: {pos: "relative"},
+      th: {
+        pos: "sticky",
+        top: 0,
+        zIndex: 1
+      }
+    },
     ...props
-  }, /* @__PURE__ */ React.createElement(TableCaption, null, "Foods"), /* @__PURE__ */ React.createElement(Thead, null, headerGroups.map((headerGroup) => /* @__PURE__ */ React.createElement(Tr, {
+  }, /* @__PURE__ */ React.createElement(Thead, null, headerGroups.map((headerGroup) => /* @__PURE__ */ React.createElement(Tr, {
     ...headerGroup.getHeaderGroupProps()
   }, headerGroup.headers.map((column) => /* @__PURE__ */ React.createElement(Th, {
     isNumeric: column.isNumeric,
