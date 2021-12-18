@@ -23,3 +23,4 @@ Run `npx snowpack dev`
 1tbsp butter = 15ml = 12g
 1tsp butter = 5ml = 4g
 1/2 cup steel cut oats = 100g
+1/2 heaping cup brown rice = 100g
