@@ -554,5 +554,13 @@ export default {
       proteins: 11,
       fats: 4,
     },
+    {
+      id: '244461374',
+      name: 'Plain Organic Yogurt',
+      brand: 'Seven Stars Farm',
+      carbs: 4,
+      proteins: 3,
+      fats: 4,
+    },
   ],
 }
