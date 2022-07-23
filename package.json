@@ -1,54 +1,40 @@
 {
+  "name": "macro-planning",
   "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "packageManager": "yarn@3.2.2",
   "scripts": {
-    "start": "snowpack dev",
-    "predeploy": "snowpack build",
+    "dev": "vite",
+    "predeploy": "vite build",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.6.3",
-    "@emotion/react": "^11.4.0",
-    "@emotion/styled": "^11.3.0",
-    "framer-motion": "^4.1.17",
-    "mobx": "^6.3.2",
-    "mobx-react-lite": "^3.2.0",
-    "mobx-state-tree": "^5.0.2",
-    "mst-middlewares": "^5.0.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-icons": "^4.2.0",
-    "react-table": "^7.7.0"
+    "@chakra-ui/react": "^2.2.4",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "framer-motion": "^6.5.1",
+    "mobx": "^6.6.1",
+    "mobx-react-lite": "^3.4.0",
+    "mobx-state-tree": "^5.1.5",
+    "mst-middlewares": "^5.1.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "react-table": "^7.8.0"
   },
   "devDependencies": {
-    "eslint": "^7.28.0",
-    "gh-pages": "^3.2.2",
-    "prettier": "^2.3.1",
-    "snowpack": "^3.5.6"
-  },
-  "snowpack": {
-    "mount": {
-      "public": "/",
-      "src": "/dist"
-    },
-    "buildOptions": {
-      "baseUrl": "/macro-planning",
-      "metaUrlPath": "dist"
-    }
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "sourceType": "module",
-      "ecmaVersion": 2020,
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    }
-  },
-  "prettier": {
-    "singleQuote": true,
-    "semi": false,
-    "trailingComma": "es5",
-    "arrowParens": "avoid"
-  },
-  "packageManager": "yarn@3.2.2"
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "@vitejs/plugin-react": "^2.0.0",
+    "eslint": "^8.20.0",
+    "gh-pages": "^4.0.0",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4",
+    "vite": "^3.0.2"
+  }
 }
