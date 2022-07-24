@@ -1,11 +1,10 @@
-import React from 'react'
-import { Box, Table } from '@chakra-ui/react'
+import { Box, Table } from "@chakra-ui/react"
 
 export default ({
   variant,
   size,
   children,
-  colorScheme: c = 'gray',
+  colorScheme: c = "gray",
   sx = {},
   ...props
 }) => (
@@ -19,13 +18,13 @@ export default ({
     <Table
       sx={{
         ...sx,
-        th: { h: '10', whiteSpace: 'nowrap', ...sx.th },
-        'td:first-of-type, th:first-of-type': {
-          fontWeight: 'bold',
-          whiteSpace: 'nowrap',
-          w: '40ch',
+        th: { h: "10", whiteSpace: "nowrap", ...sx.th },
+        "td:first-of-type, th:first-of-type": {
+          fontWeight: "bold",
+          whiteSpace: "nowrap",
+          w: "40ch",
         },
-        'input[inputmode=decimal]': { w: '20' },
+        "input[inputmode=decimal]": { w: "20" },
       }}
       {...{ variant, size, colorScheme: c }}
     >

@@ -1,5 +1,4 @@
-import React from 'react'
-import { Stack, Link } from '@chakra-ui/react'
+import { Stack, Link } from "@chakra-ui/react"
 
 export default () => (
   <Stack>

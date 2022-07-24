@@ -1,5 +1,4 @@
-import React from 'react'
-import { observer } from 'mobx-react-lite'
+import { observer } from "mobx-react-lite"
 import {
   chakra,
   Stack,
@@ -15,28 +14,28 @@ import {
   IconButton,
   Box,
   Input,
-} from '@chakra-ui/react'
-import { MdRemoveCircle } from 'react-icons/md'
-import { IoClose } from 'react-icons/io5'
-import Table from './Table'
-import { formatNumber, formatGrams, sum } from './util'
+} from "@chakra-ui/react"
+import { MdRemoveCircle } from "react-icons/md"
+import { IoClose } from "react-icons/io5"
+import Table from "./Table.jsx"
+import { formatNumber, formatGrams, sum } from "./util.js"
 
-let storeInput = (obj, key) => ({
-  value: formatGrams(Math.floor(obj[key])),
-  onChange: value => obj.set(key, parseInt(value) || 0),
+const storeInput = (obj, key) => ({
+  value: formatGrams(Math.floor(obj.get(key))),
+  onChange: (value) => obj.set(key, parseInt(value) || 0),
 })
 
-let calories = x => x.carbs * 4 + x.proteins * 4 + x.fats * 9
+const calories = (x) => x.carbs * 4 + x.proteins * 4 + x.fats * 9
 
-let macroAmount = (food, key) => Math.round(food.id[key] * (food.amount / 100))
+const macroAmount = (x, key) => Math.round(x.id.get(key) * (x.amount / 100))
 
-let getMealTotal = (meal, key) =>
-  sum(meal.foods.map(food => macroAmount(food, key)))
+const getMealTotal = (meal, key) =>
+  sum(meal.foods.map((food) => macroAmount(food, key)))
 
-let getMealsTotal = (meals, key) =>
-  sum(meals.map(meal => getMealTotal(meal, key)))
+const getMealsTotal = (meals, key) =>
+  sum(meals.map((meal) => getMealTotal(meal, key)))
 
-let MacrosHeaders = () => (
+const MacrosHeaders = () => (
   <>
     <Th isNumeric>Carbs</Th>
     <Th isNumeric>Proteins</Th>
@@ -45,7 +44,7 @@ let MacrosHeaders = () => (
   </>
 )
 
-let TdNumberInput = props => (
+const TdNumberInput = (props) => (
   <Td isNumeric p="0">
     <NumberInput
       size="sm"
@@ -61,13 +60,13 @@ let TdNumberInput = props => (
   </Td>
 )
 
-let MealsInfo = observer(({ store }) => {
-  let total = {
-    carbs: getMealsTotal(store.meals, 'carbs'),
-    proteins: getMealsTotal(store.meals, 'proteins'),
-    fats: getMealsTotal(store.meals, 'fats'),
+const MealsInfo = observer(({ store }) => {
+  const total = {
+    carbs: getMealsTotal(store.meals, "carbs"),
+    proteins: getMealsTotal(store.meals, "proteins"),
+    fats: getMealsTotal(store.meals, "fats"),
   }
-  let remaining = {
+  const remaining = {
     carbs: Math.max(0, store.target.carbs - total.carbs),
     proteins: Math.max(0, store.target.proteins - total.proteins),
     fats: Math.max(0, store.target.fats - total.fats),
@@ -83,9 +82,9 @@ let MealsInfo = observer(({ store }) => {
       <Tbody>
         <Tr>
           <Td>Target</Td>
-          <TdNumberInput {...storeInput(store.target, 'carbs')} />
-          <TdNumberInput {...storeInput(store.target, 'proteins')} />
-          <TdNumberInput {...storeInput(store.target, 'fats')} />
+          <TdNumberInput {...storeInput(store.target, "carbs")} />
+          <TdNumberInput {...storeInput(store.target, "proteins")} />
+          <TdNumberInput {...storeInput(store.target, "fats")} />
           <Td isNumeric>{formatNumber(calories(store.target))}</Td>
         </Tr>
         <Tr>
@@ -109,13 +108,13 @@ let MealsInfo = observer(({ store }) => {
   )
 })
 
-let Meal = observer(({ meal, isSelected, select, remove, ...props }) => {
-  let total = {
-    carbs: getMealTotal(meal, 'carbs'),
-    proteins: getMealTotal(meal, 'proteins'),
-    fats: getMealTotal(meal, 'fats'),
+const Meal = observer(({ meal, isSelected, select, remove, ...props }) => {
+  const total = {
+    carbs: getMealTotal(meal, "carbs"),
+    proteins: getMealTotal(meal, "proteins"),
+    fats: getMealTotal(meal, "fats"),
   }
-  let colorScheme = isSelected ? 'green' : 'gray'
+  const colorScheme = isSelected ? "green" : "gray"
   return (
     <Table colorScheme={colorScheme} onClick={select} {...props}>
       <Thead>
@@ -124,6 +123,7 @@ let Meal = observer(({ meal, isSelected, select, remove, ...props }) => {
             <Stack align="center" direction="row">
               <Box>{meal.name}</Box>
               <IconButton
+                aria-label="Remove"
                 size="sm"
                 variant="ghost"
                 colorScheme={colorScheme}
@@ -138,17 +138,17 @@ let Meal = observer(({ meal, isSelected, select, remove, ...props }) => {
       </Thead>
       <Tbody>
         {meal.foods.map((food, index) => {
-          let macros = {
-            carbs: macroAmount(food, 'carbs'),
-            proteins: macroAmount(food, 'proteins'),
-            fats: macroAmount(food, 'fats'),
+          const macros = {
+            carbs: macroAmount(food, "carbs"),
+            proteins: macroAmount(food, "proteins"),
+            fats: macroAmount(food, "fats"),
           }
           return (
             <Tr key={index}>
               <Td
                 cursor="pointer"
                 onClick={() => meal.removeFood(index)}
-                sx={{ ':hover': { bg: `${colorScheme}.100` } }}
+                sx={{ ":hover": { bg: `${colorScheme}.100` } }}
               >
                 <Stack direction="row" align="center">
                   <Icon as={MdRemoveCircle} color="red.400" />
@@ -159,7 +159,7 @@ let Meal = observer(({ meal, isSelected, select, remove, ...props }) => {
               <Td isNumeric>{formatGrams(macros.proteins)}</Td>
               <Td isNumeric>{formatGrams(macros.fats)}</Td>
               <Td isNumeric>{formatNumber(calories(macros))}</Td>
-              <TdNumberInput {...storeInput(food, 'amount')} />
+              <TdNumberInput {...storeInput(food, "amount")} />
             </Tr>
           )
         })}
@@ -179,15 +179,15 @@ let Meal = observer(({ meal, isSelected, select, remove, ...props }) => {
 })
 
 export default observer(({ store, ...props }) => (
-  <Stack spacing="4" w="100ch" sx={{ '> *': { flexShrink: 0 } }} {...props}>
+  <Stack spacing="4" w="100ch" sx={{ "> *": { flexShrink: 0 } }} {...props}>
     <MealsInfo store={store} />
     <chakra.form
-      onSubmit={e => {
+      onSubmit={(e) => {
         e.preventDefault()
-        let form = e.target
-        let name = new FormData(form).get('name')
+        const form = e.target
+        const name = new FormData(form).get("name")
         if (name) {
-          store.addMeal({ name })
+          store.addMeal({ name, foods: [] })
           form.reset()
         }
       }}
@@ -206,7 +206,7 @@ export default observer(({ store, ...props }) => (
         cursor="pointer"
         isSelected={store.currentMeal === index}
         select={() => store.selectMeal(index)}
-        remove={e => {
+        remove={(e) => {
           e.stopPropagation()
           store.removeMeal(index)
         }}

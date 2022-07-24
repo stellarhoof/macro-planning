@@ -1,22 +1,20 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { ChakraProvider, Stack } from '@chakra-ui/react'
-import { UndoManager } from 'mst-middlewares'
-import { onSnapshot } from 'mobx-state-tree'
-import model from './storeModel'
-import data from './storeData'
-import Foods from './Foods'
-import Meals from './Meals'
-import Help from './Help'
-import theme from './theme'
-import { onKeyPress } from './kbd'
-import { localStorage } from './util'
+import React from "react"
+import ReactDOM from "react-dom/client"
+import { onSnapshot } from "mobx-state-tree"
+import { ChakraProvider, Stack } from "@chakra-ui/react"
+import theme from "./theme.js"
+import Foods from "./Foods.jsx"
+import Meals from "./Meals.jsx"
+import Help from "./Help.jsx"
+import model from "./storeModel.js"
+import data from "./storeData.js"
+import { localStorage } from "./util.js"
 
-// Store
-let storeStorage = localStorage('store')
-let store = model.create({ ...data, ...storeStorage.get() })
+const storeStorage = localStorage("store")
+const store = model.create({ ...data, ...storeStorage.get() })
 onSnapshot(store, ({ foods, ...snap }) => storeStorage.set(snap))
 
+// import { UndoManager } from "mst-middlewares"
 // // History
 // let historyStorage = localStorage('history')
 // let history = UndoManager.create(historyStorage.get(), {
@@ -26,27 +24,23 @@ onSnapshot(store, ({ foods, ...snap }) => storeStorage.set(snap))
 // onSnapshot(history, historyStorage.set)
 
 // // Setup app keymaps
+// import { onKeyPress } from "./kbd"
 // document.addEventListener('keypress', onKeyPress({ store, history }))
 
-ReactDOM.render(
-  <ChakraProvider theme={theme}>
-    <Stack
-      p="4"
-      spacing="4"
-      direction="row"
-      h="100vh"
-      sx={{
-        '> *': {
-          maxH: '100%',
-          overflowY: 'scroll',
-          flexShrink: 0,
-        },
-      }}
-    >
-      <Meals store={store} />
-      <Foods store={store} />
-      <Help store={store} />
-    </Stack>
-  </ChakraProvider>,
-  document.getElementById('root')
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <ChakraProvider theme={theme}>
+      <Stack
+        p="4"
+        spacing="4"
+        direction="row"
+        h="100vh"
+        sx={{ "> *": { maxH: "100%", overflowY: "scroll", flexShrink: 0 } }}
+      >
+        <Meals store={store} />
+        <Foods store={store} />
+        <Help />
+      </Stack>
+    </ChakraProvider>
+  </React.StrictMode>,
 )
