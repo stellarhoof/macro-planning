@@ -10,16 +10,16 @@
   ],
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": "latest"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+    "ecmaVersion": "2022"
   },
   "rules": {
     "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
     "react/display-name": "off",
     "react/prop-types": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

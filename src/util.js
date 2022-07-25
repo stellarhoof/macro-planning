@@ -14,8 +14,7 @@ export const formatNumber = (value, options) =>
 export const formatGrams = (value) =>
   formatNumber(value, { style: "unit", unit: "gram", unitDisplay: "narrow" })
 
-export const addDays = (days, date) =>
-  new Date(date).setDate(date.getDate() + days)
+export const addDays = (days, date) => date.setDate(date.getDate() + days)
 
 export const genId = () => {
   const array = new Uint32Array(1)

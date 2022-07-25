@@ -1,18 +1,18 @@
-Run `npx snowpack dev`
-
 # TODO
 
 - Keyboard food selection
 - Keyboard help
 - Undo/Redo
   - Use https://github.com/jaywcjlove/hotkeys
-- Add/Remove food
-- Highlighting
 - Select input on focus
 - Collapse meal
-- Scroll meals, not summary + input
-- Sort meal columns
-- Save recipes
+
+- Delete row
+- Add row
+- Change row
+- Filterable, read only table
+- Filterable, read/write table
+- Tables (foods, meals)
 
 # Some conversions
 
