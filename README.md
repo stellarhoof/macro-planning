@@ -7,13 +7,6 @@
 - Select input on focus
 - Collapse meal
 
-- Delete row
-- Add row
-- Change row
-- Filterable, read only table
-- Filterable, read/write table
-- Tables (foods, meals)
-
 # Some conversions
 
 1cup pea milk = 230g
