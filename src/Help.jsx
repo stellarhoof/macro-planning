@@ -1,6 +1,6 @@
 import { Stack, Link } from "@chakra-ui/react"
 
-export default () => (
+export const Help = () => (
   <Stack>
     <Link href="https://fdc.nal.usda.gov/fdc-app.html#/" isExternal>
       FDC Food Data

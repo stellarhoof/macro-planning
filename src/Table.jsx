@@ -1,5 +1,5 @@
 import _ from "lodash/fp"
-import { observable } from "mobx"
+import { action, observable } from "mobx"
 import { useState } from "react"
 import { useReactTable, flexRender } from "@tanstack/react-table"
 import {
@@ -64,33 +64,34 @@ export const expansionColumn = () => ({
     ),
 })
 
-const regexp = observable.box(null)
-
-export const filteringColumn = () => ({
-  cell: ({ cell }) => (
-    <span
-      dangerouslySetInnerHTML={{
-        __html: cell.getValue().replace(regexp.get(), "<mark>$1</mark>"),
-      }}
-    />
-  ),
-  header: ({ column }) => (
-    <Input
-      size="sm"
-      variant="flushed"
-      borderColor="blue.300"
-      value={column.getFilterValue() || ""}
-      onInput={(e) => {
-        const value = e.target.value || undefined
-        column.setFilterValue(value)
-        regexp.set(new RegExp(`(${value})`, "ig"))
-      }}
-    />
-  ),
-  props: {
-    td: { sx: { mark: { bg: "yellow" } } },
-  },
-})
+export const filteringColumn = () => {
+  let regexp = observable.box(null)
+  return {
+    cell: ({ cell }) => (
+      <span
+        dangerouslySetInnerHTML={{
+          __html: cell.getValue().replace(regexp.get(), "<mark>$1</mark>"),
+        }}
+      />
+    ),
+    header: ({ column }) => (
+      <Input
+        size="sm"
+        variant="flushed"
+        borderColor="blue.300"
+        value={column.getFilterValue() || ""}
+        onInput={action((e) => {
+          const value = e.target.value || undefined
+          column.setFilterValue(value)
+          regexp.set(new RegExp(`(${value})`, "ig"))
+        })}
+      />
+    ),
+    props: {
+      td: { sx: { mark: { bg: "yellow" } } },
+    },
+  }
+}
 
 export const sortingColumn = () => ({
   header: ({ header: { column } }) => (

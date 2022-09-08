@@ -581,8 +581,9 @@ const meals = _.map(
   ],
 )
 
-export default {
+export const data = {
+  tab: 0,
+  target: { carbs: 0, proteins: 0, fats: 0 },
   foods,
   meals,
-  target: { carbs: 0, proteins: 0, fats: 0 },
 }

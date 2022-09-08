@@ -10,52 +10,46 @@ import {
   filteringColumn,
   expansionColumn,
 } from "./Table.jsx"
-import { MdAdd, MdDelete } from "react-icons/md"
+import { MdAddCircle, MdRemoveCircle } from "react-icons/md"
 
 const columns = (meals) => [
-  {
+  _.merge(expansionColumn(), {
     id: "expansion",
-    ...expansionColumn(),
-  },
-  {
+  }),
+  _.merge(filteringColumn(), {
     accessorKey: "name",
-    ...filteringColumn(),
-  },
-  {
+    props: { td: { w: "100%" } },
+  }),
+  _.merge(sortingColumn(), {
     accessorKey: "carbs",
     display: formatGrams,
     isNumeric: true,
-    ...sortingColumn(),
-  },
-  {
+  }),
+  _.merge(sortingColumn(), {
     accessorKey: "proteins",
     display: formatGrams,
     isNumeric: true,
-    ...sortingColumn(),
-  },
-  {
+  }),
+  _.merge(sortingColumn(), {
     accessorKey: "fats",
     display: formatGrams,
     isNumeric: true,
-    ...sortingColumn(),
-  },
-  {
+  }),
+  _.merge(sortingColumn(), {
     accessorKey: "calories",
     display: formatNumber,
     isNumeric: true,
-    ...sortingColumn(),
-  },
-  {
+  }),
+  _.merge(sortingColumn(), {
     accessorKey: "amount",
     display: formatGrams,
     isNumeric: true,
-    ...sortingColumn(),
-  },
+  }),
   {
     id: "control",
     header: (
       <IconButton
-        icon={<Icon as={MdAdd} boxSize="1.2em" />}
+        icon={<Icon as={MdAddCircle} boxSize="1.2em" />}
         size="xs"
         variant="ghost"
         colorScheme="green"
@@ -67,7 +61,7 @@ const columns = (meals) => [
     cell: ({ row }) =>
       row.depth === 0 && (
         <IconButton
-          icon={<Icon as={MdDelete} boxSize="1.2em" />}
+          icon={<Icon as={MdRemoveCircle} boxSize="1.2em" />}
           size="xs"
           variant="ghost"
           colorScheme="red"
@@ -76,13 +70,13 @@ const columns = (meals) => [
           })}
         />
       ),
-    props: { td: { py: 0 } },
+    props: { th: { py: 0 }, td: { py: 0 } },
   },
 ]
 
-let useReaction = (...args) => React.useEffect(() => reaction(...args), [])
+const useReaction = (...args) => React.useEffect(() => reaction(...args), [])
 
-export default ({ store, ...props }) => {
+export const Meals = ({ store, ...props }) => {
   const [data, setData] = React.useState([])
   useReaction(() => _.toArray(store.meals), setData, { fireImmediately: true })
   const table = useTable({

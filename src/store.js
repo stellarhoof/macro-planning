@@ -62,10 +62,9 @@ const Target = types.model({
   fats: types.integer,
 })
 
-const Store = types.model({
+export const Store = types.model({
+  tab: types.number,
+  target: Target,
   foods: types.array(Food),
   meals: types.array(Meal),
-  target: Target,
 })
-
-export default Store
