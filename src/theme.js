@@ -3,7 +3,6 @@ import { extendTheme, TableCaption } from "@chakra-ui/react"
 TableCaption.defaultProps = { placement: "top" }
 
 export const theme = extendTheme({
-  fonts: { body: "monospace" },
   components: {
     Heading: { defaultProps: { size: "sm" } },
     Table: {

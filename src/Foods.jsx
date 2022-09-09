@@ -1,11 +1,16 @@
 import _ from "lodash/fp"
 import { formatGrams } from "./util.js"
-import { Table, sortingColumn, useTable } from "./Table.jsx"
+import { useTable, Table } from "./Table.jsx"
+import { sortingColumn, controlColumn } from "./columns.jsx"
 
 const columns = [
   _.merge(sortingColumn(), {
+    accessorKey: "brand",
+    props: { td: { whiteSpace: "nowrap" } },
+  }),
+  _.merge(sortingColumn(), {
     accessorKey: "name",
-    props: { td: { w: "100%" } },
+    props: { td: { whiteSpace: "nowrap" } },
   }),
   _.merge(sortingColumn(), {
     accessorKey: "carbs",
@@ -22,6 +27,7 @@ const columns = [
     display: formatGrams,
     isNumeric: true,
   }),
+  _.merge(controlColumn(), { id: "control" }),
 ]
 
 export const Foods = ({ store, ...props }) => {
