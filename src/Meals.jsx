@@ -1,16 +1,10 @@
 import _ from "lodash/fp"
-import React from "react"
-import { reaction } from "mobx"
-import { formatGrams, formatNumber } from "./util.js"
-import { useTable, Table } from "./Table.jsx"
-import {
-  controlColumn,
-  sortingColumn,
-  filteringColumn,
-  expansionColumn,
-} from "./columns.jsx"
+import { useState } from "react"
+import { formatGrams, formatNumber, useReaction } from "./util.js"
+import { useTable, Table } from "./components/Table.jsx"
+import { sortingColumn, filteringColumn, expansionColumn } from "./columns.jsx"
 
-const makeColumns = (store) => [
+const makeColumns = () => [
   _.merge(expansionColumn(), {
     id: "expansion",
   }),
@@ -43,14 +37,11 @@ const makeColumns = (store) => [
     display: formatGrams,
     isNumeric: true,
   }),
-  _.merge(controlColumn(), { id: "control" }),
 ]
 
-const useReaction = (...args) => React.useEffect(() => reaction(...args), [])
-
 export const Meals = ({ store, ...props }) => {
-  const [columns] = React.useState(() => makeColumns(store))
-  const [data, setData] = React.useState([])
+  const [columns] = useState(() => makeColumns(store))
+  const [data, setData] = useState([])
   useReaction(() => [...store.meals], setData, { fireImmediately: true })
   const table = useTable({
     data,

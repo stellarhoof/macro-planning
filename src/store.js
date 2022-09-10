@@ -62,9 +62,18 @@ const Target = types.model({
   fats: types.integer,
 })
 
-export const Store = types.model({
-  tab: types.number,
-  target: Target,
-  foods: types.array(Food),
-  meals: types.array(Meal),
-})
+export const Store = types
+  .model({
+    tab: types.number,
+    target: Target,
+    foods: types.array(Food),
+    meals: types.array(Meal),
+  })
+  .views((self) => ({
+    getMealsWithFood(food) {
+      return _.filter(
+        (meal) => _.some((x) => x.id.id === food.id, meal.foods),
+        self.meals,
+      )
+    },
+  }))

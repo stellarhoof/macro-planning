@@ -1,13 +1,20 @@
-import React from "react"
-import { useDisclosure, Modal, ModalOverlay, Button } from "@chakra-ui/react"
+import { useRef, forwardRef } from "react"
+import {
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  Button,
+  useMergeRefs,
+} from "@chakra-ui/react"
 
-export const ModalButton = React.forwardRef(
+export const ModalButton = forwardRef(
   (
     {
       label,
+      children,
       modalProps,
       defaultIsOpen,
-      children,
       as: As = Button,
       onOpen = (onOpen) => onOpen(),
       onClose = (onClose) => onClose(),
@@ -15,23 +22,25 @@ export const ModalButton = React.forwardRef(
     },
     ref,
   ) => {
-    const initialRef = React.useRef()
+    const initialRef = useRef()
+    const finalRef = useRef()
     const { isOpen, ...disclosure } = useDisclosure({ defaultIsOpen })
     const open = () => onOpen(disclosure.onOpen)
     const close = () => onClose(disclosure.onClose)
     return (
       <>
-        <As ref={ref} onClick={open} {...props}>
+        <As ref={useMergeRefs(ref, finalRef)} onClick={open} {...props}>
           {label}
         </As>
         <Modal
           isOpen={isOpen}
           onClose={close}
           initialFocusRef={initialRef}
+          finalFocusRef={finalRef}
           {...modalProps}
         >
           <ModalOverlay />
-          {isOpen && children(close, initialRef)}
+          <ModalContent>{isOpen && children(close, initialRef)}</ModalContent>
         </Modal>
       </>
     )
