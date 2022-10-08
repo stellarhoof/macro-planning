@@ -1,5 +1,5 @@
 import _ from "lodash/fp"
-import { useState } from "react"
+import { useState, Fragment } from "react"
 import { useReactTable, flexRender } from "@tanstack/react-table"
 import {
   getCoreRowModel,
@@ -19,7 +19,7 @@ import {
 
 const callOrReturn = (fn, ...args) => (_.isFunction(fn) ? fn(...args) : fn)
 
-export const Table = ({ table, showFooter, ...props }) => (
+export const Table = ({ table, renderExpandedRow, showFooter, ...props }) => (
   <TableComponent fontFamily="monospace" {...props}>
     <Thead>
       {table.getHeaderGroups().map((headerGroup) => (
@@ -45,24 +45,29 @@ export const Table = ({ table, showFooter, ...props }) => (
     </Thead>
     <Tbody>
       {table.getRowModel().rows.map((row) => (
-        <Tr key={row.id} bg={row.depth > 0 && "gray.50"}>
-          {row.getVisibleCells().map((cell) => {
-            const ctx = cell.getContext()
-            const def = cell.column.columnDef
-            return (
-              <Td
-                key={cell.id}
-                isNumeric={def.isNumeric}
-                {...callOrReturn(def.props?.td, ctx)}
-              >
-                {flexRender(def.cell, {
-                  ...callOrReturn(def.props?.cell, ctx),
-                  ...ctx,
-                })}
-              </Td>
-            )
-          })}
-        </Tr>
+        <Fragment key={row.id}>
+          <Tr bg={row.depth > 0 && "gray.50"}>
+            {row.getVisibleCells().map((cell) => {
+              const ctx = cell.getContext()
+              const def = cell.column.columnDef
+              return (
+                <Td
+                  key={cell.id}
+                  isNumeric={def.isNumeric}
+                  {...callOrReturn(def.props?.td, ctx)}
+                >
+                  {flexRender(def.cell, {
+                    ...callOrReturn(def.props?.cell, ctx),
+                    ...ctx,
+                  })}
+                </Td>
+              )
+            })}
+          </Tr>
+          {renderExpandedRow && row.getIsExpanded() && (
+            <Tr>{renderExpandedRow({ row })}</Tr>
+          )}
+        </Fragment>
       ))}
     </Tbody>
     {showFooter && (

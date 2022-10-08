@@ -48,13 +48,13 @@ export const expansionColumn = () => ({
 export const filteringColumn = () => {
   let regexp = observable.box(null)
   return {
-    cell: ({ cell }) => (
+    cell: action(({ cell }) => (
       <span
         dangerouslySetInnerHTML={{
-          __html: cell.getValue().replace(regexp.get(), "<mark>$1</mark>"),
+          __html: cell.getValue()?.replace(regexp.get(), "<mark>$1</mark>"),
         }}
       />
-    ),
+    )),
     header: ({ column }) => (
       <Input
         size="sm"

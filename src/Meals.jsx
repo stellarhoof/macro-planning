@@ -49,14 +49,25 @@ export const Meals = ({ store, ...props }) => {
     filtering: true,
     sorting: [{ id: "name", asc: true }],
     expanded: {},
-    getSubRows: (row) =>
-      _.map(
+    getSubRows: (row) => [
+      ..._.map(
         (food) => ({
           name: food.id.name,
           ..._.pick(["carbs", "proteins", "fats", "calories", "amount"], food),
         }),
         row.foods,
       ),
+      ..._.map(
+        (recipe) => ({
+          name: recipe.id.name,
+          ..._.pick(
+            ["carbs", "proteins", "fats", "calories", "amount", "foods"],
+            recipe,
+          ),
+        }),
+        row.recipes,
+      ),
+    ],
   })
   return <Table table={table} {...props} />
 }

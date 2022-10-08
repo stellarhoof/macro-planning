@@ -563,27 +563,46 @@ const foods = [
   },
 ]
 
-const meals = _.map(
-  ({ name }) => ({
-    name,
-    foods: _.map(
-      ({ id }) => ({ id, amount: _.random(50, 150) }),
-      _.sampleSize(5, foods),
-    ),
-  }),
-  [
-    { name: "Breakfast" },
-    { name: "Morning Snack" },
-    { name: "Lunch" },
-    { name: "Afternoon Snack" },
-    { name: "Dinner" },
-    { name: "Evening Snack" },
-  ],
-)
+const makeFoods = (size = 5) =>
+  _.sampleSize(size, foods).map(({ id }) => ({ id, amount: _.random(50, 150) }))
+
+const steps = [
+  "Preheat oven to 425°F.",
+  "Cut off the woody bottom part of the asparagus spears and discard.",
+  'With a vegetable peeler, peel off the skin on the bottom 2-3 inches of the spears (this keeps the asparagus from being all.",string.", and if you eat asparagus you know what I mean by that).',
+  "Place asparagus on foil-lined baking sheet and drizzle with olive oil.",
+  "Sprinkle with salt.",
+  "With your hands, roll the asparagus around until they are evenly coated with oil and salt.",
+  "Roast for 10-15 minutes, depending on the thickness of your stalks and how tender you like them.",
+  "They should be tender when pierced with the tip of a knife.",
+  "The tips of the spears will get very brown but watch them to prevent burning.",
+  "They are great plain, but sometimes I serve them with a light vinaigrette if we need something acidic to balance out our meal.",
+]
+
+const recipes = [
+  { id: "245461393", name: "Chili", steps, ingredients: makeFoods() },
+  { id: "245461394", name: "Pasta", steps, ingredients: makeFoods() },
+  { id: "245461395", name: "Bean Soup", steps, ingredients: makeFoods() },
+  { id: "245461396", name: "Steamed Rice", steps, ingredients: makeFoods() },
+  { id: "245461397", name: "Apple Pie", steps, ingredients: makeFoods() },
+  { id: "245461398", name: "Muffins", steps, ingredients: makeFoods() },
+]
+
+const recipesIds = _.map("id", recipes)
+
+const meals = [
+  { name: "Breakfast", foods: makeFoods(), recipes: recipesIds },
+  { name: "Morning Snack", foods: makeFoods(), recipes: recipesIds },
+  { name: "Lunch", foods: makeFoods(), recipes: recipesIds },
+  { name: "Afternoon Snack", foods: makeFoods(), recipes: recipesIds },
+  { name: "Dinner", foods: makeFoods(), recipes: recipesIds },
+  { name: "Evening Snack", foods: makeFoods(), recipes: recipesIds },
+]
 
 export const data = {
   tab: 0,
   target: { carbs: 0, proteins: 0, fats: 0 },
   foods,
+  recipes,
   meals,
 }

@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite"
 import { Flex, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react"
 
 import { Foods } from "./Foods.jsx"
+import { Recipes } from "./Recipes.jsx"
 import { Meals } from "./Meals.jsx"
 import { Help } from "./Help.jsx"
 
@@ -17,16 +18,14 @@ export const App = observer(({ store }) => (
   >
     <TabList
       sx={{
-        pos: "sticky",
-        top: 0,
-        zIndex: 2,
         w: "100%",
         bg: "gray.200",
         "> *": { color: "gray.600", fontWeight: "bold" },
       }}
     >
-      <Tab>Meals</Tab>
       <Tab>Foods</Tab>
+      <Tab>Recipes</Tab>
+      <Tab>Meals</Tab>
       <Tab>Help</Tab>
     </TabList>
     <TabPanels
@@ -48,10 +47,13 @@ export const App = observer(({ store }) => (
       }}
     >
       <TabPanel className="table-wrapper">
-        <Meals store={store} />
+        <Foods store={store} />
       </TabPanel>
       <TabPanel className="table-wrapper">
-        <Foods store={store} />
+        <Recipes store={store} />
+      </TabPanel>
+      <TabPanel className="table-wrapper">
+        <Meals store={store} />
       </TabPanel>
       <TabPanel>
         <Help />

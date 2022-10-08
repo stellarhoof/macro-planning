@@ -1,11 +1,16 @@
 import _ from "lodash/fp"
 import { action } from "mobx"
 import { useState } from "react"
+import { useForm, FormProvider } from "react-hook-form"
 import {
+  Td,
   Flex,
+  OrderedList,
+  UnorderedList,
+  ListItem,
+  Text,
   Icon,
   IconButton,
-  Text,
   Button,
   ButtonGroup,
   ModalHeader,
@@ -16,20 +21,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogCloseButton,
-  UnorderedList,
-  ListItem,
 } from "@chakra-ui/react"
 import { MdAddCircle, MdRemoveCircle } from "react-icons/md"
-import { useForm, FormProvider } from "react-hook-form"
-import { formatGrams, genId, useReaction } from "./util.js"
+import { genId, formatGrams, formatNumber, useReaction } from "./util.js"
 import { useTable, Table } from "./components/Table.jsx"
 import { ModalButton } from "./components/ModalButton.jsx"
 import { AlertDialogButton } from "./components/AlertDialogButton"
-import { filteringColumn, sortingColumn } from "./columns.jsx"
-import { Field } from "./forms/Field"
-import { NumberInput } from "./forms/NumberInput"
+import { sortingColumn, filteringColumn, expansionColumn } from "./columns.jsx"
 
-const AddFood = ({ store }) => {
+const AddRecipe = ({ store }) => {
   const form = useForm()
   const isSubmitting = form.formState.isSubmitting
   return (
@@ -46,37 +46,13 @@ const AddFood = ({ store }) => {
         <FormProvider {...form}>
           <form
             onSubmit={form.handleSubmit(
-              action((snap) => store.foods.push({ id: genId(), ...snap })),
+              action((snap) => store.recipes.push({ id: genId(), ...snap })),
             )}
           >
-            <ModalHeader>Add Item</ModalHeader>
+            <ModalHeader>Add Recipe</ModalHeader>
             <ModalCloseButton />
             <Flex as={ModalBody} sx={{ gap: 6, flexDirection: "column" }}>
-              <Field
-                ref={ref}
-                name="name"
-                label={null}
-                placeholder="Name"
-                registerProps={{ required: true }}
-              />
-              <Field name="brand" label={null} placeholder="Brand" />
-              <Flex sx={{ gap: 6, flexDirection: "row" }}>
-                <Field
-                  as={NumberInput}
-                  name="carbs"
-                  registerProps={{ required: true, valueAsNumber: true }}
-                />
-                <Field
-                  as={NumberInput}
-                  name="proteins"
-                  registerProps={{ required: true, valueAsNumber: true }}
-                />
-                <Field
-                  as={NumberInput}
-                  name="fats"
-                  registerProps={{ required: true, valueAsNumber: true }}
-                />
-              </Flex>
+              <span ref={ref}>Hey</span>
             </Flex>
             <ModalFooter as={ButtonGroup}>
               <Button onClick={onClose}>Cancel</Button>
@@ -91,7 +67,7 @@ const AddFood = ({ store }) => {
   )
 }
 
-const RemoveFood = ({ store, row }) => (
+const RemoveRecipe = ({ store, row }) => (
   <AlertDialogButton
     as={IconButton}
     icon={<Icon as={MdRemoveCircle} boxSize="1.2em" />}
@@ -101,8 +77,8 @@ const RemoveFood = ({ store, row }) => (
     colorScheme="red"
   >
     {(onClose, ref) => {
-      const food = store.foods[row.index]
-      const meals = store.getMealsWithFood(food)
+      const recipe = store.recipes[row.index]
+      const meals = store.getMealsWithRecipe(recipe)
       return (
         <>
           <AlertDialogHeader>Remove Food</AlertDialogHeader>
@@ -110,13 +86,13 @@ const RemoveFood = ({ store, row }) => (
           {_.isEmpty(meals) ? (
             <AlertDialogBody>
               <Text>
-                Are you sure you would like to remove <b>{food.name}</b>?
+                Are you sure you would like to remove <b>{recipe.name}</b>?
               </Text>
             </AlertDialogBody>
           ) : (
             <Flex as={AlertDialogBody} sx={{ gap: 4, flexDirection: "column" }}>
               <Text>
-                Cannot remove <b>{food.name}</b>. It is part of the following
+                Cannot remove <b>{recipe.name}</b>. It is part of the following
                 meals:
               </Text>
               <UnorderedList>
@@ -134,7 +110,7 @@ const RemoveFood = ({ store, row }) => (
               <Button
                 colorScheme="red"
                 onClick={action(() => {
-                  store.foods.splice(row.index, 1)
+                  store.recipes.splice(row.index, 1)
                   onClose()
                 })}
               >
@@ -149,13 +125,17 @@ const RemoveFood = ({ store, row }) => (
 )
 
 const makeColumns = (store) => [
-  _.merge(sortingColumn(), {
-    accessorKey: "brand",
-    props: { td: { whiteSpace: "nowrap" } },
+  _.merge(expansionColumn(), {
+    id: "expansion",
   }),
   _.merge(filteringColumn(), {
     accessorKey: "name",
-    props: { td: { w: "100%", whiteSpace: "nowrap" } },
+    props: { td: { w: "100%", fontWeight: "bold" } },
+  }),
+  _.merge(sortingColumn(), {
+    accessorKey: "amount",
+    display: formatGrams,
+    isNumeric: true,
   }),
   _.merge(sortingColumn(), {
     accessorKey: "carbs",
@@ -172,23 +152,76 @@ const makeColumns = (store) => [
     display: formatGrams,
     isNumeric: true,
   }),
+  _.merge(sortingColumn(), {
+    accessorKey: "calories",
+    display: formatNumber,
+    isNumeric: true,
+  }),
   {
     id: "control",
-    header: <AddFood store={store} />,
-    cell: (props) => <RemoveFood store={store} {...props} />,
+    header: <AddRecipe store={store} />,
+    cell: (props) => <RemoveRecipe store={store} {...props} />,
     props: { th: { py: 0 }, td: { py: 0 } },
   },
 ]
 
-export const Foods = ({ store, ...props }) => {
+const renderExpandedRow = ({ row }) => {
+  const table = useTable({
+    data: row.original.ingredients,
+    columns: [
+      { accessorKey: "id", header: "name", display: _.get("name") },
+      { accessorKey: "amount", isNumeric: true, display: formatGrams },
+      { accessorKey: "carbs", isNumeric: true, display: formatGrams },
+      { accessorKey: "proteins", isNumeric: true, display: formatGrams },
+      { accessorKey: "fats", isNumeric: true, display: formatGrams },
+      { accessorKey: "calories", isNumeric: true, display: formatGrams },
+    ],
+  })
+  return (
+    <Td colSpan={row.getVisibleCells().length} sx={{ p: 0 }}>
+      <Flex
+        gap="4"
+        align="start"
+        sx={{
+          py: "4",
+          pl: "8",
+          bg: "gray.50",
+          border: "1px solid",
+          borderColor: "gray.200",
+        }}
+      >
+        <OrderedList
+          stylePosition="inside"
+          sx={{
+            ms: "0",
+            flexBasis: "150%",
+            lineHeight: "tall",
+            "> li::marker": { fontWeight: "bold" },
+          }}
+        >
+          {row.original.steps?.map((step) => (
+            <ListItem key={step}>{step}</ListItem>
+          ))}
+        </OrderedList>
+        <Table table={table} />
+      </Flex>
+    </Td>
+  )
+}
+
+export const Recipes = ({ store, ...props }) => {
   const [columns] = useState(() => makeColumns(store))
   const [data, setData] = useState([])
-  useReaction(() => [...store.foods], setData, { fireImmediately: true })
+  useReaction(() => [...store.recipes], setData, { fireImmediately: true })
   const table = useTable({
     data,
     columns,
     filtering: true,
     sorting: [{ id: "name", asc: true }],
+    expanded: {},
+    getRowCanExpand: () => true,
   })
-  return <Table table={table} {...props} />
+  return (
+    <Table table={table} renderExpandedRow={renderExpandedRow} {...props} />
+  )
 }
