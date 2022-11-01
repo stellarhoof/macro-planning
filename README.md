@@ -6,6 +6,7 @@
   - Use https://github.com/jaywcjlove/hotkeys
 - Select input on focus
 - Collapse meal
+- Use @dnd-kit/core and @dnd-kit/sortable
 
 # Some conversions
 

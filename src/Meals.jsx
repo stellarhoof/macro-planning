@@ -1,6 +1,7 @@
 import _ from "lodash/fp"
 import { useState } from "react"
-import { formatGrams, formatNumber, useReaction } from "./util.js"
+import { useReaction } from "./util/mobx.js"
+import { formatGrams, formatNumber } from "./util/format.js"
 import { useTable, Table } from "./components/Table.jsx"
 import { sortingColumn, filteringColumn, expansionColumn } from "./columns.jsx"
 
@@ -55,17 +56,17 @@ export const Meals = ({ store, ...props }) => {
           name: food.id.name,
           ..._.pick(["carbs", "proteins", "fats", "calories", "amount"], food),
         }),
-        row.foods,
+        row.foods
       ),
       ..._.map(
         (recipe) => ({
           name: recipe.id.name,
           ..._.pick(
             ["carbs", "proteins", "fats", "calories", "amount", "foods"],
-            recipe,
+            recipe
           ),
         }),
-        row.recipes,
+        row.recipes
       ),
     ],
   })

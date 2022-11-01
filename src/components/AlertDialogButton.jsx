@@ -20,7 +20,7 @@ export const AlertDialogButton = forwardRef(
       onClose = (onClose) => onClose(),
       ...props
     },
-    ref,
+    ref
   ) => {
     const leastDestructiveRef = useRef()
     const finalRef = useRef()
@@ -47,5 +47,5 @@ export const AlertDialogButton = forwardRef(
         </AlertDialog>
       </>
     )
-  },
+  }
 )

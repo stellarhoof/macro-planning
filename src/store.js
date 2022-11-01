@@ -101,13 +101,13 @@ export const Store = types
       // TODO: Check recipes for food as well.
       return _.filter(
         (meal) => _.some((x) => x.id.id === food.id, meal.foods),
-        self.meals,
+        self.meals
       )
     },
     getMealsWithRecipe(recipe) {
       return _.filter(
         (meal) => _.some((x) => x.id.id === recipe.id, meal.recipes),
-        self.meals,
+        self.meals
       )
     },
   }))

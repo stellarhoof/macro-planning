@@ -22,37 +22,38 @@ import {
   AlertDialogHeader,
   AlertDialogCloseButton,
 } from "@chakra-ui/react"
-import { MdAddCircle, MdRemoveCircle } from "react-icons/md"
-import { genId, formatGrams, formatNumber, useReaction } from "./util.js"
+import { MdAddCircle, MdEdit, MdRemoveCircle } from "react-icons/md"
+import { genId } from "./util/misc.js"
+import { useReaction } from "./util/mobx.js"
+import { formatGrams, formatNumber } from "./util/format.js"
 import { useTable, Table } from "./components/Table.jsx"
 import { ModalButton } from "./components/ModalButton.jsx"
 import { AlertDialogButton } from "./components/AlertDialogButton"
 import { sortingColumn, filteringColumn, expansionColumn } from "./columns.jsx"
+import { Field } from "./forms/Field"
 
-const AddRecipe = ({ store }) => {
-  const form = useForm()
+const AddRecipe = ({ store, form: formProps, ...props }) => {
+  const form = useForm(formProps)
   const isSubmitting = form.formState.isSubmitting
   return (
-    <ModalButton
-      onClose={(close) => !isSubmitting && close()}
-      as={IconButton}
-      icon={<Icon as={MdAddCircle} boxSize="1.2em" />}
-      aria-label="Add Item"
-      size="xs"
-      variant="ghost"
-      colorScheme="green"
-    >
+    <ModalButton onClose={(close) => !isSubmitting && close()} {...props}>
       {(onClose, ref) => (
         <FormProvider {...form}>
           <form
             onSubmit={form.handleSubmit(
-              action((snap) => store.recipes.push({ id: genId(), ...snap })),
+              action((snap) => store.recipes.push({ id: genId(), ...snap }))
             )}
           >
-            <ModalHeader>Add Recipe</ModalHeader>
+            <ModalHeader>{props["aria-label"]}</ModalHeader>
             <ModalCloseButton />
             <Flex as={ModalBody} sx={{ gap: 6, flexDirection: "column" }}>
-              <span ref={ref}>Hey</span>
+              <Field
+                ref={ref}
+                name="name"
+                label={null}
+                placeholder="Name"
+                registerProps={{ required: true }}
+              />
             </Flex>
             <ModalFooter as={ButtonGroup}>
               <Button onClick={onClose}>Cancel</Button>
@@ -159,8 +160,33 @@ const makeColumns = (store) => [
   }),
   {
     id: "control",
-    header: <AddRecipe store={store} />,
-    cell: (props) => <RemoveRecipe store={store} {...props} />,
+    header: (
+      <AddRecipe
+        store={store}
+        aria-label="Add Recipe"
+        colorScheme="green"
+        as={IconButton}
+        size="xs"
+        variant="ghost"
+        icon={<Icon as={MdAddCircle} boxSize="1.2em" />}
+      />
+    ),
+    cell: (props) => (
+      <Flex>
+        <AddRecipe
+          store={store}
+          aria-label="Edit Recipe"
+          colorScheme="blue"
+          as={IconButton}
+          size="xs"
+          variant="ghost"
+          icon={<Icon as={MdEdit} boxSize="1.2em" />}
+          form={{ defaultValues: store.recipes[props.row.index] }}
+          {...props}
+        />
+        <RemoveRecipe store={store} {...props} />
+      </Flex>
+    ),
     props: { th: { py: 0 }, td: { py: 0 } },
   },
 ]

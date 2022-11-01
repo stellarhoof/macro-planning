@@ -564,7 +564,10 @@ const foods = [
 ]
 
 const makeFoods = (size = 5) =>
-  _.sampleSize(size, foods).map(({ id }) => ({ id, amount: _.random(50, 150) }))
+  _.sampleSize(size, foods).map(({ id }) => ({
+    id,
+    amount: _.random(50, 150),
+  }))
 
 const steps = [
   "Preheat oven to 425°F.",

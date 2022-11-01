@@ -46,7 +46,7 @@ export const expansionColumn = () => ({
 })
 
 export const filteringColumn = () => {
-  let regexp = observable.box(null)
+  const regexp = observable.box(null)
   return {
     cell: action(({ cell }) => (
       <span

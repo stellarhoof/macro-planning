@@ -20,7 +20,7 @@ export const ModalButton = forwardRef(
       onClose = (onClose) => onClose(),
       ...props
     },
-    ref,
+    ref
   ) => {
     const initialRef = useRef()
     const finalRef = useRef()
@@ -44,5 +44,5 @@ export const ModalButton = forwardRef(
         </Modal>
       </>
     )
-  },
+  }
 )

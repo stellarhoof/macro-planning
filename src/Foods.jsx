@@ -1,6 +1,6 @@
 import _ from "lodash/fp"
 import { action } from "mobx"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import {
   Flex,
   Icon,
@@ -19,77 +19,84 @@ import {
   UnorderedList,
   ListItem,
 } from "@chakra-ui/react"
-import { MdAddCircle, MdRemoveCircle } from "react-icons/md"
-import { useForm, FormProvider } from "react-hook-form"
-import { formatGrams, genId, useReaction } from "./util.js"
+import { MdEdit, MdAddCircle, MdRemoveCircle } from "react-icons/md"
+import { formatGrams } from "./util/format.js"
+import { useReaction } from "./util/mobx.js"
 import { useTable, Table } from "./components/Table.jsx"
 import { ModalButton } from "./components/ModalButton.jsx"
 import { AlertDialogButton } from "./components/AlertDialogButton"
 import { filteringColumn, sortingColumn } from "./columns.jsx"
-import { Field } from "./forms/Field"
-import { NumberInput } from "./forms/NumberInput"
 
-const AddFood = ({ store }) => {
-  const form = useForm()
-  const isSubmitting = form.formState.isSubmitting
+/*
+<FormProvider {...form}>
+  <form
+    onSubmit={form.handleSubmit(
+      action((snap) => store.foods.push({ id: genId(), ...snap })),
+    )}
+  >
+    <ModalHeader>{props["aria-label"]}</ModalHeader>
+    <ModalCloseButton />
+    <Flex as={ModalBody} sx={{ gap: 6, flexDirection: "column" }}>
+      <Field
+        ref={ref}
+        name="name"
+        label={null}
+        placeholder="Name"
+        registerProps={{ required: true }}
+      />
+      <Field name="brand" label={null} placeholder="Brand" />
+      <Flex sx={{ gap: 6, flexDirection: "row" }}>
+        <Field
+          as={NumberInput}
+          name="carbs"
+          registerProps={{ required: true, valueAsNumber: true }}
+        />
+        <Field
+          as={NumberInput}
+          name="proteins"
+          registerProps={{ required: true, valueAsNumber: true }}
+        />
+        <Field
+          as={NumberInput}
+          name="fats"
+          registerProps={{ required: true, valueAsNumber: true }}
+        />
+      </Flex>
+    </Flex>
+    <ModalFooter as={ButtonGroup}>
+      <Button onClick={onClose}>Cancel</Button>
+      <Button type="submit" colorScheme="blue" isLoading={isSubmitting}>
+        Add
+      </Button>
+    </ModalFooter>
+  </form>
+</FormProvider>
+*/
+
+const Foo = ({ onClose }) => {
+  const form = useRef()
   return (
-    <ModalButton
-      onClose={(close) => !isSubmitting && close()}
-      as={IconButton}
-      icon={<Icon as={MdAddCircle} boxSize="1.2em" />}
-      aria-label="Add Item"
-      size="xs"
-      variant="ghost"
-      colorScheme="green"
-    >
-      {(onClose, ref) => (
-        <FormProvider {...form}>
-          <form
-            onSubmit={form.handleSubmit(
-              action((snap) => store.foods.push({ id: genId(), ...snap })),
-            )}
-          >
-            <ModalHeader>Add Item</ModalHeader>
-            <ModalCloseButton />
-            <Flex as={ModalBody} sx={{ gap: 6, flexDirection: "column" }}>
-              <Field
-                ref={ref}
-                name="name"
-                label={null}
-                placeholder="Name"
-                registerProps={{ required: true }}
-              />
-              <Field name="brand" label={null} placeholder="Brand" />
-              <Flex sx={{ gap: 6, flexDirection: "row" }}>
-                <Field
-                  as={NumberInput}
-                  name="carbs"
-                  registerProps={{ required: true, valueAsNumber: true }}
-                />
-                <Field
-                  as={NumberInput}
-                  name="proteins"
-                  registerProps={{ required: true, valueAsNumber: true }}
-                />
-                <Field
-                  as={NumberInput}
-                  name="fats"
-                  registerProps={{ required: true, valueAsNumber: true }}
-                />
-              </Flex>
-            </Flex>
-            <ModalFooter as={ButtonGroup}>
-              <Button onClick={onClose}>Cancel</Button>
-              <Button type="submit" colorScheme="blue" isLoading={isSubmitting}>
-                Add
-              </Button>
-            </ModalFooter>
-          </form>
-        </FormProvider>
-      )}
-    </ModalButton>
+    <>
+      <ModalCloseButton />
+      <ModalHeader>Todo</ModalHeader>
+      <ModalBody></ModalBody>
+      <ModalFooter as={ButtonGroup}>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button
+          type="submit"
+          colorScheme="blue"
+          onClick={() => form.current.submit()}
+        >
+          Add
+        </Button>
+      </ModalFooter>
+    </>
   )
 }
+
+const AddFood = ({ store, form: formProps, ...props }) => (
+  <ModalButton {...props}>{(onClose) => <Foo onClose={onClose} />}</ModalButton>
+)
 
 const RemoveFood = ({ store, row }) => (
   <AlertDialogButton
@@ -174,8 +181,33 @@ const makeColumns = (store) => [
   }),
   {
     id: "control",
-    header: <AddFood store={store} />,
-    cell: (props) => <RemoveFood store={store} {...props} />,
+    header: (
+      <AddFood
+        store={store}
+        aria-label="Add Food"
+        colorScheme="green"
+        as={IconButton}
+        size="xs"
+        variant="ghost"
+        icon={<Icon as={MdAddCircle} boxSize="1.2em" />}
+      />
+    ),
+    cell: (props) => (
+      <Flex>
+        <AddFood
+          store={store}
+          aria-label="Edit Food"
+          colorScheme="blue"
+          as={IconButton}
+          size="xs"
+          variant="ghost"
+          icon={<Icon as={MdEdit} boxSize="1.2em" />}
+          form={{ defaultValues: store.foods[props.row.index] }}
+          {...props}
+        />
+        <RemoveFood store={store} {...props} />
+      </Flex>
+    ),
     props: { th: { py: 0 }, td: { py: 0 } },
   },
 ]
