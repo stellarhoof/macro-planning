@@ -1,161 +1,207 @@
 import _ from "lodash/fp"
 import F from "futil"
 import { getTemplate } from "./getTemplate.js"
-import { joinPaths, buildPath } from "../util/futil.js"
+import { joinPaths } from "../util/futil.js"
 
 const mutating = _.convert({ immutable: false })
 
-const extend = (x, y) =>
+const extendProperties = (x, y) =>
   Object.defineProperties(x, Object.getOwnPropertyDescriptors(y))
 
-const Tree = F.tree((x) => x.fields)
+export const Tree = F.tree((x) => x.fields)
 
-const setErrors = (errors) =>
-  Tree.walk((field, ...args) => {
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/hidden#validation
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled#constraint_validation
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly#constraint_validation
-    const skipError = field.schema.readOnly || field.hidden || field.disabled
-    field.state.errors = skipError ? [] : errors[buildPath(field, ...args)]
-  })
-
-const setFlagRecursively = (property, value) =>
-  Tree.walk((field, key) => {
-    if (_.isUndefined(key)) {
-      field.state[property] = value
-    } else {
-      mutating.update(
-        `inherited.${property}`,
-        (count = 0) => Math.max(0, value ? count + 1 : count - 1),
-        field.state
+const createFields = (store, config, field) =>
+  field.schema.type === "array"
+    ? _.times(
+        (name) =>
+          createField(store, config, {
+            schema: field.schema.items,
+            parent: field,
+            name,
+          }),
+        _.size(field.value)
       )
-    }
+    : F.mapValuesIndexed(
+        (schema, name) =>
+          createField(store, config, { schema, parent: field, name }),
+        field.schema.properties
+      )
+
+const createField = (store, config, { schema, parent, name = "" }) => {
+  // State local to this field
+  const state = config.createStore({
+    hidden: schema.field?.hidden,
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly
+    readonly: schema.field?.readonly,
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled
+    disabled:
+      schema.field?.disabled ||
+      // Semantically, json-schema's readOnly is closer to HTML's disabled,
+      // since json-schema readOnly values should not get sent to the server
+      schema.readOnly,
   })
 
-const toSchemaPath = (x) => {
-  if (!x) return x
-  const path = x
-    .replaceAll(/\.(\d+)/g, "/items")
-    .replace(/^(\d+)/, "items")
-    .replaceAll(".", ".properties.")
-    .replaceAll("/", ".")
-  return path.startsWith("items") ? path : `properties.${path}`
-}
-
-export const createForm = (schema, value, options) => {
-  const {
-    createStore = _.identity,
-    mapField = _.identity,
-    getErrors = _.constant({}),
-  } = options
-
-  const store = createStore({ schema, value: getTemplate(schema, value) })
-
-  const createFields = (parent) =>
-    parent.schema.type === "array"
-      ? _.times((i) => createField(parent, i), _.size(parent.value))
-      : F.mapValuesIndexed(
-          (v, k) => createField(parent, k),
-          parent.schema.properties
-        )
-
-  const createField = (parent, key = "") => {
-    let field = {
-      id: _.uniqueId(),
-      state: createStore({}),
-      key,
-      get path() {
-        return joinPaths(parent?.path, field.key)
-      },
-      get schemaPath() {
-        return toSchemaPath(field.path)
-      },
-      // Getters
-      get errors() {
-        return field.state.errors
-      },
-      get schema() {
-        return _.get(joinPaths("schema", field.schemaPath), store)
-      },
-      get value() {
-        return _.get(joinPaths("value", field.path), store)
-      },
-      set value(x) {
-        mutating.set(joinPaths("value", field.path), x, store)
-      },
-      get hidden() {
-        return field.state.hidden || field.state.inherited?.hidden > 0
-      },
-      set hidden(x) {
-        if ((field.state.hidden ?? false) !== x) {
-          setFlagRecursively("hidden", x)(field)
-        }
-      },
-      get disabled() {
-        return field.state.disabled || field.state.inherited?.disabled > 0
-      },
-      set disabled(x) {
-        if ((field.state.disabled ?? false) !== x) {
-          setFlagRecursively("disabled", x)(field)
-        }
-      },
-      validate() {
-        setErrors(getErrors(field.schema, field.value))(field)
-      },
-    }
-
-    if (field.schema.type === "array" || field.schema.type === "object") {
-      extend(field, {
-        get fields() {
-          field.state.fields ||= createFields(field)
-          return field.state.fields
-        },
-      })
-    }
-
-    if (parent?.schema?.type === "object") {
-      extend(field, {
-        get required() {
-          return _.includes(field.key, parent.schema.required)
-        },
-        set required(x) {
-          parent.schema.required ||= []
-          if (x) parent.schema.required.push(field.key)
-          else mutating.pull(field.key, parent.schema.required)
-        },
-      })
-    }
-
-    if (field.schema.type === "array") {
-      extend(field, {
-        get canAddField() {
-          return (field.schema.maxItems ?? -1) < _.size(field.value)
-        },
-        get canRemoveField() {
-          return (field.schema.minItems ?? Infinity) >= _.size(field.value)
-        },
-        addField(index) {
-          index ||= _.size(field.value)
-          field.value.splice(index, 0, getTemplate(field.schema.items))
-          field.fields.splice(index, 0, createField(field, index))
-          for (let f of field.fields.slice(index + 1)) f.key++
-        },
-        removeField(index) {
-          field.value.splice(index, 1)
-          field.fields.splice(index, 1)
-          for (let f of field.fields.slice(index)) f.key--
-        },
-        moveField(from, to) {
-          field.removeField(from)
-          field.addField(to)
-        },
-      })
-    }
-
-    field = mapField(field)
-
-    return field
+  let field = {
+    id: _.uniqueId(),
+    name,
+    parent,
+    get schema() {
+      return schema
+    },
+    get path() {
+      return joinPaths(parent?.path, field.name)
+    },
+    get value() {
+      return _.get(joinPaths("value", field.path), store)
+    },
+    set value(x) {
+      mutating.set(joinPaths("value", field.path), x, store)
+    },
+    get hidden() {
+      return state.hidden
+    },
+    set hidden(x) {
+      state.hidden = x
+    },
+    get readonly() {
+      return state.readonly
+    },
+    set readonly(x) {
+      state.readonly = x
+    },
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled
+    get disabled() {
+      return !!((parent?.disabled || 0) + (state.disabled ? 1 : 0))
+    },
+    set disabled(x) {
+      state.disabled = x
+    },
   }
 
-  return createField()
+  // https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation
+  extendProperties(field, {
+    get willValidate() {
+      return !field.readonly && !field.hidden && !field.disabled
+    },
+    get validationMessage() {
+      return field.willValidate ? state.validationMessage : undefined
+    },
+    setCustomValidity(x) {
+      state.validationMessage = x
+    },
+    checkValidity() {
+      return _.isEmpty(config.validate(schema, field.value))
+    },
+    reportValidity() {
+      const errors = config.validate(schema, field.value)
+      Tree.walk((f) => f.setCustomValidity(errors[f.path]))(field)
+      return _.isEmpty(errors)
+    },
+  })
+
+  if (schema.type === "array" || schema.type === "object") {
+    extendProperties(field, {
+      get fields() {
+        state.fields ||= createFields(store, config, field)
+        return state.fields
+      },
+    })
+  }
+
+  if (parent?.schema?.type === "object") {
+    extendProperties(field, {
+      get required() {
+        return (
+          field.willValidate && _.includes(field.name, parent.schema.required)
+        )
+      },
+      set required(x) {
+        parent.schema.required ||= []
+        if (x) parent.schema.required.push(field.name)
+        else mutating.pull(field.name, parent.schema.required)
+      },
+    })
+  }
+
+  if (schema.type === "array") {
+    extendProperties(field, {
+      get canAddField() {
+        return (schema.maxItems ?? -1) < _.size(field.value)
+      },
+      get canRemoveField() {
+        return (schema.minItems ?? Infinity) >= _.size(field.value)
+      },
+      addField(index) {
+        index ||= _.size(field.value)
+        const newValue = getTemplate(schema.items)
+        const newField = createField(store, config, {
+          schema: schema.items,
+          parent: field,
+          name: index,
+        })
+        field.value.splice(index, 0, newValue)
+        field.fields.splice(index, 0, newField)
+        for (let f of field.fields.slice(index + 1)) f.name++
+      },
+      removeField(index) {
+        field.value.splice(index, 1)
+        field.fields.splice(index, 1)
+        for (let f of field.fields.slice(index)) f.name--
+      },
+      moveField(from, to) {
+        field.removeField(from)
+        field.addField(to)
+      },
+    })
+  }
+
+  if (!parent) {
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement#instance_methods
+    extendProperties(field, {
+      reset() {},
+      submit: config.submit,
+      requestSubmit() {
+        if (field.reportValidity()) {
+          return config.submit()
+        }
+      },
+      // Quality of life
+      get formData() {
+        return Tree.reduce((acc, field) => {
+          if (
+            // Do not accumulate disabled fields
+            !field.disabled &&
+            // Do not accumulate collection fields unless they're empty
+            (!field.fields || field.value === {} || field.value === [])
+          )
+            acc[field.path] = field.value
+          return acc
+        })({}, field)
+      },
+      get formFields() {
+        return Tree.reduce((acc, field) => {
+          acc[field.path] = field
+          return acc
+        })({}, field)
+      },
+    })
+  }
+
+  field = config.mapField(field)
+
+  return field
 }
+
+const defaultConfig = {
+  createStore: _.identity,
+  mapField: _.identity,
+  validate: _.constant({}),
+  submit: _.noop,
+}
+
+export const createForm = (schema, value, config) =>
+  createField(
+    config.createStore({ value: getTemplate(schema, value) }),
+    _.defaults(defaultConfig, config),
+    { schema }
+  )

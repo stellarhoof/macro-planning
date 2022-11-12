@@ -4,7 +4,7 @@ import { String } from "./String.jsx"
 import { Boolean } from "./Boolean.jsx"
 import { Collection } from "./Collection.jsx"
 
-export const fields = {
+export const controls = {
   enum: Enum,
   number: Number,
   string: String,

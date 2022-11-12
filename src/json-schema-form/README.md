@@ -1,8 +1,3 @@
-# TODO
-
-- Focus first error
-- Submit error
-
 # Keywords
 
 - `validate(schema, data)`: Validation time. Should return a boolean.

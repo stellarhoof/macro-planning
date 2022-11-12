@@ -1,67 +1,46 @@
-import _ from "lodash/fp.js"
-import { observer } from "mobx-react-lite"
-import {
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  FormErrorMessage,
-  FormErrorIcon,
-  Icon,
-  ButtonGroup,
-  IconButton,
-} from "@chakra-ui/react"
-import { MdAdd, MdRemove } from "react-icons/md"
+import _ from "lodash/fp"
+import { useEffect, forwardRef, useCallback } from "react"
+import { when, autorun, reaction } from "mobx"
 
-const Errors = ({ errors }) =>
-  _.map(
-    (error) => (
-      <FormErrorMessage key={error.schemaPath}>
-        <FormErrorIcon />
-        {_.upperFirst(error.message)}
-      </FormErrorMessage>
-    ),
-    errors
+export const Field = forwardRef(({ field, ...props }, ref) => {
+  const layoutRef = useCallback((node) => {
+    if (
+      node !== null &&
+      field.schema.type !== "array" &&
+      field.schema.type !== "object"
+    ) {
+      const el = node.querySelector("input")
+      el?.addEventListener(
+        "change",
+        () => console.info(field.path) || console.info(field.reportValidity())
+      )
+    }
+  }, [])
+
+  useEffect(() => {
+    if (_.isFunction(field.schema.effect)) {
+      const disposers = []
+      field.schema.effect(field, {
+        when: (...args) => disposers.push(when(...args)),
+        autorun: (...args) => disposers.push(autorun(...args)),
+        reaction: (...args) => disposers.push(reaction(...args)),
+      })
+      return _.over(disposers)
+    }
+  }, [])
+
+  return (
+    <field.schema.layout.component
+      ref={layoutRef}
+      field={field}
+      {...field.schema.layout.props}
+      {...props}
+    >
+      <field.schema.control.component
+        ref={ref}
+        field={field}
+        {...field.schema.control.props}
+      />
+    </field.schema.layout.component>
   )
-
-const FieldActions = observer(
-  ({ field, parent }) =>
-    (field.addField || parent?.removeField) && (
-      <ButtonGroup isAttached aria-label="Actions" size="xs">
-        {field.canAddField && (
-          <IconButton
-            aria-label="Add"
-            icon={<Icon as={MdAdd} boxSize="1.2em" />}
-            onClick={() => field.addField()}
-          />
-        )}
-        {parent?.canRemoveField && (
-          <IconButton
-            aria-label="Remove"
-            colorScheme="red"
-            icon={<Icon as={MdRemove} boxSize="1.2em" />}
-            onClick={() => parent.removeField(field.key)}
-          />
-        )}
-      </ButtonGroup>
-    )
-)
-
-export const Field = observer(({ isCollection, field, parent, children }) => (
-  <FormControl
-    as={isCollection && "fieldset"}
-    hidden={field.hidden}
-    isDisabled={field.disabled}
-    isRequired={field.required}
-    isInvalid={!_.isEmpty(field.errors)}
-  >
-    {!field.disabled && <FieldActions field={field} parent={parent} />}
-    {field.schema.title && (
-      <FormLabel as={isCollection && "legend"}>{field.schema.title}</FormLabel>
-    )}
-    {children}
-    {field.schema.description && (
-      <FormHelperText>{field.schema.description}</FormHelperText>
-    )}
-    {!field.disabled && <Errors errors={field.errors} />}
-  </FormControl>
-))
+})

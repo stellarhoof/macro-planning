@@ -1,44 +1,41 @@
-import _ from "lodash/fp.js"
-import { observable } from "mobx"
+// import _ from "lodash/fp.js"
+// import { observable } from "mobx"
 // import F from "futil"
-// import Ajv from "ajv/dist/2020.js"
+import Ajv from "ajv/dist/2020.js"
 
-const mutable = _.convert({ immutable: false })
+// const mutable = _.convert({ immutable: false })
 
-// let ajv = new Ajv({
-//   strict: true,
-//   useDefaults: true,
-//   coerceTypes: true,
-// })
+let ajv = new Ajv({
+  strict: true,
+  useDefaults: true,
+  allErrors: true,
+  coerceTypes: true,
+})
 
-// let v = ajv.compile({
-//   type: "object",
-//   properties: {
-//     a: {
-//       type: "array",
-//       items: {
-//         type: "object",
-//         properties: {
-//           a: { type: "string" },
-//           b: {
-//             type: "string",
-//             default: "Smith",
-//           },
-//         },
-//       },
-//     },
-//   },
-// })
+let v = ajv.compile({
+  type: "object",
+  properties: {
+    a: {
+      type: "array",
+      items: {
+        type: "object",
+        required: ["b"],
+        properties: {
+          a: { type: "number", multipleOf: 2, maximum: 10 },
+          b: { type: "string" },
+        },
+      },
+    },
+  },
+})
 
-// let x = { a: [{ a: 0 }] }
+let message = `this
+that`
 
-// v(x)
+console.info(message.split("\n"))
 
-// console.info(x)
-// console.info(v.errors)
+let x = { a: [{ a: 11 }] }
 
-let foo = [1, 2]
+v(x)
 
-foo.splice(0, 1)
-
-console.info(foo)
+console.info(v.errors)

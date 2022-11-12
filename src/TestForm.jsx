@@ -1,13 +1,14 @@
 import _ from "lodash/fp"
+import React from "react"
 import { observer } from "mobx-react-lite"
-import { chakra, Flex, Button, Heading, Box } from "@chakra-ui/react"
+import { chakra, Grid, Heading, Box, Checkbox } from "@chakra-ui/react"
 import { createMobxForm } from "./util/json-schema-form.js"
-import { OptionsCheckboxes } from "./components/Selects.jsx"
-import { removeBlankLeaves } from "./util/futil.js"
+import { Form } from "./components/form/Form.jsx"
 
 const schema = {
   type: "object",
-  maxProperties: 1,
+  title: "Form",
+  description: "People and animals all live in harmony",
   properties: {
     arr: {
       type: "array",
@@ -16,7 +17,12 @@ const schema = {
         required: ["name"],
         properties: {
           name: { type: "string" },
-          job: { type: "string" },
+          job: {
+            type: "string",
+            enum: ["Analyst", "Courier", "Singer", "Mercenary"],
+          },
+          age: { type: "number" },
+          isMarried: { type: "boolean" },
         },
       },
     },
@@ -26,13 +32,16 @@ const schema = {
       properties: {
         zebra: { type: "string" },
         lion: { type: "string" },
-        crocodile: { type: "string" },
+        giraffe: { type: "string" },
       },
     },
   },
 }
 
-const value = { arr: [{}], obj: { lion: "Roar!" } }
+const value = {
+  arr: [{ name: "John Smith", job: "Mercenary", age: 34, isMarried: true }],
+  obj: { zebra: "Neiighhh!", lion: "Roar!", giraffe: "Who knows?" },
+}
 
 // const value = { arr: [{ foo: "foo" }], obj: { foo: "this" } }
 
@@ -54,89 +63,82 @@ const value = { arr: [{}], obj: { lion: "Roar!" } }
 
 // const value = "foo"
 
-const form = createMobxForm(schema, value)
+const flags = ["required", "readonly", "disabled", "hidden"]
 
-const options = _.map(
-  (value) => ({ value, label: value }),
-  [
-    "fields.arr",
-    "fields.arr.fields.0",
-    "fields.arr.fields.0.fields.foo",
-    "fields.arr.fields.0.fields.bar",
-    "fields.obj",
-    "fields.obj.fields.foo",
-    "fields.obj.fields.bar",
-    "fields.obj.fields.zoo",
-  ]
-)
-
-const toggle = (property) => (paths) => {
-  const values = _.map("value", options)
-  const setTrue = _.intersection(values, paths)
-  const setFalse = _.difference(values, paths)
-  for (const path of setTrue) {
-    const field = _.get(path, form)
-    if (_.has(property, field)) field[property] = true
-  }
-  for (const path of setFalse) {
-    const field = _.get(path, form)
-    if (_.has(property, field)) field[property] = false
-  }
-}
-
-const Flags = () => (
-  <Flex sx={{ gap: 4, flexDirection: "column" }}>
-    <Button onClick={form.validate}>Validate</Button>
-    <Heading>Toggle Required</Heading>
-    <Flex sx={{ gap: 2, flexDirection: "column" }}>
-      <OptionsCheckboxes options={options} onChange={toggle("required")} />
-    </Flex>
-    <Heading>Toggle Disabled</Heading>
-    <Flex sx={{ gap: 2, flexDirection: "column" }}>
-      <OptionsCheckboxes options={options} onChange={toggle("disabled")} />
-    </Flex>
-    <Heading>Toggle Hidden</Heading>
-    <Flex sx={{ gap: 2, flexDirection: "column" }}>
-      <OptionsCheckboxes options={options} onChange={toggle("hidden")} />
-    </Flex>
-  </Flex>
-)
-
-const Form = () => (
-  <chakra.form
-    noValidate
-    onSubmit={(e) => e.preventDefault()}
-    sx={{ flexBasis: "30vw" }}
+const Flags = ({ form }) => (
+  <Grid
+    sx={{
+      gap: 2,
+      height: "fit-content",
+      gridTemplateColumns: "repeat(5, 1fr)",
+      alignItems: "center",
+      justifyItems: "center",
+    }}
   >
-    <form.schema.control.component field={form} />
-  </chakra.form>
+    <span />
+    {_.map(
+      (x) => (
+        <b key={x}>{x}</b>
+      ),
+      flags
+    )}
+    {_.map(
+      (field) => (
+        <React.Fragment key={field.id}>
+          <chakra.b sx={{ justifySelf: "start" }}>{field.path}</chakra.b>
+          {_.map(
+            (x) => (
+              <Checkbox
+                key={x}
+                defaultChecked={field[x]}
+                onChange={(e) => (field[x] = e.target.checked)}
+              />
+            ),
+            flags
+          )}
+        </React.Fragment>
+      ),
+      form.formFields
+    )}
+  </Grid>
 )
 
-const Values = observer(() => (
-  <>
+const Value = observer(({ form }) => (
+  <Grid sx={{ gridTemplateColumns: "1fr 1fr" }}>
     <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
-      <Heading>Previous</Heading>
-      {JSON.stringify(value, null, 2)}
+      <Heading>Value</Heading>
+      {JSON.stringify(form.formData, null, 2)}
     </Box>
     <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
-      <Heading>Current</Heading>
-      {JSON.stringify(form.value, null, 2)}
+      <Heading>Errors</Heading>
+      {JSON.stringify(
+        _.mapValues("validationMessage", form.formFields),
+        null,
+        2
+      )}
     </Box>
-    <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
-      <Heading>Validated</Heading>
-      {JSON.stringify(removeBlankLeaves(form.value), null, 2)}
-    </Box>
-    <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
-      <Heading>Patch</Heading>
-      {JSON.stringify(form.getPatch(), null, 2)}
-    </Box>
-  </>
+  </Grid>
 ))
 
-export const TestForm = () => (
-  <Flex sx={{ gap: 8, p: 8, w: "100%" }}>
-    <Flags />
-    <Form />
-    <Values />
-  </Flex>
-)
+const submit = {
+  delayed: () => new Promise((resolve) => setTimeout(resolve, 1000)),
+  error: () =>
+    new Promise((resolve, reject) =>
+      setTimeout(() => reject("Your form Shucks!"), 1000)
+    ),
+}
+
+export const TestForm = () => {
+  const form = createMobxForm(schema, value, {
+    submit: submit.error,
+  })
+  return (
+    <Grid
+      sx={{ gap: 8, p: 8, w: "100%", gridTemplateColumns: "auto auto 1fr" }}
+    >
+      <Flags form={form} />
+      <Form form={form} sx={{ w: "30vw" }} />
+      <Value form={form} />
+    </Grid>
+  )
+}
