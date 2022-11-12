@@ -3,10 +3,11 @@ import F from "futil"
 import Ajv from "ajv"
 import { observable } from "mobx"
 import { createForm } from "../json-schema-form/index.js"
-import { controls } from "../components/form/index.js"
+import { fields } from "../components/form/index.js"
 import {
   buildPath,
-  filterTree,
+  removeBlanks,
+  removeBlankLeaves,
   flattenObjectNotArrays,
   partitionObject,
 } from "../util/futil.js"
@@ -60,8 +61,6 @@ import {
 //   // Now that the schema has been cloned, we can mutate it
 //   Tree.walk((...args) => {
 //     if (isPathWhitelisted(buildPath(...args))) {
-//       adjustHidden(...args)
-//       adjustDisabled(...args)
 //       mutate?.(...args)
 //     } else {
 //       removeSchemaFromParent(...args)
@@ -80,56 +79,6 @@ const ajv = new Ajv({
   keywords: [{ keyword: "control", valid: true }],
 })
 
-const getSchemaComponent = (schema) => {
-  // control = Component
-  if (_.isFunction(schema?.control)) return schema.control
-  // control = { component: Component }
-  if (_.isFunction(schema?.control?.component)) return schema.control
-  const name =
-    // control = 'component'
-    (_.isString(schema?.control) && schema.control) ||
-    // control = { component: 'component' }
-    (_.isString(schema?.control?.component) && schema.control.component) ||
-    // Not a JSON schema type but useful to special case it
-    (_.isArray(schema.enum) && "enum")
-  return controls[name || schema.type]
-}
-
-const removeBlanks = filterTree()(F.isNotBlank)
-
-const foo = F.walk((x) => x.properties || (x.items && { items: x.items }))(
-  (schema, name, parents, parentsKeys) => {
-    const parent = _.head(parents)
-    // Set default title
-    if (_.isUndefined(schema.title) && parent?.type !== "array")
-      schema.title = _.startCase(name)
-    // Set control component
-    const component = getSchemaComponent(schema)
-    if (!component) {
-      const path = buildPath(schema, name, parents, parentsKeys)
-      throw new Error(`No component for field at path "${buildPath(path)}"`)
-    }
-    if (!_.isPlainObject(schema.control)) schema.control = {}
-    schema.control.component = component
-  }
-)
-
-export const createMobxForm = (schema, value) => {
-  foo(schema)
-  return createForm(schema, value, {
-    createStore: observable,
-    mapField: observable,
-    // TODO
-    getErrors: (schema, value) => {
-      ajv.validate(schema, removeBlanks(value))
-      return _.groupBy(
-        (e) => e.instancePath.replace("/", "").replaceAll("/", "."),
-        ajv.errors
-      )
-    },
-  })
-}
-
 // Produce an object that can be used as-is to update a mongo record
 // https://github.com/feathersjs-ecosystem/feathers-mongodb#querying
 export const getMongoPatch = (from, to) => {
@@ -145,4 +94,59 @@ export const getMongoPatch = (from, to) => {
   return _.isEmpty($unset)
     ? $set
     : { ...$set, $unset: _.mapValues(_.constant(true), $unset) }
+}
+
+const getSchemaComponent = (schema) => {
+  // control = Component
+  if (_.isFunction(schema?.control)) return schema.control
+  // control = { component: Component }
+  if (_.isFunction(schema?.control?.component)) return schema.control
+  const name =
+    // control = 'component'
+    (_.isString(schema?.control) && schema.control) ||
+    // control = { component: 'component' }
+    (_.isString(schema?.control?.component) && schema.control.component) ||
+    // Not a JSON schema type but useful to special case it
+    (_.isArray(schema.enum) && "enum")
+  return fields[name || schema.type]
+}
+
+const Tree = F.tree((x) => x.properties || (x.items && { items: x.items }))
+
+const setSchemaDefaults = (schema, name, parents, parentsKeys) => {
+  const parent = _.head(parents)
+
+  // Set default title
+  if (_.isUndefined(schema.title) && parent?.type !== "array")
+    schema.title = _.startCase(name)
+
+  // Set control component
+  const component = getSchemaComponent(schema)
+  if (!component) {
+    const path = buildPath(schema, name, parents, parentsKeys)
+    throw new Error(`No component for schema at path "${buildPath(path)}"`)
+  }
+
+  if (!_.isPlainObject(schema.control)) schema.control = {}
+  schema.control.component = component
+}
+
+const getAjvErrors = (schema, value) => {
+  ajv.validate(schema, removeBlankLeaves(value))
+  return _.groupBy(
+    (e) => e.instancePath.replace("/", "").replaceAll("/", "."),
+    ajv.errors
+  )
+}
+
+export const createMobxForm = (schema, value) => {
+  Tree.walk(setSchemaDefaults)(schema)
+  const options = {
+    createStore: observable,
+    mapField: observable,
+    getErrors: getAjvErrors,
+  }
+  const form = createForm(schema, value, options)
+  form.getPatch = () => getMongoPatch(value, form.value)
+  return form
 }

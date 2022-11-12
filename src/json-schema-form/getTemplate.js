@@ -1,5 +1,6 @@
 import _ from "lodash/fp.js"
 import F from "futil"
+import { joinPaths } from "../util/futil"
 
 const empty = {
   null: null,
@@ -17,13 +18,11 @@ const typeOf = (value) => {
   return typeof value
 }
 
-const joinPaths = (p1, p2) => (F.isBlank(p1) ? p2 : `${p1}.${p2}`)
-
 let _getTemplateRec = (schema, path, template) => {
   let value = _.get(path, template)
 
   if (!_.isEqual(schema.type, typeOf(value))) {
-    value = schema.default ?? empty[schema.type]
+    value = schema.default ?? _.cloneDeep(empty[schema.type])
     if (!_.isUndefined(value)) F.setOn(path, value, template)
   }
 

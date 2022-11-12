@@ -67,6 +67,9 @@ export const filterTree = (
 export const buildPath = (n, i, p, pi) =>
   _.isUndefined(i) ? "" : [..._.reverse(_.dropLast(1, pi)), i].join(".")
 
+export const joinPaths = (...segments) =>
+  _.filter((x) => x !== "" && !_.isNil(x), segments).join(".")
+
 export const flattenObjectNotArrays = (value) =>
   !_.isPlainObject(value)
     ? value
@@ -83,3 +86,9 @@ export const flattenObjectNotArrays = (value) =>
         {},
         value
       )
+
+export const removeBlanks = filterTree()(F.isNotBlank)
+
+export const removeBlankLeaves = filterTree()(
+  (x) => _.isArray(x) || _.isPlainObject(x) || F.isNotBlank(x)
+)

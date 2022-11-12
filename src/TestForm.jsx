@@ -1,41 +1,60 @@
 import _ from "lodash/fp"
-import { Observer } from "mobx-react-lite"
-import { Flex, Button, Heading } from "@chakra-ui/react"
-import { createMobxForm, getMongoPatch } from "./util/json-schema-form.js"
+import { observer } from "mobx-react-lite"
+import { chakra, Flex, Button, Heading, Box } from "@chakra-ui/react"
+import { createMobxForm } from "./util/json-schema-form.js"
 import { OptionsCheckboxes } from "./components/Selects.jsx"
+import { removeBlankLeaves } from "./util/futil.js"
 
 const schema = {
   type: "object",
-  title: "hey",
+  maxProperties: 1,
   properties: {
     arr: {
       type: "array",
       items: {
         type: "object",
-        required: ["foo"],
+        required: ["name"],
         properties: {
-          foo: { type: "string" },
-          bar: { type: "string" },
+          name: { type: "string" },
+          job: { type: "string" },
         },
       },
     },
     obj: {
       type: "object",
-      required: ["bar"],
-      // readOnly: true,
-      // maxProperties: 1,
+      required: ["zebra"],
       properties: {
-        foo: { type: "string" },
-        bar: { type: "string" },
-        zoo: { type: "string" },
+        zebra: { type: "string" },
+        lion: { type: "string" },
+        crocodile: { type: "string" },
       },
     },
   },
 }
 
-const value = { arr: [{ foo: "foo" }], obj: { foo: "this" } }
+const value = { arr: [{}], obj: { lion: "Roar!" } }
 
-const root = createMobxForm(schema, value)
+// const value = { arr: [{ foo: "foo" }], obj: { foo: "this" } }
+
+// const schema = {
+//   type: "array",
+//   items: {
+//     type: "object",
+//     required: ["foo"],
+//     properties: {
+//       foo: { type: "string" },
+//       bar: { type: "string" },
+//     },
+//   },
+// }
+
+// const value = [{ foo: "foo" }]
+
+// const schema = { type: "string" }
+
+// const value = "foo"
+
+const form = createMobxForm(schema, value)
 
 const options = _.map(
   (value) => ({ value, label: value }),
@@ -56,51 +75,68 @@ const toggle = (property) => (paths) => {
   const setTrue = _.intersection(values, paths)
   const setFalse = _.difference(values, paths)
   for (const path of setTrue) {
-    const field = _.get(path, root)
+    const field = _.get(path, form)
     if (_.has(property, field)) field[property] = true
   }
   for (const path of setFalse) {
-    const field = _.get(path, root)
+    const field = _.get(path, form)
     if (_.has(property, field)) field[property] = false
   }
 }
 
+const Flags = () => (
+  <Flex sx={{ gap: 4, flexDirection: "column" }}>
+    <Button onClick={form.validate}>Validate</Button>
+    <Heading>Toggle Required</Heading>
+    <Flex sx={{ gap: 2, flexDirection: "column" }}>
+      <OptionsCheckboxes options={options} onChange={toggle("required")} />
+    </Flex>
+    <Heading>Toggle Disabled</Heading>
+    <Flex sx={{ gap: 2, flexDirection: "column" }}>
+      <OptionsCheckboxes options={options} onChange={toggle("disabled")} />
+    </Flex>
+    <Heading>Toggle Hidden</Heading>
+    <Flex sx={{ gap: 2, flexDirection: "column" }}>
+      <OptionsCheckboxes options={options} onChange={toggle("hidden")} />
+    </Flex>
+  </Flex>
+)
+
+const Form = () => (
+  <chakra.form
+    noValidate
+    onSubmit={(e) => e.preventDefault()}
+    sx={{ flexBasis: "30vw" }}
+  >
+    <form.schema.control.component field={form} />
+  </chakra.form>
+)
+
+const Values = observer(() => (
+  <>
+    <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
+      <Heading>Previous</Heading>
+      {JSON.stringify(value, null, 2)}
+    </Box>
+    <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
+      <Heading>Current</Heading>
+      {JSON.stringify(form.value, null, 2)}
+    </Box>
+    <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
+      <Heading>Validated</Heading>
+      {JSON.stringify(removeBlankLeaves(form.value), null, 2)}
+    </Box>
+    <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
+      <Heading>Patch</Heading>
+      {JSON.stringify(form.getPatch(), null, 2)}
+    </Box>
+  </>
+))
+
 export const TestForm = () => (
   <Flex sx={{ gap: 8, p: 8, w: "100%" }}>
-    <Flex sx={{ gap: 4, flexDirection: "column" }}>
-      <Button onClick={root.validate}>Validate</Button>
-      <Heading>Toggle Required</Heading>
-      <Flex sx={{ gap: 2, flexDirection: "column" }}>
-        <OptionsCheckboxes options={options} onChange={toggle("required")} />
-      </Flex>
-      <Heading>Toggle Disabled</Heading>
-      <Flex sx={{ gap: 2, flexDirection: "column" }}>
-        <OptionsCheckboxes options={options} onChange={toggle("disabled")} />
-      </Flex>
-      <Heading>Toggle Hidden</Heading>
-      <Flex sx={{ gap: 2, flexDirection: "column" }}>
-        <OptionsCheckboxes options={options} onChange={toggle("hidden")} />
-      </Flex>
-    </Flex>
-    <form noValidate onSubmit={(e) => e.preventDefault()}>
-      <root.schema.control.component field={root} />
-    </form>
-    <Observer>
-      {() => (
-        <Flex sx={{ gap: 8, whiteSpace: "pre-wrap", fontFamily: "monospace" }}>
-          <div>
-            <Heading>Saved</Heading>
-            {JSON.stringify(value, null, 2)}
-          </div>
-          <div>
-            <Heading>Value</Heading>
-            {JSON.stringify(root.value, null, 2)}
-          </div>
-          {/* <span> */}
-          {/*   <b>Patch: </b> {JSON.stringify(getMongoPatch(value, root.value))} */}
-          {/* </span> */}
-        </Flex>
-      )}
-    </Observer>
+    <Flags />
+    <Form />
+    <Values />
   </Flex>
 )

@@ -37,28 +37,8 @@ const mutable = _.convert({ immutable: false })
 // console.info(x)
 // console.info(v.errors)
 
-let foo = [1, 2, 3]
+let foo = [1, 2]
 
-foo.splice(1, 0, 10)
+foo.splice(0, 1)
 
 console.info(foo)
-
-// const target = observable({ a: [1, 2, 3] })
-
-// const a = new Proxy(target.a, {
-//   get(obj, prop) {
-//     console.info("get", prop)
-//     return obj[prop]
-//   },
-//   set(obj, prop, value, ...x) {
-//     console.info("set", x)
-//     obj[prop] = value
-//     return true
-//   },
-// })
-
-// console.info(a)
-
-// a.splice(1, 1)
-
-// console.info(a)

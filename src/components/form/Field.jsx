@@ -23,66 +23,45 @@ const Errors = ({ errors }) =>
     errors
   )
 
-const ArrayActions = ({ field }) => {
-  const isArray = field.schema.type === "array"
-  const isArrayItem = !_.isNaN(parseInt(_.last(field.path.split("."))))
-  return (
-    (isArray || isArrayItem) && (
+const FieldActions = observer(
+  ({ field, parent }) =>
+    (field.addField || parent?.removeField) && (
       <ButtonGroup isAttached aria-label="Actions" size="xs">
-        {isArray && (
+        {field.canAddField && (
           <IconButton
             aria-label="Add"
             icon={<Icon as={MdAdd} boxSize="1.2em" />}
+            onClick={() => field.addField()}
           />
         )}
-        {isArrayItem && (
+        {parent?.canRemoveField && (
           <IconButton
             aria-label="Remove"
             colorScheme="red"
             icon={<Icon as={MdRemove} boxSize="1.2em" />}
+            onClick={() => parent.removeField(field.key)}
           />
         )}
       </ButtonGroup>
     )
-  )
-}
+)
 
-export const Field = observer(({ field, children }) => {
-  const isCollection =
-    field.schema.type === "object" || field.schema.type === "array"
-  return (
-    <FormControl
-      as={isCollection && "fieldset"}
-      isDisabled={field.disabled}
-      isRequired={field.required}
-      isInvalid={!_.isEmpty(field.errors)}
-      sx={{
-        display: field.hidden && "none",
-        ...(isCollection && {
-          p: 3,
-          borderRadius: "base",
-          borderWidth: "1px",
-          borderColor: "gray.300",
-          "> [aria-label=Actions]": {
-            pos: "absolute",
-            top: -3,
-            right: 0,
-            zIndex: 2,
-          },
-        }),
-      }}
-    >
-      {!field.disabled && <ArrayActions field={field} />}
-      {field.schema.title && (
-        <FormLabel as={isCollection && "legend"}>
-          {field.schema.title}
-        </FormLabel>
-      )}
-      {children}
-      {field.schema.description && (
-        <FormHelperText>{field.schema.description}</FormHelperText>
-      )}
-      <Errors errors={field.errors} />
-    </FormControl>
-  )
-})
+export const Field = observer(({ isCollection, field, parent, children }) => (
+  <FormControl
+    as={isCollection && "fieldset"}
+    hidden={field.hidden}
+    isDisabled={field.disabled}
+    isRequired={field.required}
+    isInvalid={!_.isEmpty(field.errors)}
+  >
+    {!field.disabled && <FieldActions field={field} parent={parent} />}
+    {field.schema.title && (
+      <FormLabel as={isCollection && "legend"}>{field.schema.title}</FormLabel>
+    )}
+    {children}
+    {field.schema.description && (
+      <FormHelperText>{field.schema.description}</FormHelperText>
+    )}
+    {!field.disabled && <Errors errors={field.errors} />}
+  </FormControl>
+))
