@@ -21,7 +21,7 @@ const schema = {
             type: "string",
             enum: ["Analyst", "Courier", "Singer", "Mercenary"],
           },
-          age: { type: "number" },
+          age: { type: "number", minimum: 10 },
           isMarried: { type: "boolean" },
         },
       },
@@ -98,7 +98,7 @@ const Flags = ({ form }) => (
           )}
         </React.Fragment>
       ),
-      form.formFields
+      form.getFormFields()
     )}
   </Grid>
 )
@@ -107,12 +107,12 @@ const Value = observer(({ form }) => (
   <Grid sx={{ gridTemplateColumns: "1fr 1fr" }}>
     <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
       <Heading>Value</Heading>
-      {JSON.stringify(form.formData, null, 2)}
+      {JSON.stringify(form.getFormData(), null, 2)}
     </Box>
     <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
       <Heading>Errors</Heading>
       {JSON.stringify(
-        _.mapValues("validationMessage", form.formFields),
+        _.mapValues("validationMessage", form.getFormFields()),
         null,
         2
       )}
@@ -129,9 +129,7 @@ const submit = {
 }
 
 export const TestForm = () => {
-  const form = createMobxForm(schema, value, {
-    submit: submit.error,
-  })
+  const form = createMobxForm(schema, value, submit.error)
   return (
     <Grid
       sx={{ gap: 8, p: 8, w: "100%", gridTemplateColumns: "auto auto 1fr" }}

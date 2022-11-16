@@ -2,21 +2,17 @@ import _ from "lodash/fp"
 import { useEffect, forwardRef, useCallback } from "react"
 import { when, autorun, reaction } from "mobx"
 
-export const Field = forwardRef(({ field, ...props }, ref) => {
-  const layoutRef = useCallback((node) => {
-    if (
-      node !== null &&
-      field.schema.type !== "array" &&
-      field.schema.type !== "object"
-    ) {
-      const el = node.querySelector("input")
-      el?.addEventListener(
-        "change",
-        () => console.info(field.path) || console.info(field.reportValidity())
-      )
+const useValidateOnChange = (field) => {
+  return useCallback((node) => {
+    if (node && !field.fields) {
+      node
+        .querySelector("input")
+        ?.addEventListener("change", field.reportValidity)
     }
   }, [])
+}
 
+const useSchemaEffect = (field) => {
   useEffect(() => {
     if (_.isFunction(field.schema.effect)) {
       const disposers = []
@@ -28,10 +24,13 @@ export const Field = forwardRef(({ field, ...props }, ref) => {
       return _.over(disposers)
     }
   }, [])
+}
 
+export const Field = forwardRef(({ field, ...props }, ref) => {
+  useSchemaEffect(field)
   return (
     <field.schema.layout.component
-      ref={layoutRef}
+      ref={useValidateOnChange(field)}
       field={field}
       {...field.schema.layout.props}
       {...props}

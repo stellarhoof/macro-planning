@@ -7,3 +7,5 @@ This library replaces native [constraint validation](https://developer.mozilla.o
 
 - Focus first error
 - Leave actions rendering to fields
+- Make required observable
+- Correctly validate single field when required

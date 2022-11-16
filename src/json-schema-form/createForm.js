@@ -10,6 +10,20 @@ const extendProperties = (x, y) =>
 
 export const Tree = F.tree((x) => x.fields)
 
+const reduceFields = _.curryN(2, (fn, field) =>
+  Tree.reduce((acc, field) => {
+    const result = fn(field)
+    if (result !== undefined) acc[field.path] = result
+    return acc
+  })({}, field)
+)
+
+export const getFormFields = reduceFields(_.identity)
+
+export const getFormData = reduceFields((field) => {
+  if (!field.disabled && !field.fields) return field.value
+})
+
 const createFields = (store, config, field) =>
   field.schema.type === "array"
     ? _.times(
@@ -93,7 +107,11 @@ const createField = (store, config, { schema, parent, name = "" }) => {
       return _.isEmpty(config.validate(schema, field.value))
     },
     reportValidity() {
-      const errors = config.validate(schema, field.value)
+      // This won't work when field is required
+      const errors = _.mapKeys(
+        (k) => joinPaths(field.path, k),
+        config.validate(schema, field.value)
+      )
       Tree.walk((f) => f.setCustomValidity(errors[f.path]))(field)
       return _.isEmpty(errors)
     },
@@ -151,38 +169,6 @@ const createField = (store, config, { schema, parent, name = "" }) => {
       moveField(from, to) {
         field.removeField(from)
         field.addField(to)
-      },
-    })
-  }
-
-  if (!parent) {
-    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement#instance_methods
-    extendProperties(field, {
-      reset() {},
-      submit: config.submit,
-      requestSubmit() {
-        if (field.reportValidity()) {
-          return config.submit()
-        }
-      },
-      // Quality of life
-      get formData() {
-        return Tree.reduce((acc, field) => {
-          if (
-            // Do not accumulate disabled fields
-            !field.disabled &&
-            // Do not accumulate collection fields unless they're empty
-            (!field.fields || field.value === {} || field.value === [])
-          )
-            acc[field.path] = field.value
-          return acc
-        })({}, field)
-      },
-      get formFields() {
-        return Tree.reduce((acc, field) => {
-          acc[field.path] = field
-          return acc
-        })({}, field)
       },
     })
   }

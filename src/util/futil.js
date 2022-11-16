@@ -4,8 +4,8 @@ import F from "futil"
 export const compactDotJoin = (...args) => _.remove(_.isNil, args).join(".")
 
 export const partitionObject = _.curryN(2, (predicate, obj) => [
-  _.pickBy(predicate, obj),
-  _.pickBy(_.negate(predicate), obj),
+  F.pickByIndexed(predicate, obj),
+  F.pickByIndexed(_.negate(predicate), obj),
 ])
 
 // Same as futil's that allows its first argument to be:
