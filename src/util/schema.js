@@ -11,8 +11,8 @@ import {
   flattenObjectNotArrays,
   partitionObject,
 } from "../util/futil.js"
-import { DefaultForm } from "../components/form/layouts/DefaultForm"
-import { DefaultField } from "../components/form/layouts/DefaultField"
+import { DefaultFormLayout } from "../components/form/layouts/DefaultFormLayout"
+import { DefaultFieldLayout } from "../components/form/layouts/DefaultFieldLayout"
 
 // const expandOveerridePath = _.flow(
 //   _.replace(".*", "/items"),
@@ -95,9 +95,9 @@ export const setSchemaDefaults = Tree.walk(
 
     schema.layout ||= {}
     if (_.isUndefined(name)) {
-      schema.layout.component ||= DefaultForm
+      schema.layout.component ||= DefaultFormLayout
     } else {
-      schema.layout.component ||= DefaultField
+      schema.layout.component ||= DefaultFieldLayout
       if (schema.type === "array" || schema.type === "object") {
         schema.layout.props ||= {}
         schema.layout.props.as = "fieldset"

@@ -167,8 +167,10 @@ const createField = (store, config, { schema, parent, name = "" }) => {
         for (let f of field.fields.slice(index)) f.name--
       },
       moveField(from, to) {
-        field.removeField(from)
-        field.addField(to)
+        if (from !== to) {
+          field.removeField(from)
+          field.addField(to)
+        }
       },
     })
   }

@@ -4,43 +4,54 @@ import { observer } from "mobx-react-lite"
 import { chakra, Grid, Heading, Box, Checkbox } from "@chakra-ui/react"
 import { createMobxForm } from "./util/json-schema-form.js"
 import { Form } from "./components/form/Form.jsx"
+import { NoLayout } from "./components/form/layouts/NoLayout.jsx"
+import { getFormData, getFormFields } from "./json-schema-form/createForm.js"
 
 const schema = {
   type: "object",
   title: "Form",
   description: "People and animals all live in harmony",
   properties: {
-    arr: {
+    scalarArray: {
       type: "array",
-      items: {
-        type: "object",
-        required: ["name"],
-        properties: {
-          name: { type: "string" },
-          job: {
-            type: "string",
-            enum: ["Analyst", "Courier", "Singer", "Mercenary"],
-          },
-          age: { type: "number", minimum: 10 },
-          isMarried: { type: "boolean" },
-        },
-      },
+      items: { type: "string" },
     },
-    obj: {
-      type: "object",
-      required: ["zebra"],
-      properties: {
-        zebra: { type: "string" },
-        lion: { type: "string" },
-        giraffe: { type: "string" },
-      },
-    },
+    // arr: {
+    //   type: "array",
+    //   items: {
+    //     type: "object",
+    //     required: ["name"],
+    //     properties: {
+    //       name: { type: "string" },
+    //       job: {
+    //         type: "string",
+    //         enum: ["Analyst", "Courier", "Singer", "Mercenary"],
+    //       },
+    //       age: { type: "number", minimum: 10 },
+    //       isMarried: {
+    //         type: "boolean",
+    //         description: "Did you in fact get married?",
+    //         layout: { component: NoLayout },
+    //       },
+    //     },
+    //   },
+    // },
+    // obj: {
+    //   type: "object",
+    //   required: ["zebra"],
+    //   properties: {
+    //     zebra: { type: "string" },
+    //     lion: { type: "string" },
+    //     giraffe: { type: "string" },
+    //   },
+    // },
   },
 }
 
 const value = {
-  arr: [{ name: "John Smith", job: "Mercenary", age: 34, isMarried: true }],
-  obj: { zebra: "Neiighhh!", lion: "Roar!", giraffe: "Who knows?" },
+  scalarArray: ["Pocahontas", "Snow White"],
+  // arr: [{ name: "John Smith", job: "Mercenary", age: 34, isMarried: true }],
+  // obj: { zebra: "Neiighhh!", lion: "Roar!", giraffe: "Who knows?" },
 }
 
 // const value = { arr: [{ foo: "foo" }], obj: { foo: "this" } }
@@ -98,7 +109,7 @@ const Flags = ({ form }) => (
           )}
         </React.Fragment>
       ),
-      form.getFormFields()
+      getFormFields(form)
     )}
   </Grid>
 )
@@ -107,12 +118,12 @@ const Value = observer(({ form }) => (
   <Grid sx={{ gridTemplateColumns: "1fr 1fr" }}>
     <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
       <Heading>Value</Heading>
-      {JSON.stringify(form.getFormData(), null, 2)}
+      {JSON.stringify(getFormData(form), null, 2)}
     </Box>
     <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
       <Heading>Errors</Heading>
       {JSON.stringify(
-        _.mapValues("validationMessage", form.getFormFields()),
+        _.mapValues("validationMessage", getFormFields(form)),
         null,
         2
       )}

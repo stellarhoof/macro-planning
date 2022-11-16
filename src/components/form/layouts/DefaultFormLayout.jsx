@@ -7,9 +7,9 @@ import {
   FormHelperText,
   Flex,
 } from "@chakra-ui/react"
-import { FieldErrors } from "./FieldErrors.jsx"
+import { FieldErrors } from "../FieldErrors.jsx"
 
-export const DefaultForm = observer(
+export const DefaultFormLayout = observer(
   forwardRef(({ field, children, ...props }, ref) => (
     <FormControl
       ref={ref}

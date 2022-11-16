@@ -2,7 +2,7 @@ import _ from "lodash/fp"
 import Ajv from "ajv"
 import { observable } from "mobx"
 import { createForm } from "../json-schema-form/index.js"
-import { partitionObject, removeBlankLeaves } from "../util/futil.js"
+import { removeBlankLeaves } from "../util/futil.js"
 import { setSchemaDefaults } from "./schema.js"
 
 const ajv = new Ajv({
@@ -45,25 +45,4 @@ export const createMobxForm = (schema, value, submit) => {
   })
   form.submit = () => form.reportValidity() && submit(form)
   return form
-}
-
-// TODO: $unset all blank values and send the rest
-// Produce an object that can be used as-is to update a mongo record
-// https://github.com/feathersjs-ecosystem/feathers-mongodb#querying
-export const getMongoPatch = (form) => {
-  // const [unset, set] = partitionObject(form.getFormData())
-  // const [arrays, objects] = partitionObject(
-  //   (v, k) => k.match(/\d/),
-  //   set
-  // )
-  // from = removeBlanks(flattenObjectNotArrays(from))
-  // to = removeBlanks(flattenObjectNotArrays(to))
-  // const [$unset, $set] = _.flow(
-  //   F.pickByIndexed((v, k) => !_.isEqual(from[k], to[k])),
-  //   F.mapValuesIndexed((v, k) => to[k]),
-  //   partitionObject(_.isUndefined)
-  // )(_.merge(from, to))
-  // return _.isEmpty($unset)
-  //   ? $set
-  //   : { ...$set, $unset: _.mapValues(_.constant(true), $unset) }
 }

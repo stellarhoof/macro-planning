@@ -6,6 +6,6 @@ This library replaces native [constraint validation](https://developer.mozilla.o
 # TODO
 
 - Focus first error
-- Leave actions rendering to fields
+- Fix checkbox styling
 - Make required observable
 - Correctly validate single field when required
