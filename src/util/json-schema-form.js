@@ -28,20 +28,33 @@ const getErrorMessage = (e) => {
   return e.message
 }
 
-const validate = (schema, value) => {
-  ajv.validate(schema, removeBlankLeaves(value))
+const toSchemaPath = (x) => {
+  if (!x) return ""
+  const path = x
+    .replaceAll(/\d+/g, "items")
+    .replaceAll(".items", "/items")
+    .replaceAll(".", "/properties/")
+  return path.startsWith("items") ? path : `/properties/${path}`
+}
+
+const validate = (field, form) => {
+  const path = `${form.schema.$id}#${toSchemaPath(field.path)}`
+  const validator = ajv.getSchema(path)
+  validator(removeBlankLeaves(field.value))
   return _.flow(
     _.groupBy(getErrorPath),
     _.mapValues((errors) => errors.map(getErrorMessage).join("\n"))
-  )(ajv.errors)
+  )(validator.errors)
 }
 
 export const createMobxForm = (schema, value, submit) => {
   setSchemaDefaults(schema)
+  schema.$id = _.uniqueId()
+  ajv.compile(schema)
   const form = createForm(schema, value, {
     createStore: observable,
     mapField: observable,
-    validate,
+    validate: (field) => validate(field, form),
   })
   form.submit = () => form.reportValidity() && submit(form)
   return form

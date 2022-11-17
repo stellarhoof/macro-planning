@@ -3,22 +3,6 @@ import { extendTheme, TableCaption } from "@chakra-ui/react"
 TableCaption.defaultProps = { placement: "top" }
 
 export const theme = extendTheme({
-  styles: {
-    global: {
-      "fieldset.chakra-form-control": {
-        p: 3,
-        borderRadius: "base",
-        borderWidth: "1px",
-        borderColor: "gray.300",
-        "> [aria-label=Actions]": {
-          pos: "absolute",
-          top: -3,
-          right: 0,
-          zIndex: 2,
-        },
-      },
-    },
-  },
   components: {
     Heading: { defaultProps: { size: "sm" } },
     Table: {

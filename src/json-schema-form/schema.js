@@ -46,3 +46,5 @@ export const getTemplate = (schema, value) => {
   _getTemplateRec(schema, "__root__", template)
   return template["__root__"]
 }
+
+export const extractSubschema = (whitelist, schema) => {}

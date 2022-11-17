@@ -44,6 +44,7 @@ const createFields = (store, config, field) =>
 const createField = (store, config, { schema, parent, name = "" }) => {
   // State local to this field
   const state = config.createStore({
+    required: _.includes(name, parent?.schema?.required),
     hidden: schema.field?.hidden,
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly
     readonly: schema.field?.readonly,
@@ -106,11 +107,13 @@ const createField = (store, config, { schema, parent, name = "" }) => {
     checkValidity() {
       return _.isEmpty(config.validate(schema, field.value))
     },
+    // Validating a single property from a general schema is not possible in the
+    // general case and it's complex in relatively simple cases
+    // https://github.com/ajv-validator/ajv/issues/211#issuecomment-242997557
     reportValidity() {
-      // This won't work when field is required
       const errors = _.mapKeys(
         (k) => joinPaths(field.path, k),
-        config.validate(schema, field.value)
+        config.validate(field)
       )
       Tree.walk((f) => f.setCustomValidity(errors[f.path]))(field)
       return _.isEmpty(errors)
@@ -129,14 +132,10 @@ const createField = (store, config, { schema, parent, name = "" }) => {
   if (parent?.schema?.type === "object") {
     extendProperties(field, {
       get required() {
-        return (
-          field.willValidate && _.includes(field.name, parent.schema.required)
-        )
+        return field.willValidate && state.required
       },
       set required(x) {
-        parent.schema.required ||= []
-        if (x) parent.schema.required.push(field.name)
-        else mutating.pull(field.name, parent.schema.required)
+        state.required = x
       },
     })
   }
@@ -184,7 +183,6 @@ const defaultConfig = {
   createStore: _.identity,
   mapField: _.identity,
   validate: _.constant({}),
-  submit: _.noop,
 }
 
 export const createForm = (schema, value, config) =>

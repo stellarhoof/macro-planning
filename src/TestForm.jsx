@@ -4,7 +4,6 @@ import { observer } from "mobx-react-lite"
 import { chakra, Grid, Heading, Box, Checkbox } from "@chakra-ui/react"
 import { createMobxForm } from "./util/json-schema-form.js"
 import { Form } from "./components/form/Form.jsx"
-import { NoLayout } from "./components/form/layouts/NoLayout.jsx"
 import { getFormData, getFormFields } from "./json-schema-form/createForm.js"
 
 const schema = {
@@ -16,26 +15,31 @@ const schema = {
       type: "array",
       items: { type: "string" },
     },
-    // arr: {
-    //   type: "array",
-    //   items: {
-    //     type: "object",
-    //     required: ["name"],
-    //     properties: {
-    //       name: { type: "string" },
-    //       job: {
-    //         type: "string",
-    //         enum: ["Analyst", "Courier", "Singer", "Mercenary"],
-    //       },
-    //       age: { type: "number", minimum: 10 },
-    //       isMarried: {
-    //         type: "boolean",
-    //         description: "Did you in fact get married?",
-    //         layout: { component: NoLayout },
-    //       },
-    //     },
-    //   },
-    // },
+    arr: {
+      type: "array",
+      items: {
+        type: "object",
+        required: ["name"],
+        title: "Person",
+        properties: {
+          name: {
+            type: "string",
+            description: "Full name of the person in question",
+          },
+          job: {
+            type: "string",
+            field: { disabled: true },
+            enum: ["Analyst", "Courier", "Singer", "Mercenary"],
+          },
+          age: { type: "number", minimum: 10 },
+          isMarried: {
+            type: "boolean",
+            description: "Did you in fact get married?",
+            layout: false,
+          },
+        },
+      },
+    },
     // obj: {
     //   type: "object",
     //   required: ["zebra"],
@@ -50,8 +54,8 @@ const schema = {
 
 const value = {
   scalarArray: ["Pocahontas", "Snow White"],
-  // arr: [{ name: "John Smith", job: "Mercenary", age: 34, isMarried: true }],
-  // obj: { zebra: "Neiighhh!", lion: "Roar!", giraffe: "Who knows?" },
+  arr: [{ job: "Mercenary", age: 34, isMarried: true }],
+  obj: { zebra: "Neiighhh!", lion: "Roar!", giraffe: "Who knows?" },
 }
 
 // const value = { arr: [{ foo: "foo" }], obj: { foo: "this" } }

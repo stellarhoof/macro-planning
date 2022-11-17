@@ -204,3 +204,5 @@ describe("getTemplate()", () => {
     expect(getTemplate(schema)).toEqual(result)
   })
 })
+
+describe("extractSubschema()", () => {})

@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "vite build",
-    "test": "vitest",
+    "test": "NODE_OPTIONS= vitest",
     "lint": "eslint ./src",
     "deploy": "gh-pages -d build"
   },
