@@ -1,54 +1,61 @@
 import { runInAction } from "mobx"
 import { forwardRef } from "react"
+import { observer } from "mobx-react-lite"
 import { chakra, Button, Flex, Heading } from "@chakra-ui/react"
 import {
-  AddField,
-  FieldControl,
-  FieldLabel,
-  FieldDescription,
-  FieldErrors,
-  FieldsGrid,
+  AddSchemaItem,
+  SchemaFieldControl,
+  SchemaTitle,
+  SchemaDescription,
+  SchemaFieldErrors,
+  SchemaFieldsGrid,
 } from "./Field.jsx"
-import { observer } from "mobx-react-lite"
 
-const onSubmit = (form) => async (e) => {
+const onSubmit = (schema, submit) => async (e) => {
   e.preventDefault()
+  let isValid
   try {
-    runInAction(() => (form.isSubmitting = true))
-    await form.submit()
+    isValid = schema.field.reportValidity()
+    runInAction(() => (schema.field.isSubmitting = true))
+    if (isValid) await submit(schema)
   } catch (e) {
     console.error(e)
-    form.setCustomValidity(e)
+    schema.field.setCustomValidity(e)
   } finally {
-    runInAction(() => (form.isSubmitting = false))
+    runInAction(() => (schema.field.isSubmitting = false))
   }
-  if (!form.checkValidity()) {
+  if (!isValid) {
     e.target
       .querySelector(".chakra-form__error-message")
       ?.scrollIntoViewIfNeeded()
   }
 }
 
-const SubmitButton = observer(({ form, ...props }) => (
+const SubmitButton = observer(({ schema, ...props }) => (
   <Button
     type="submit"
-    isLoading={form.isSubmitting}
+    isLoading={schema.field.isSubmitting}
     loadingText="Saving..."
     {...props}
   />
 ))
 
-export const Form = forwardRef(({ form, ...props }, ref) => (
-  <chakra.form ref={ref} noValidate onSubmit={onSubmit(form)} {...props}>
-    <FieldControl field={form}>
-      <AddField field={form} />
-      <FieldLabel as={Heading} field={form} />
-      <FieldDescription field={form} />
-      <FieldsGrid field={form} />
+export const Form = forwardRef(({ schema, submit, ...props }, ref) => (
+  <chakra.form
+    ref={ref}
+    noValidate
+    onSubmit={onSubmit(schema, submit)}
+    {...props}
+  >
+    <SchemaFieldControl schema={schema}>
+      <AddSchemaItem schema={schema} />
+      <SchemaTitle as={Heading} schema={schema} />
+      <SchemaDescription schema={schema} />
+      <SchemaFieldsGrid schema={schema} />
       <Flex sx={{ gap: 8, justifyContent: "end" }}>
-        <SubmitButton form={form}>Save</SubmitButton>
+        <SubmitButton schema={schema}>Save</SubmitButton>
       </Flex>
-      <FieldErrors field={form} />
-    </FieldControl>
+      <SchemaFieldErrors schema={schema} />
+    </SchemaFieldControl>
   </chakra.form>
 ))

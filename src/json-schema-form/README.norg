@@ -39,7 +39,7 @@ Make a util to extract a subschema based off fields to omit/pick
 - field state. mutable store
 - value. mutable store
 
-* Keywords
+** AJV Keywords
 
 - `validate(schema, data)`: Validation time. Should return a boolean.
 - `code(context)`: Compilation time. It generates code string that gets evaluated.
@@ -50,7 +50,7 @@ Make a util to extract a subschema based off fields to omit/pick
 
 Add a keyword with `compile` fn that is able to turn pick up the `useDefaults` flag
 
-* Schema compilation options
+** AJV Schema compilation options
 
 Global overrides on backend schemas are always applied. Computed properties such as user metrics should be marked readOnly. All listed options should remove readOnly properties from schema
 

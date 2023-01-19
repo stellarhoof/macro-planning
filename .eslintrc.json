@@ -1,21 +1,23 @@
 {
-  "env": {
-    "es2021": true,
-    "browser": true
-  },
   "extends": [
     "eslint:recommended",
+    "plugin:import/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime"
   ],
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": "2022"
+    "ecmaVersion": 2022
+  },
+  "env": {
+    "browser": true,
+    "es2022": true
   },
   "rules": {
-    "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+    "import/extensions": [2, { "js": "always" }],
     "react/display-name": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "no-unused-vars": ["error", { "ignoreRestSiblings": true }]
   },
   "settings": {
     "react": {

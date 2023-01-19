@@ -1,4 +1,4 @@
-import _ from "lodash/fp"
+import _ from "lodash/fp.js"
 import { forwardRef } from "react"
 import { observer } from "mobx-react-lite"
 import {
@@ -20,55 +20,88 @@ import {
 import { MdDragIndicator } from "react-icons/md"
 import { OptionsSelect } from "../../Selects.jsx"
 import {
-  AddField,
-  MoveField,
-  RemoveField,
-  FieldControl,
-  FieldLabel,
-  FieldErrors,
-  FieldDescription,
-  FieldsGrid,
+  AddSchemaItem,
+  MoveSchemaItem,
+  RemoveSchemaItem,
+  SchemaFieldControl,
+  SchemaTitle,
+  SchemaFieldErrors,
+  SchemaDescription,
+  SchemaFieldsGrid,
 } from "../Field.jsx"
 
-const FieldActionsInputGroup = ({ field, children }) =>
-  field.parent?.moveField || field.parent?.removeField ? (
+const SchemaActionsInputGroup = ({ schema, children }) =>
+  schema.field.parentSchema?.field?.addItem ||
+  schema.field.parentSchema?.field?.removeItem ? (
     <InputGroup>
-      <InputLeftAddon as={MoveField} field={field} size="sm" sx={{ p: 0 }} />
+      <InputLeftAddon
+        as={MoveSchemaItem}
+        schema={schema}
+        size="sm"
+        sx={{ p: 0 }}
+      />
       {children}
-      <InputRightAddon as={RemoveField} field={field} size="sm" sx={{ p: 0 }} />
+      <InputRightAddon
+        as={RemoveSchemaItem}
+        schema={schema}
+        size="sm"
+        sx={{ p: 0 }}
+      />
     </InputGroup>
   ) : (
     children
   )
 
-export const String = forwardRef(({ field, onChange, ...props }, ref) => (
-  <FieldControl field={field} {...props}>
-    <FieldLabel field={field} />
-    <FieldActionsInputGroup field={field}>
-      <Input
+// TODO: This should be part of Number/String
+export const Enum = observer(
+  forwardRef(({ schema, onChange, ...props }, ref) => (
+    <SchemaFieldControl schema={schema} {...props}>
+      <SchemaTitle schema={schema} />
+      <OptionsSelect
         ref={ref}
-        defaultValue={field.value}
+        defaultValue={schema.field.value}
         onChange={(e) => {
           e.stopPropagation()
-          field.value = e.target.value
+          schema.field.value = e.target.value
+          onChange?.(e)
+        }}
+        options={schema.enum || schema.field.options}
+        {...props}
+      />
+      <SchemaDescription schema={schema} />
+      <SchemaFieldErrors schema={schema} />
+    </SchemaFieldControl>
+  ))
+)
+
+export const String = forwardRef(({ schema, onChange, ...props }, ref) => (
+  <SchemaFieldControl schema={schema} {...props}>
+    <SchemaTitle schema={schema} />
+    <SchemaActionsInputGroup schema={schema}>
+      <Input
+        ref={ref}
+        defaultValue={schema.field.value}
+        onChange={(e) => {
+          e.stopPropagation()
+          schema.field.value = e.target.value
           onChange?.(e)
         }}
       />
-    </FieldActionsInputGroup>
-    <FieldDescription field={field} />
-    <FieldErrors field={field} />
-  </FieldControl>
+    </SchemaActionsInputGroup>
+    <SchemaDescription schema={schema} />
+    <SchemaFieldErrors schema={schema} />
+  </SchemaFieldControl>
 ))
 
-export const Number = forwardRef(({ field, onChange, ...props }, ref) => (
-  <FieldControl field={field} {...props}>
-    <FieldLabel field={field} />
-    <FieldActionsInputGroup field={field}>
+export const Number = forwardRef(({ schema, onChange, ...props }, ref) => (
+  <SchemaFieldControl schema={schema} {...props}>
+    <SchemaTitle schema={schema} />
+    <SchemaActionsInputGroup schema={schema}>
       <NumberInput
         ref={ref}
-        defaultValue={field.value}
+        defaultValue={schema.field.value}
         onChange={(x) => {
-          field.value = _.toNumber(x)
+          schema.field.value = _.toNumber(x)
           onChange?.(x)
         }}
       >
@@ -78,76 +111,51 @@ export const Number = forwardRef(({ field, onChange, ...props }, ref) => (
           <NumberDecrementStepper />
         </NumberInputStepper>
       </NumberInput>
-    </FieldActionsInputGroup>
-    <FieldDescription field={field} />
-    <FieldErrors field={field} />
-  </FieldControl>
+    </SchemaActionsInputGroup>
+    <SchemaDescription schema={schema} />
+    <SchemaFieldErrors schema={schema} />
+  </SchemaFieldControl>
 ))
 
-export const Boolean = forwardRef(({ field, onChange, ...props }, ref) => (
-  <FieldControl
+export const Boolean = forwardRef(({ schema, onChange, ...props }, ref) => (
+  <SchemaFieldControl
     ref={ref}
-    field={field}
+    schema={schema}
     as={Checkbox}
     value={true}
-    defaultChecked={!!field.value}
+    defaultChecked={!!schema.field.value}
     onChange={(e) => {
       e.stopPropagation()
-      field.value = !e.target.checked
+      schema.field.value = !e.target.checked
       onChange?.(e)
     }}
     sx={{ alignItems: "baseline" }}
     {...props}
   >
-    <FieldLabel field={field} />
-    <FieldDescription field={field} />
-    <FieldErrors field={field} />
-  </FieldControl>
+    <SchemaTitle schema={schema} />
+    <SchemaDescription schema={schema} />
+    <SchemaFieldErrors schema={schema} />
+  </SchemaFieldControl>
 ))
 
-export const Enum = observer(
-  forwardRef(({ field, onChange, ...props }, ref) => (
-    <FieldControl field={field} {...props}>
-      <FieldLabel field={field} />
-      <OptionsSelect
-        ref={ref}
-        defaultValue={field.value}
-        onChange={(e) => {
-          e.stopPropagation()
-          field.value = e.target.value
-          onChange?.(e)
-        }}
-        options={field.schema.enum}
-        {...props}
-      />
-      <FieldDescription field={field} />
-      <FieldErrors field={field} />
-    </FieldControl>
-  ))
-)
-
-const FieldLegend = observer(
-  ({ field }) =>
-    field.schema.title && (
+const SchemaLegend = observer(
+  ({ schema }) =>
+    schema.title && (
       <FormLabel as="legend">
         <Tag cursor="grab">
-          {!field.disabled && (
-            <TagLeftIcon
-              aria-label="Move Field"
-              as={MdDragIndicator}
-              onClick={() => field.parent.moveField(field.name, field.name)}
-            />
+          {!schema.field.disabled && (
+            <TagLeftIcon aria-label="Move Item" as={MdDragIndicator} />
           )}
-          {field.schema.title}
+          {schema.title}
         </Tag>
       </FormLabel>
     )
 )
 
-const Collection = forwardRef(({ field, sx, ...props }, ref) => (
-  <FieldControl
+const Collection = forwardRef(({ schema, sx, ...props }, ref) => (
+  <SchemaFieldControl
     ref={ref}
-    field={field}
+    schema={schema}
     as="fieldset"
     sx={{
       p: 3,
@@ -155,15 +163,15 @@ const Collection = forwardRef(({ field, sx, ...props }, ref) => (
       borderRadius: "base",
       borderWidth: "1px",
       borderColor: "gray.300",
-      "> [aria-label='Field Actions']": {
+      "> [aria-label='Schema Actions']": {
         pos: "absolute",
-        top: field.schema.title ? -8 : -3,
+        top: schema.title ? -8 : -3,
         right: 2.5,
         zIndex: 2,
       },
-      "> [aria-label='Move Field']": {
+      "> [aria-label='Move Item']": {
         pos: "absolute",
-        top: field.schema.title ? -8 : -3,
+        top: schema.title ? -8 : -3,
         left: 1,
         zIndex: 2,
       },
@@ -171,15 +179,15 @@ const Collection = forwardRef(({ field, sx, ...props }, ref) => (
     }}
     {...props}
   >
-    <ButtonGroup isAttached aria-label="Field Actions">
-      <AddField field={field} />
-      <RemoveField field={field} />
+    <ButtonGroup isAttached aria-label="Schema Actions">
+      <AddSchemaItem schema={schema} />
+      <RemoveSchemaItem schema={schema} />
     </ButtonGroup>
-    <FieldLegend field={field} />
-    <FieldDescription field={field} />
-    <FieldErrors field={field} />
-    <FieldsGrid ref={ref} field={field} />
-  </FieldControl>
+    <SchemaLegend schema={schema} />
+    <SchemaDescription schema={schema} />
+    <SchemaFieldErrors schema={schema} />
+    <SchemaFieldsGrid ref={ref} schema={schema} />
+  </SchemaFieldControl>
 ))
 
 export const Array = Collection

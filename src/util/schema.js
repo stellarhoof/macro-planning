@@ -1,15 +1,15 @@
-import _ from "lodash/fp"
-import F from "futil"
-import Ajv from "ajv"
-import { observable } from "mobx"
-import { createForm } from "../json-schema-form/index.js"
+import _ from "lodash/fp.js"
+// import Ajv from "ajv"
+// import { observable } from "mobx"
+// import { createForm } from "../json-schema-form/index.js"
 import { controls } from "../components/form/controls/index.js"
+import { Tree } from "../json-schema-form/index.js"
 import {
   buildPath,
-  removeBlanks,
-  removeBlankLeaves,
-  flattenObjectNotArrays,
-  partitionObject,
+  // removeBlanks,
+  // removeBlankLeaves,
+  // flattenObjectNotArrays,
+  // partitionObject,
 } from "../util/futil.js"
 
 // const expandOveerridePath = _.flow(
@@ -70,10 +70,6 @@ import {
 //   return cloned
 // }
 
-export const Tree = F.tree(
-  (x) => x.properties || (x.items && { items: x.items })
-)
-
 export const setSchemaDefaults = Tree.walk(
   (schema, name, parents, parentsKeys) => {
     const parent = _.head(parents)
@@ -82,11 +78,12 @@ export const setSchemaDefaults = Tree.walk(
     if (_.isUndefined(schema.title) && parent?.type !== "array")
       schema.title = _.startCase(name)
 
-    schema.control ||= {}
-    schema.control.component ||=
+    schema.field ||= {}
+    schema.field.control ||= {}
+    schema.field.control.component ||=
       controls[(_.isArray(schema.enum) && "enum") || schema.type]
 
-    if (!schema.control.component) {
+    if (!schema.field.control.component) {
       const path = buildPath(schema, name, parents, parentsKeys)
       throw new Error(`No component for field at path "${buildPath(path)}"`)
     }

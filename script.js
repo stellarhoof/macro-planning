@@ -40,33 +40,39 @@ let ajv = new Ajv({
 //   ],
 // })
 
-ajv.compile({
-  // $id: "someSchema",
-  type: "object",
-  required: ["firstName"],
-  dependentRequired: {
-    firstName: ["lastName"],
+console.time()
+ajv.validate(
+  {
+    // $id: "someSchema",
+    type: "object",
+    required: ["firstName"],
+    dependentRequired: {
+      firstName: ["lastName"],
+    },
+    properties: {
+      firstName: { type: "string" },
+      lastName: { type: "string" },
+      email: { type: "string" },
+    },
   },
-  properties: {
-    firstName: { type: "string" },
-    lastName: { type: "string" },
-    email: { type: "string" },
+  { firstName: "this" }
+)
+console.timeEnd()
+
+console.info(ajv.getSchema("").schema)
+
+console.time()
+// Cannot compile a schema with the same id
+ajv.validate(
+  {
+    // $id: "someSchema",
+    type: "string",
   },
-})
+  "that"
+)
+console.timeEnd()
 
-console.info(ajv.getSchema(""))
-
-ajv.compile({
-  $id: "someSchema",
-  type: "object",
-  properties: {
-    firstName: { type: "string" },
-    lastName: { type: "string" },
-    email: { type: "string" },
-  },
-})
-
-console.info(ajv.getSchema("someSchema"))
+console.info(ajv.getSchema("").schema)
 
 // ajv.validate({ $ref: "someSchema#/properties/firstName" }, "Alex")
 // console.info(ajv.errors)

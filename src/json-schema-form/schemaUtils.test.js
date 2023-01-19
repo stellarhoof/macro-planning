@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { getTemplate } from "./util.js"
+import { getDefaultValue, extractSubschema } from "./schemaUtils.js"
 
 describe("getTemplate()", () => {
   const scalar = [
@@ -193,16 +193,30 @@ describe("getTemplate()", () => {
   ]
 
   it.each(scalar)("scalar: %s", (name, { schema, result }) => {
-    expect(getTemplate(schema)).toEqual(result)
+    expect(getDefaultValue(schema)).toEqual(result)
   })
 
   it.each(object)("object: %s", (name, { schema, result }) => {
-    expect(getTemplate(schema)).toEqual(result)
+    expect(getDefaultValue(schema)).toEqual(result)
   })
 
   it.each(array)("array: %s", (name, { schema, result }) => {
-    expect(getTemplate(schema)).toEqual(result)
+    expect(getDefaultValue(schema)).toEqual(result)
   })
 })
 
-describe("extractSubschema()", () => {})
+describe("extractSubschema()", () => {
+  it("should omit required blacklisted field", () => {
+    const schema = {
+      type: "object",
+      required: ["a", "b"],
+      properties: { a: { type: "string" }, b: { type: "string" } },
+    }
+    const result = {
+      type: "object",
+      required: ["a"],
+      properties: { a: { type: "string" } },
+    }
+    expect(extractSubschema(["/a"], schema)).toEqual(result)
+  })
+})

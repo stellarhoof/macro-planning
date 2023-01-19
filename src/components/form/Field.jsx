@@ -14,12 +14,12 @@ import {
 } from "@chakra-ui/react"
 import { MdAdd, MdRemove, MdDragIndicator } from "react-icons/md"
 
-export const FieldControl = observer(
-  forwardRef(({ field, ...props }, ref) => {
-    if (_.isFunction(field.schema.effect)) {
+export const SchemaFieldControl = observer(
+  forwardRef(({ schema, ...props }, ref) => {
+    if (_.isFunction(schema.field.effect)) {
       useEffect(() => {
         const disposers = []
-        field.schema.effect(field, {
+        schema.field.effect(schema, {
           when: (...args) => disposers.push(when(...args)),
           autorun: (...args) => disposers.push(autorun(...args)),
           reaction: (...args) => disposers.push(reaction(...args)),
@@ -30,27 +30,27 @@ export const FieldControl = observer(
     return (
       <FormControl
         ref={ref}
-        hidden={field.hidden}
-        isRequired={field.required}
-        isDisabled={field.disabled}
-        isReadOnly={field.readonly}
-        isInvalid={field.validationMessage}
+        hidden={schema.field.hidden}
+        isRequired={schema.field.required}
+        isDisabled={schema.field.disabled}
+        isReadOnly={schema.field.readonly}
+        isInvalid={schema.field.validationMessage}
         {...props}
       />
     )
   })
 )
 
-export const FieldLabel = ({ field, children, ...props }) =>
-  field.schema.title && <FormLabel {...props}>{field.schema.title}</FormLabel>
+export const SchemaTitle = ({ schema, children, ...props }) =>
+  schema.title && <FormLabel {...props}>{schema.title}</FormLabel>
 
-export const FieldDescription = ({ field, ...props }) =>
-  field.schema.description && (
-    <FormHelperText {...props}>{field.schema.description}</FormHelperText>
+export const SchemaDescription = ({ schema, ...props }) =>
+  schema.description && (
+    <FormHelperText {...props}>{schema.description}</FormHelperText>
   )
 
-export const FieldErrors = observer(({ field }) =>
-  field.validationMessage?.split("\n").map((message) => (
+export const SchemaFieldErrors = observer(({ schema }) =>
+  schema.field.validationMessage?.split("\n").map((message) => (
     <FormErrorMessage key={message}>
       <FormErrorIcon />
       {_.upperFirst(message)}
@@ -58,63 +58,65 @@ export const FieldErrors = observer(({ field }) =>
   ))
 )
 
-export const FieldsGrid = observer(
-  forwardRef(({ field, ...props }, ref) => (
+export const SchemaFieldsGrid = observer(
+  forwardRef(({ schema, ...props }, ref) => (
     <Grid ref={ref} {...props}>
       {_.map(
-        (field) => (
-          <field.schema.control.component
-            key={field.id}
-            field={field}
-            onChange={field.reportValidity}
-            {...field.schema.control.props}
+        (schema) => (
+          <schema.field.control.component
+            key={schema.field.id}
+            schema={schema}
+            // onChange={schema.field.reportValidity}
+            {...schema.field.control.props}
           />
         ),
-        field.fields
+        schema.properties || schema.field?.items
       )}
     </Grid>
   ))
 )
 
-export const AddField = observer(
-  ({ field, ...props }) =>
-    !field.disabled &&
-    field.addField &&
-    field.canAddField && (
+export const AddSchemaItem = observer(
+  ({ schema, ...props }) =>
+    !schema.field.disabled &&
+    schema.field.addItem &&
+    schema.field.canAddItem && (
       <IconButton
         size="xs"
-        aria-label="Add Field"
+        aria-label="Add Item"
         icon={<Icon as={MdAdd} boxSize="1.2em" />}
-        onClick={() => field.addField()}
+        onClick={() => schema.field.addItem()}
         {...props}
       />
     )
 )
 
-export const RemoveField = observer(
-  ({ field, ...props }) =>
-    !field.disabled &&
-    field.parent?.removeField &&
-    field.parent?.canRemoveField && (
+export const RemoveSchemaItem = observer(
+  ({ schema, ...props }) =>
+    !schema.field.disabled &&
+    schema.field.parentSchema?.field?.removeItem &&
+    schema.field.parentSchema?.field?.canRemoveItem && (
       <IconButton
         size="xs"
-        aria-label="Remove Field"
+        aria-label="Remove Item"
         icon={<Icon as={MdRemove} boxSize="1.2em" />}
-        onClick={() => field.parent.removeField(field.name)}
+        onClick={() =>
+          schema.field.parentSchema.field.removeItem(schema.field.name)
+        }
         {...props}
       />
     )
 )
 
-export const MoveField = observer(
-  ({ field, ...props }) =>
-    !field.disabled &&
-    field.parent?.moveField && (
+export const MoveSchemaItem = observer(
+  ({ schema, ...props }) =>
+    !schema.field.disabled &&
+    schema.field.parentSchema?.field?.addItem &&
+    schema.field.parentSchema?.field?.removeItem && (
       <IconButton
         size="xs"
-        aria-label="Move Field"
+        aria-label="Move Item"
         icon={<Icon as={MdDragIndicator} boxSize="1.2em" />}
-        onClick={() => field.parent.moveField(field.name, field.name)}
         cursor="grab"
         {...props}
       />

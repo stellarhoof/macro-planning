@@ -1,10 +1,15 @@
-import _ from "lodash/fp"
+import _ from "lodash/fp.js"
 import React from "react"
 import { observer } from "mobx-react-lite"
 import { chakra, Grid, Heading, Box, Checkbox } from "@chakra-ui/react"
-import { createMobxForm } from "./util/json-schema-form.js"
+import { createMobxFormSchema as createMobxFormSchema } from "./util/json-schema-form.js"
 import { Form } from "./components/form/Form.jsx"
-import { getFormData, getFormFields } from "./json-schema-form/createForm.js"
+import {
+  getFlatSchemaValue,
+  getFlatSchema,
+} from "./json-schema-form/createFormSchema.js"
+
+const mut = _.convert({ immutable: false })
 
 const schema = {
   type: "object",
@@ -28,14 +33,13 @@ const schema = {
           },
           job: {
             type: "string",
-            field: { disabled: true },
             enum: ["Analyst", "Courier", "Singer", "Mercenary"],
+            readOnly: true,
           },
           age: { type: "number", minimum: 10 },
           isMarried: {
             type: "boolean",
             description: "Did you in fact get married?",
-            layout: false,
           },
         },
       },
@@ -78,9 +82,9 @@ const value = {
 
 // const value = "foo"
 
-const flags = ["required", "readonly", "disabled", "hidden"]
+const flags = ["readonly", "required", "disabled", "hidden"]
 
-const Flags = ({ form }) => (
+const Flags = ({ schema }) => (
   <Grid
     sx={{
       gap: 2,
@@ -91,43 +95,40 @@ const Flags = ({ form }) => (
     }}
   >
     <span />
+    {flags.map((path) => (
+      <b key={path}>{path}</b>
+    ))}
     {_.map(
-      (x) => (
-        <b key={x}>{x}</b>
-      ),
-      flags
-    )}
-    {_.map(
-      (field) => (
-        <React.Fragment key={field.id}>
-          <chakra.b sx={{ justifySelf: "start" }}>{field.path}</chakra.b>
-          {_.map(
-            (x) => (
-              <Checkbox
-                key={x}
-                defaultChecked={field[x]}
-                onChange={(e) => (field[x] = e.target.checked)}
-              />
-            ),
-            flags
-          )}
+      (schema) => (
+        <React.Fragment key={schema.field.id}>
+          <chakra.b sx={{ justifySelf: "start" }}>{schema.field.path}</chakra.b>
+          {flags.map((path) => (
+            <Checkbox
+              key={path}
+              defaultChecked={schema.field[path]}
+              onChange={(e) => (schema.field[path] = e.target.checked)}
+            />
+          ))}
         </React.Fragment>
       ),
-      getFormFields(form)
+      getFlatSchema(schema)
     )}
   </Grid>
 )
 
-const Value = observer(({ form }) => (
+const Value = observer(({ schema }) => (
   <Grid sx={{ gridTemplateColumns: "1fr 1fr" }}>
     <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
       <Heading>Value</Heading>
-      {JSON.stringify(getFormData(form), null, 2)}
+      {JSON.stringify(getFlatSchemaValue(schema), null, 2)}
     </Box>
     <Box sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
       <Heading>Errors</Heading>
       {JSON.stringify(
-        _.mapValues("validationMessage", getFormFields(form)),
+        _.mapValues(
+          (schema) => schema.field.validationMessage,
+          getFlatSchema(schema)
+        ),
         null,
         2
       )}
@@ -135,23 +136,23 @@ const Value = observer(({ form }) => (
   </Grid>
 ))
 
-const submit = {
-  delayed: () => new Promise((resolve) => setTimeout(resolve, 1000)),
+const submits = {
+  delayed: () => new Promise((resolve) => setTimeout(resolve, 500)),
   error: () =>
     new Promise((resolve, reject) =>
-      setTimeout(() => reject("Your form Shucks!"), 1000)
+      setTimeout(() => reject("Your form Shucks!"), 500)
     ),
 }
 
 export const TestForm = () => {
-  const form = createMobxForm(schema, value, submit.error)
+  const formSchema = createMobxFormSchema(schema, value)
   return (
     <Grid
       sx={{ gap: 8, p: 8, w: "100%", gridTemplateColumns: "auto auto 1fr" }}
     >
-      <Flags form={form} />
-      <Form form={form} sx={{ w: "30vw" }} />
-      <Value form={form} />
+      <Flags schema={formSchema} />
+      <Form schema={formSchema} submit={submits.error} sx={{ w: "30vw" }} />
+      <Value schema={formSchema} />
     </Grid>
   )
 }

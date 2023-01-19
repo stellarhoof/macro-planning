@@ -1,4 +1,4 @@
-import _ from "lodash/fp"
+import _ from "lodash/fp.js"
 import { types } from "mobx-state-tree"
 
 const Food = types.model({
