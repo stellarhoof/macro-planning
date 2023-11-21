@@ -1,11 +1,13 @@
-import _ from "lodash/fp"
+import _ from "lodash/fp.js"
 import { action, observable } from "mobx"
 import { Flex, Icon, Input } from "@chakra-ui/react"
 import {
   TiArrowUnsorted,
   TiArrowSortedDown,
   TiArrowSortedUp,
+  // eslint-disable-next-line import/extensions
 } from "react-icons/ti"
+// eslint-disable-next-line import/extensions
 import { FaCaretDown, FaCaretRight } from "react-icons/fa"
 
 const sortingIcons = {

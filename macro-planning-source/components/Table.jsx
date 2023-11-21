@@ -1,7 +1,8 @@
-import _ from "lodash/fp"
+import _ from "lodash/fp.js"
 import { useState, Fragment } from "react"
-import { useReactTable, flexRender } from "@tanstack/react-table"
 import {
+  useReactTable,
+  flexRender,
   getCoreRowModel,
   getSortedRowModel,
   getFilteredRowModel,

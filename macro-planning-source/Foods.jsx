@@ -1,4 +1,4 @@
-import _ from "lodash/fp"
+import _ from "lodash/fp.js"
 import { action } from "mobx"
 import { useRef, useState } from "react"
 import {
@@ -19,12 +19,13 @@ import {
   UnorderedList,
   ListItem,
 } from "@chakra-ui/react"
+// eslint-disable-next-line import/extensions
 import { MdEdit, MdAddCircle, MdRemoveCircle } from "react-icons/md"
 import { formatGrams } from "./util/format.js"
 import { useReaction } from "./util/mobx.js"
 import { useTable, Table } from "./components/Table.jsx"
 import { ModalButton } from "./components/ModalButton.jsx"
-import { AlertDialogButton } from "./components/AlertDialogButton"
+import { AlertDialogButton } from "./components/AlertDialogButton.jsx"
 import { filteringColumn, sortingColumn } from "./columns.jsx"
 
 /*
@@ -156,29 +157,6 @@ const RemoveFood = ({ store, row }) => (
 )
 
 const makeColumns = (store) => [
-  _.merge(sortingColumn(), {
-    accessorKey: "brand",
-    props: { td: { whiteSpace: "nowrap" } },
-  }),
-  _.merge(filteringColumn(), {
-    accessorKey: "name",
-    props: { td: { w: "100%", whiteSpace: "nowrap" } },
-  }),
-  _.merge(sortingColumn(), {
-    accessorKey: "carbs",
-    display: formatGrams,
-    isNumeric: true,
-  }),
-  _.merge(sortingColumn(), {
-    accessorKey: "proteins",
-    display: formatGrams,
-    isNumeric: true,
-  }),
-  _.merge(sortingColumn(), {
-    accessorKey: "fats",
-    display: formatGrams,
-    isNumeric: true,
-  }),
   {
     id: "control",
     header: (
@@ -203,13 +181,35 @@ const makeColumns = (store) => [
           variant="ghost"
           icon={<Icon as={MdEdit} boxSize="1.2em" />}
           form={{ defaultValues: store.foods[props.row.index] }}
-          {...props}
         />
-        <RemoveFood store={store} {...props} />
+        <RemoveFood store={store} row={props.row} />
       </Flex>
     ),
     props: { th: { py: 0 }, td: { py: 0 } },
   },
+  _.merge(sortingColumn(), {
+    accessorKey: "brand",
+    props: { td: { whiteSpace: "nowrap" } },
+  }),
+  _.merge(filteringColumn(), {
+    accessorKey: "name",
+    props: { td: { w: "100%", whiteSpace: "nowrap" } },
+  }),
+  _.merge(sortingColumn(), {
+    accessorKey: "carbs",
+    display: formatGrams,
+    isNumeric: true,
+  }),
+  _.merge(sortingColumn(), {
+    accessorKey: "proteins",
+    display: formatGrams,
+    isNumeric: true,
+  }),
+  _.merge(sortingColumn(), {
+    accessorKey: "fats",
+    display: formatGrams,
+    isNumeric: true,
+  }),
 ]
 
 export const Foods = ({ store, ...props }) => {

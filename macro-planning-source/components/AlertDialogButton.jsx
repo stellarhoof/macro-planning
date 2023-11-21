@@ -1,14 +1,14 @@
 import { useRef, forwardRef } from "react"
 import {
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
   Button,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  useDisclosure,
   useMergeRefs,
 } from "@chakra-ui/react"
 
-export const ModalButton = forwardRef(
+export const AlertDialogButton = forwardRef(
   (
     {
       label,
@@ -20,9 +20,9 @@ export const ModalButton = forwardRef(
       onClose = (onClose) => onClose(),
       ...props
     },
-    ref
+    ref,
   ) => {
-    const initialRef = useRef()
+    const leastDestructiveRef = useRef()
     const finalRef = useRef()
     const { isOpen, ...disclosure } = useDisclosure({ defaultIsOpen })
     const open = () => onOpen(disclosure.onOpen)
@@ -32,17 +32,20 @@ export const ModalButton = forwardRef(
         <As ref={useMergeRefs(ref, finalRef)} onClick={open} {...props}>
           {label}
         </As>
-        <Modal
+        <AlertDialog
           isOpen={isOpen}
           onClose={close}
-          initialFocusRef={initialRef}
           finalFocusRef={finalRef}
+          onEsc={close}
+          leastDestructiveRef={leastDestructiveRef}
           {...modalProps}
         >
-          <ModalOverlay />
-          <ModalContent>{isOpen && children(close, initialRef)}</ModalContent>
-        </Modal>
+          <AlertDialogOverlay />
+          <AlertDialogContent>
+            {isOpen && children(close, leastDestructiveRef)}
+          </AlertDialogContent>
+        </AlertDialog>
       </>
     )
-  }
+  },
 )

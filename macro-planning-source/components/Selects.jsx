@@ -1,4 +1,4 @@
-import _ from "lodash/fp"
+import _ from "lodash/fp.js"
 import F from "futil"
 import React from "react"
 import stringify from "safe-stable-stringify"
@@ -18,7 +18,7 @@ export const OptionsCheckboxes = ({ options, ...props }) => (
           {x.label}
         </Checkbox>
       ),
-      F.autoLabelOptions(options)
+      F.autoLabelOptions(options),
     )}
   </CheckboxGroup>
 )
@@ -31,7 +31,7 @@ export const OptionsRadio = ({ options, ...props }) => (
           {x.label}
         </Radio>
       ),
-      F.autoLabelOptions(options)
+      F.autoLabelOptions(options),
     )}
   </RadioGroup>
 )
@@ -39,7 +39,7 @@ export const OptionsRadio = ({ options, ...props }) => (
 export const ObjectOptionsRadio = ({ value, onChange, options, ...props }) => {
   const cached = React.useMemo(
     () => _.map(_.update("value", stringify), options),
-    [_.size(options)]
+    [_.size(options)],
   )
   return (
     <OptionsRadio
@@ -60,17 +60,17 @@ export const OptionsSelect = React.forwardRef(
             {x.label}
           </option>
         ),
-        F.autoLabelOptions(options)
+        F.autoLabelOptions(options),
       )}
     </Select>
-  )
+  ),
 )
 
 export const ObjectOptionsSelect = React.forwardRef(
   ({ value, onChange, options, ...props }, ref) => {
     const cached = React.useMemo(
       () => _.map(_.update("value", stringify), options),
-      [_.size(options)]
+      [_.size(options)],
     )
     return (
       <OptionsSelect
@@ -81,5 +81,5 @@ export const ObjectOptionsSelect = React.forwardRef(
         {...props}
       />
     )
-  }
+  },
 )

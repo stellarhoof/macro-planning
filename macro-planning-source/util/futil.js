@@ -21,7 +21,7 @@ export const walk =
       pre(tree, index, parents, parentIndexes) ||
       F.findIndexed(
         walk(next)(fns, [tree, ...parents], [index, ...parentIndexes]),
-        next(tree, index, parents, parentIndexes) || []
+        next(tree, index, parents, parentIndexes) || [],
       ) ||
       post(tree, index, parents, parentIndexes)
   }
@@ -50,7 +50,7 @@ const deleteProperty =
 export const filterTree = (
   next = F.traverse,
   writeNode = writeProperty(next),
-  deleteNode = deleteProperty(next)
+  deleteNode = deleteProperty(next),
 ) =>
   _.curry((filter, tree) =>
     transformTree(next)((node, ...args) => {
@@ -61,7 +61,7 @@ export const filterTree = (
         writeNode(node, ...args)
       }
       if (!filter(node, ...args)) deleteNode(node, ...args)
-    })(tree)
+    })(tree),
   )
 
 export const buildPath = (n, i, p, pi) =>
@@ -84,11 +84,11 @@ export const flattenObjectNotArrays = (value) =>
           return acc
         },
         {},
-        value
+        value,
       )
 
 export const removeBlanks = filterTree()(F.isNotBlank)
 
 export const removeBlankLeaves = filterTree()(
-  (x) => _.isArray(x) || _.isPlainObject(x) || F.isNotBlank(x)
+  (x) => _.isArray(x) || _.isPlainObject(x) || F.isNotBlank(x),
 )

@@ -12,7 +12,7 @@ export const localStorage = (key, fallback = {}) => ({
   set(value) {
     window.localStorage.setItem(
       key,
-      JSON.stringify(value === undefined ? fallback : value)
+      JSON.stringify(value === undefined ? fallback : value),
     )
   },
 })
