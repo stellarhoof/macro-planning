@@ -1,0 +1,13 @@
+// Good reference for project references in a monorepo setting
+// https://moonrepo.dev/docs/guides/javascript/typescript-project-refs
+{
+  // Do not doubly build files (they're already being built via references).
+  "files": [],
+  "references": [
+    { "path": "./packages/lib/tsconfig.json" },
+    { "path": "./packages/ui/tsconfig.json" },
+    { "path": "./packages/mobx-keystone/tsconfig.json" },
+    { "path": "./packages/convex/tsconfig.json" },
+    { "path": "./packages/vike-prisma/tsconfig.json" }
+  ]
+}

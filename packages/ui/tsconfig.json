@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.shared.json",
+
+  // https://github.com/microsoft/TypeScript/issues/29172#issuecomment-450966221
+  "include": ["src"],
+
+  "compilerOptions": {
+    "rootDir": "src",
+    "lib": ["esnext", "dom", "dom.iterable"],
+
+    // Project references
+
+    // Do not emit compiled files but keep declarations as this project is
+    // referenced by other projects.
+    "emitDeclarationOnly": true,
+    // Output declarations to this directory instead of co-locating output with
+    // source.
+    "declarationDir": "./dist",
+    // Do not pollute this project's top-level.
+    "tsBuildInfoFile": "../../node_modules/.buildinfo/ui"
+  }
+}
