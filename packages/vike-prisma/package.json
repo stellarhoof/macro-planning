@@ -14,15 +14,15 @@
     "schema": "./src/prisma/schema.prisma"
   },
   "dependencies": {
-    "@prisma/client": "^5.10.2",
+    "@prisma/client": "^5.11.0",
     "koa": "^2.15.0",
     "koa-bodyparser": "^4.4.1",
     "koa-compress": "^5.1.1",
     "koa-connect": "^2.1.0",
     "koa-router": "^12.0.1",
     "koa-static": "^5.0.0",
-    "lucide-react": "^0.352.0",
-    "prisma": "^5.10.2",
+    "lucide-react": "^0.356.0",
+    "prisma": "^5.11.0",
     "ramda": "^0.29.1",
     "react": "^18.2.0",
     "react-aria-components": "^1.1.1",
@@ -50,6 +50,6 @@
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^1.1.1",
     "tsx": "^4.7.1",
-    "vite": "^5.1.5"
+    "vite": "^5.1.6"
   }
 }

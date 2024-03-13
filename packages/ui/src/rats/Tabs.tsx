@@ -2,12 +2,12 @@ import {
   composeRenderProps,
   Tab as RACTab,
   TabList as RACTabList,
-  TabListProps,
+  type TabListProps,
   TabPanel as RACTabPanel,
-  TabPanelProps,
-  TabProps,
+  type TabPanelProps,
+  type TabProps,
   Tabs as RACTabs,
-  TabsProps as RACTabsProps,
+  type TabsProps as RACTabsProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

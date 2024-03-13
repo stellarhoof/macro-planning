@@ -1,7 +1,7 @@
 import {
   Slider as AriaSlider,
   SliderOutput,
-  SliderProps as AriaSliderProps,
+  type SliderProps as AriaSliderProps,
   SliderThumb,
   SliderTrack,
 } from "react-aria-components"

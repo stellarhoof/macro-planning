@@ -5,10 +5,10 @@ import {
   Header,
   ListBox as AriaListBox,
   ListBoxItem as AriaListBoxItem,
-  ListBoxItemProps,
-  ListBoxProps as AriaListBoxProps,
+  type ListBoxItemProps,
+  type ListBoxProps as AriaListBoxProps,
   Section,
-  SectionProps,
+  type SectionProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

@@ -3,13 +3,13 @@ import { observer } from "mobx-react-lite"
 import { useState } from "react"
 import {
   Heading,
-  Key,
+  type Key,
   MenuTrigger,
-  SortDescriptor,
+  type SortDescriptor,
 } from "react-aria-components"
 
 import { formatGrams } from "#lib/util.js"
-import { CellContext, Column, DataTable } from "#ui/DataTable.jsx"
+import { type CellContext, type Column, DataTable } from "#ui/DataTable.jsx"
 import { AlertDialog } from "#ui/rats/AlertDialog.jsx"
 import { Button } from "#ui/rats/Button.jsx"
 import { Dialog } from "#ui/rats/Dialog.jsx"

@@ -3,18 +3,18 @@ import {
   composeRenderProps,
   Menu as AriaMenu,
   MenuItem as AriaMenuItem,
-  MenuItemProps,
-  MenuProps as AriaMenuProps,
+  type MenuItemProps,
+  type MenuProps as AriaMenuProps,
   Separator,
-  SeparatorProps,
+  type SeparatorProps,
 } from "react-aria-components"
 
 import {
   dropdownItemStyles,
   DropdownSection,
-  DropdownSectionProps,
+  type DropdownSectionProps,
 } from "./ListBox.jsx"
-import { Popover, PopoverProps } from "./Popover.jsx"
+import { Popover, type PopoverProps } from "./Popover.jsx"
 
 interface MenuProps<T> extends AriaMenuProps<T> {
   placement?: PopoverProps["placement"]

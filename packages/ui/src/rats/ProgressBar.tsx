@@ -1,6 +1,6 @@
 import {
   ProgressBar as AriaProgressBar,
-  ProgressBarProps as AriaProgressBarProps,
+  type ProgressBarProps as AriaProgressBarProps,
 } from "react-aria-components"
 
 import { Label } from "./Field.jsx"

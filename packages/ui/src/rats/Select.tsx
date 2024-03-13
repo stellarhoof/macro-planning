@@ -2,11 +2,11 @@ import { ChevronDown } from "lucide-react"
 import {
   Button,
   ListBox,
-  ListBoxItemProps,
+  type ListBoxItemProps,
   Select as AriaSelect,
-  SelectProps as AriaSelectProps,
+  type SelectProps as AriaSelectProps,
   SelectValue,
-  ValidationResult,
+  type ValidationResult,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
@@ -14,7 +14,7 @@ import { Description, FieldError, Label } from "./Field.jsx"
 import {
   DropdownItem,
   DropdownSection,
-  DropdownSectionProps,
+  type DropdownSectionProps,
 } from "./ListBox.jsx"
 import { Popover } from "./Popover.jsx"
 import { composeTailwindRenderProps, focusRing } from "./utils.js"

@@ -1,6 +1,6 @@
 import {
   Switch as AriaSwitch,
-  SwitchProps as AriaSwitchProps,
+  type SwitchProps as AriaSwitchProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

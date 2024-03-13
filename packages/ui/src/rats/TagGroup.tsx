@@ -5,10 +5,10 @@ import {
   composeRenderProps,
   Tag as AriaTag,
   TagGroup as AriaTagGroup,
-  TagGroupProps as AriaTagGroupProps,
+  type TagGroupProps as AriaTagGroupProps,
   TagList,
-  TagListProps,
-  TagProps as AriaTagProps,
+  type TagListProps,
+  type TagProps as AriaTagProps,
   Text,
 } from "react-aria-components"
 import { twMerge } from "tailwind-merge"

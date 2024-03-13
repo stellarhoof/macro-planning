@@ -1,10 +1,10 @@
 import { ChevronDown, ChevronUp } from "lucide-react"
 import {
   Button,
-  ButtonProps,
+  type ButtonProps,
   NumberField as AriaNumberField,
-  NumberFieldProps as AriaNumberFieldProps,
-  ValidationResult,
+  type NumberFieldProps as AriaNumberFieldProps,
+  type ValidationResult,
 } from "react-aria-components"
 
 import {

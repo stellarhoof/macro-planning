@@ -1,10 +1,10 @@
 import { ChevronRight } from "lucide-react"
 import {
   Breadcrumb as AriaBreadcrumb,
-  BreadcrumbProps,
+  type BreadcrumbProps,
   Breadcrumbs as AriaBreadcrumbs,
-  BreadcrumbsProps,
-  LinkProps,
+  type BreadcrumbsProps,
+  type LinkProps,
 } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 

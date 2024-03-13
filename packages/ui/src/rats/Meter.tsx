@@ -1,7 +1,7 @@
 import { AlertTriangle } from "lucide-react"
 import {
   Meter as AriaMeter,
-  MeterProps as AriaMeterProps,
+  type MeterProps as AriaMeterProps,
 } from "react-aria-components"
 
 import { Label } from "./Field.jsx"

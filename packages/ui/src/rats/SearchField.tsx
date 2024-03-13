@@ -1,8 +1,8 @@
 import { SearchIcon, XIcon } from "lucide-react"
 import {
   SearchField as AriaSearchField,
-  SearchFieldProps as AriaSearchFieldProps,
-  ValidationResult,
+  type SearchFieldProps as AriaSearchFieldProps,
+  type ValidationResult,
 } from "react-aria-components"
 
 import { Button } from "./Button.jsx"

@@ -22,6 +22,7 @@
     "strict": true,
     "strictNullChecks": true,
     "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true,
 
     // For project references to work correctly, the following settings must be
     // enabled, and typically should not be disabled in each project.

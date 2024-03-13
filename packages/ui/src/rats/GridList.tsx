@@ -2,8 +2,8 @@ import {
   Button,
   GridList as AriaGridList,
   GridListItem as AriaGridListItem,
-  GridListItemProps,
-  GridListProps,
+  type GridListItemProps,
+  type GridListProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

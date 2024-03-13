@@ -2,7 +2,7 @@ import {
   composeRenderProps,
   OverlayArrow,
   Popover as AriaPopover,
-  PopoverProps as AriaPopoverProps,
+  type PopoverProps as AriaPopoverProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

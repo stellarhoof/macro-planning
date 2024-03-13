@@ -1,9 +1,9 @@
-import { ReactNode } from "react"
+import { type ReactNode } from "react"
 import {
-  CellProps,
-  ColumnProps,
+  type CellProps,
+  type ColumnProps,
   TableBody,
-  TableProps,
+  type TableProps,
 } from "react-aria-components"
 
 import { Cell, Column, Row, Table, TableHeader } from "./rats/Table.jsx"

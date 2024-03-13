@@ -1,7 +1,7 @@
 import {
   Modal as RACModal,
   ModalOverlay,
-  ModalOverlayProps,
+  type ModalOverlayProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

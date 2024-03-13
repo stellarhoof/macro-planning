@@ -1,4 +1,4 @@
-import { Dialog as RACDialog, DialogProps } from "react-aria-components"
+import { Dialog as RACDialog, type DialogProps } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 
 export function Dialog(props: DialogProps) {

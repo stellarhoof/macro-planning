@@ -14,6 +14,11 @@ Started out with a simple manual sqlite approach but it quickly became obvious t
 
 - Abandoned because SQL/ORMs are a pain to write and maintain
 
+## ./packages/vike-fauna
+
+- HTTP GraphQL endpoint at `http://localhost:8084`
+- HTTP FQL endpoint at `http://localhost:8443`
+
 # Vike
 
 - Vike does not have nested routing so it needs a client-side router
