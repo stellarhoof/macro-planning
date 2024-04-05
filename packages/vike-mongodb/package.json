@@ -1,25 +1,37 @@
 {
-  "name": "convex",
+  "name": "vike-mongodb",
   "private": true,
   "type": "module",
+  "imports": {
+    "#*": "./src/*",
+    "#ui/*": "../ui/src/*"
+  },
   "scripts": {
-    "dev": "vite --open",
-    "server": "convex dev",
-    "seed": "convex import --append ./convex/seed-snapshot.zip"
+    "dev": "node --import tsx/esm ./src/server/index.ts"
   },
   "dependencies": {
-    "convex": "^1.11.0",
+    "koa": "^2.15.2",
+    "koa-bodyparser": "^4.4.1",
+    "koa-compress": "^5.1.1",
+    "koa-connect": "^2.1.0",
+    "koa-router": "^12.0.1",
+    "koa-static": "^5.0.0",
     "lucide-react": "^0.364.0",
     "ramda": "^0.29.1",
     "react": "^18.2.0",
     "react-aria-components": "^1.1.1",
     "react-dom": "^18.2.0",
-    "react-stately": "^3.30.1"
+    "react-stately": "^3.30.1",
+    "telefunc": "^0.1.71",
+    "vike": "^0.4.168"
   },
   "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa-compress": "^4.0.6",
+    "@types/koa-router": "^7.4.8",
+    "@types/koa-static": "^4.0.4",
     "@types/ramda": "^0.29.12",
-    "@types/react": "^18.2.74",
-    "@types/react-dom": "^18.2.24",
     "@vitejs/plugin-react": "^4.2.1",
     "alias-hq": "^6.2.3",
     "autoprefixer": "^10.4.19",
@@ -31,6 +43,7 @@
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^1.1.1",
+    "tsx": "^4.7.2",
     "vite": "^5.2.8"
   }
 }

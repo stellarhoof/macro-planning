@@ -5,6 +5,7 @@
     "moduleResolution": "nodenext",
     "types": ["vite/client"],
     "jsx": "react-jsx",
+
     "allowJs": false,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
