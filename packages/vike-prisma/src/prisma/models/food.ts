@@ -1,10 +1,8 @@
 import type { Food, Meal, Plan, Recipe, User } from "@prisma/client"
 
-import { prisma } from "../client.js"
+import { getNumberInRange } from "#lib/util.js"
 
-function getNumberInRange(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min) + min)
-}
+import { prisma } from "../client.js"
 
 export async function seedUsers(
   users: Omit<User, "id" | "createdAt" | "updatedAt">[],

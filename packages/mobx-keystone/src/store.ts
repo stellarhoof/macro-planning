@@ -8,7 +8,6 @@ import {
   prop,
   rootRef,
 } from "mobx-keystone"
-import * as R from "ramda"
 
 export type Macro = "carbs" | "proteins" | "fats"
 
@@ -61,23 +60,23 @@ export class Recipe extends Model({
 }) {
   @computed
   get carbs() {
-    return R.sum(R.map((x) => x.carbs, this.foodAmounts))
+    return this.foodAmounts.reduce((sum, x) => sum + x.carbs, 0)
   }
   @computed
   get proteins() {
-    return R.sum(R.map((x) => x.proteins, this.foodAmounts))
+    return this.foodAmounts.reduce((sum, x) => sum + x.proteins, 0)
   }
   @computed
   get fats() {
-    return R.sum(R.map((x) => x.fats, this.foodAmounts))
+    return this.foodAmounts.reduce((sum, x) => sum + x.fats, 0)
   }
   @computed
   get calories() {
-    return R.sum(R.map((x) => x.calories, this.foodAmounts))
+    return this.foodAmounts.reduce((sum, x) => sum + x.calories, 0)
   }
   @computed
   get amount() {
-    return R.sum(R.map((x) => x.amount, this.foodAmounts))
+    return this.foodAmounts.reduce((sum, x) => sum + x.amount, 0)
   }
 }
 
@@ -93,36 +92,36 @@ export class Meal extends Model({
   @computed
   get carbs() {
     return (
-      R.sum(R.map((x) => x.carbs, this.foodAmounts)) +
-      R.sum(R.map((x) => x.current.carbs, this.recipes))
+      this.foodAmounts.reduce((sum, x) => sum + x.carbs, 0) +
+      this.recipes.reduce((sum, x) => sum + x.current.carbs, 0)
     )
   }
   @computed
   get proteins() {
     return (
-      R.sum(R.map((x) => x.proteins, this.foodAmounts)) +
-      R.sum(R.map((x) => x.current.proteins, this.recipes))
+      this.foodAmounts.reduce((sum, x) => sum + x.proteins, 0) +
+      this.recipes.reduce((sum, x) => sum + x.current.proteins, 0)
     )
   }
   @computed
   get fats() {
     return (
-      R.sum(R.map((x) => x.fats, this.foodAmounts)) +
-      R.sum(R.map((x) => x.current.fats, this.recipes))
+      this.foodAmounts.reduce((sum, x) => sum + x.fats, 0) +
+      this.recipes.reduce((sum, x) => sum + x.current.fats, 0)
     )
   }
   @computed
   get calories() {
     return (
-      R.sum(R.map((x) => x.calories, this.foodAmounts)) +
-      R.sum(R.map((x) => x.current.calories, this.recipes))
+      this.foodAmounts.reduce((sum, x) => sum + x.calories, 0) +
+      this.recipes.reduce((sum, x) => sum + x.current.calories, 0)
     )
   }
   @computed
   get amount() {
     return (
-      R.sum(R.map((x) => x.amount, this.foodAmounts)) +
-      R.sum(R.map((x) => x.current.amount, this.recipes))
+      this.foodAmounts.reduce((sum, x) => sum + x.amount, 0) +
+      this.recipes.reduce((sum, x) => sum + x.current.amount, 0)
     )
   }
 }
@@ -143,15 +142,13 @@ export class AppStore extends Model({
 }) {
   getMealsWithFood(food: Food) {
     // TODO: Check recipes for food as well.
-    return R.filter(
-      (meal) => R.any((x) => food.id === x.food.current.id, meal.foodAmounts),
-      this.meals,
+    return this.meals.filter(
+      (meal) => !!meal.foodAmounts.find((x) => food.id === x.food.current.id),
     )
   }
   getMealsWithRecipe(recipe: Recipe) {
-    return R.filter(
-      (meal) => R.any((x) => recipe.id === x.current.id, meal.recipes),
-      this.meals,
+    return this.meals.filter(
+      (meal) => !!meal.recipes.find((x) => recipe.id === x.current.id),
     )
   }
 }

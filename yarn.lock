@@ -4370,13 +4370,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-onboarding@npm:8.0.8":
-  version: 8.0.8
-  resolution: "@storybook/addon-onboarding@npm:8.0.8"
-  checksum: 10c0/42e7fb6f129ec2ff543fc13ccdf7ed2f762a950281f532c49de6b86c9d9b088740a1fb9aad8fa3fcd8372c83a1ca31f8e7f005a5d8a2e9d946d5d42c5664df9b
-  languageName: node
-  linkType: hard
-
 "@storybook/addon-outline@npm:8.0.8":
   version: 8.0.8
   resolution: "@storybook/addon-outline@npm:8.0.8"
@@ -5490,15 +5483,6 @@ __metadata:
   version: 6.9.12
   resolution: "@types/qs@npm:6.9.12"
   checksum: 10c0/21a74f2b78d0839cee37f1a632f3361352f7dceac9edffd117227a695a13e58e18c138aac1f29403f2408221e678f538ca0b37d55012f8bba96d55905edbfe82
-  languageName: node
-  linkType: hard
-
-"@types/ramda@npm:^0.29.12":
-  version: 0.29.12
-  resolution: "@types/ramda@npm:0.29.12"
-  dependencies:
-    types-ramda: "npm:^0.29.10"
-  checksum: 10c0/38746faf9f5b633382c09fa19be146f37628b05964ac02b40cd458f8e3a62794e23efe48a20956ad83848a6cdb848229ee45452629cbf96659ee8536b2f01b9f
   languageName: node
   linkType: hard
 
@@ -6793,9 +6777,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "convex@workspace:packages/convex"
   dependencies:
-    "@types/ramda": "npm:^0.29.12"
-    "@types/react": "npm:^18.2.79"
-    "@types/react-dom": "npm:^18.2.25"
     "@vitejs/plugin-react": "npm:^4.2.1"
     alias-hq: "npm:^6.2.3"
     autoprefixer: "npm:^10.4.19"
@@ -6804,7 +6785,6 @@ __metadata:
     convex: "npm:^1.11.2"
     lucide-react: "npm:^0.372.0"
     postcss: "npm:^8.4.38"
-    ramda: "npm:^0.29.1"
     react: "npm:^18.2.0"
     react-aria-components: "npm:^1.1.1"
     react-dom: "npm:^18.2.0"
@@ -9837,6 +9817,8 @@ __metadata:
   dependencies:
     "@biomejs/biome": "npm:^1.7.0"
     "@types/node": "npm:^20.12.7"
+    "@types/react": "npm:^18.2.79"
+    "@types/react-dom": "npm:^18.2.25"
     typescript: "npm:~5.4.5"
   languageName: unknown
   linkType: soft
@@ -10237,9 +10219,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "mobx-keystone@workspace:packages/mobx-keystone"
   dependencies:
-    "@types/ramda": "npm:^0.29.12"
-    "@types/react": "npm:^18.2.79"
-    "@types/react-dom": "npm:^18.2.25"
     "@vitejs/plugin-react": "npm:^4.2.1"
     alias-hq: "npm:^6.2.3"
     autoprefixer: "npm:^10.4.19"
@@ -10250,7 +10229,6 @@ __metadata:
     mobx-keystone: "npm:^1.10.1"
     mobx-react-lite: "npm:^4.0.7"
     postcss: "npm:^8.4.38"
-    ramda: "npm:^0.29.1"
     react: "npm:^18.2.0"
     react-aria-components: "npm:^1.1.1"
     react-dom: "npm:^18.2.0"
@@ -11237,13 +11215,6 @@ __metadata:
   version: 0.29.0
   resolution: "ramda@npm:0.29.0"
   checksum: 10c0/b00eaaf1c62b06a99affa1d583e256bd65ad27ab9d0ef512f55d7d93b842e7cd244a4a09179f61fdd8548362e409323867a2b0477cbd0626b5644eb6ac7c53da
-  languageName: node
-  linkType: hard
-
-"ramda@npm:^0.29.1":
-  version: 0.29.1
-  resolution: "ramda@npm:0.29.1"
-  checksum: 10c0/5de53a07400959c1a704c366ec52b1b8cd9a444dc1f9cdf17d607e0b9eeaa38cbaea309d43e59dbd7f36731ba977a64d40092555c0e7c2d4a41e8e922239c0ba
   languageName: node
   linkType: hard
 
@@ -12995,15 +12966,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"types-ramda@npm:^0.29.10":
-  version: 0.29.10
-  resolution: "types-ramda@npm:0.29.10"
-  dependencies:
-    ts-toolbelt: "npm:^9.6.0"
-  checksum: 10c0/cc6439341a60a4f2b49e1ac447c8a0279f161464fd0a204abaa57e90e101772c0b1adc185a7c0715c3836c19594a9ec268c1e5c4394d0e409cb71d141def3963
-  languageName: node
-  linkType: hard
-
 "typescript@npm:~5.4.5":
   version: 5.4.5
   resolution: "typescript@npm:5.4.5"
@@ -13048,16 +13010,12 @@ __metadata:
     "@storybook/addon-essentials": "npm:8.0.8"
     "@storybook/addon-interactions": "npm:8.0.8"
     "@storybook/addon-links": "npm:8.0.8"
-    "@storybook/addon-onboarding": "npm:8.0.8"
     "@storybook/blocks": "npm:8.0.8"
     "@storybook/react": "npm:8.0.8"
     "@storybook/react-vite": "npm:8.0.8"
     "@storybook/test": "npm:8.0.8"
-    "@types/react": "npm:^18.2.79"
-    "@types/react-dom": "npm:^18.2.25"
     autoprefixer: "npm:^10.4.19"
     postcss: "npm:^8.4.38"
-    react-dom: "npm:^18.2.0"
     storybook: "npm:8.0.8"
     tailwind-merge: "npm:^2.3.0"
     tailwind-variants: "npm:^0.2.1"
@@ -13069,6 +13027,7 @@ __metadata:
     lucide-react: ^0.352.0
     react: ^18.2.0
     react-aria-components: ^1.1.1
+    react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
 
@@ -13321,7 +13280,6 @@ __metadata:
     "@types/koa-compress": "npm:^4.0.6"
     "@types/koa-router": "npm:^7.4.8"
     "@types/koa-static": "npm:^4.0.4"
-    "@types/ramda": "npm:^0.29.12"
     "@vitejs/plugin-react": "npm:^4.2.1"
     alias-hq: "npm:^6.2.3"
     autoprefixer: "npm:^10.4.19"
@@ -13336,7 +13294,6 @@ __metadata:
     koa-static: "npm:^5.0.0"
     lucide-react: "npm:^0.372.0"
     postcss: "npm:^8.4.38"
-    ramda: "npm:^0.29.1"
     react: "npm:^18.2.0"
     react-aria-components: "npm:^1.1.1"
     react-dom: "npm:^18.2.0"
@@ -13363,7 +13320,6 @@ __metadata:
     "@types/koa-compress": "npm:^4.0.6"
     "@types/koa-router": "npm:^7.4.8"
     "@types/koa-static": "npm:^4.0.4"
-    "@types/ramda": "npm:^0.29.12"
     "@vitejs/plugin-react": "npm:^4.2.1"
     alias-hq: "npm:^6.2.3"
     autoprefixer: "npm:^10.4.19"
@@ -13378,7 +13334,6 @@ __metadata:
     lucide-react: "npm:^0.372.0"
     postcss: "npm:^8.4.38"
     prisma: "npm:^5.12.1"
-    ramda: "npm:^0.29.1"
     react: "npm:^18.2.0"
     react-aria-components: "npm:^1.1.1"
     react-dom: "npm:^18.2.0"

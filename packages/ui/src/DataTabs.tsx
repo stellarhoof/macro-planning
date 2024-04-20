@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo } from "react"
+import type { ReactNode } from "react"
 
 import type { TabsProps } from "./rats/Tabs.js"
 import { Tab, TabList, TabPanel, Tabs } from "./rats/Tabs.js"
@@ -10,21 +10,11 @@ export type DataTab = {
   content?: () => ReactNode
 }
 
-export type DataTabsProps = TabsProps & {
-  tabs?: DataTab[]
-  defaultSelectedKey?: string
-  createTabs?: () => DataTab[]
+interface DataTabsProps extends TabsProps {
+  tabs: DataTab[]
 }
 
-export function DataTabs({
-  tabs: incomingTabs,
-  createTabs,
-  ...props
-}: DataTabsProps) {
-  const tabs = useMemo(
-    () => incomingTabs ?? createTabs?.() ?? [],
-    [incomingTabs, createTabs],
-  )
+export function DataTabs({ tabs, ...props }: DataTabsProps) {
   return (
     <Tabs {...props}>
       <TabList>
