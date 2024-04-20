@@ -1,7 +1,7 @@
 import {
   Slider as AriaSlider,
-  SliderOutput,
   type SliderProps as AriaSliderProps,
+  SliderOutput,
   SliderThumb,
   SliderTrack,
 } from "react-aria-components"
@@ -67,6 +67,7 @@ export function Slider<T extends number | number[]>({
             <div className={trackStyles(renderProps)} />
             {state.values.map((_, i) => (
               <SliderThumb
+                // biome-ignore lint/suspicious/noArrayIndexKey:
                 key={i}
                 index={i}
                 aria-label={thumbLabels?.[i]}

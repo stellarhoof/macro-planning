@@ -9,7 +9,7 @@ import {
 } from "react-aria-components"
 
 import { formatGrams } from "#lib/util.js"
-import { type CellContext, type Column, DataTable } from "#ui/DataTable.jsx"
+import { DataTable, type TCellContext, type TColumns } from "#ui/DataTable.jsx"
 import { AlertDialog } from "#ui/rats/AlertDialog.jsx"
 import { Button } from "#ui/rats/Button.jsx"
 import { Dialog } from "#ui/rats/Dialog.jsx"
@@ -17,63 +17,39 @@ import { Menu, MenuItem } from "#ui/rats/Menu.jsx"
 import { Modal } from "#ui/rats/Modal.jsx"
 import { TextField } from "#ui/rats/TextField.jsx"
 
-import type { AppStore, Food } from "./store.js"
+import type { AppStore, TFood } from "./store.js"
 
-type Props = { store: AppStore }
+type TRow = TFood & { actions?: undefined }
 
-export const Foods = observer(({ store }: Props) => {
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: "name",
-    direction: "ascending",
-  })
+const EditFood = (_props: TCellContext<undefined, TRow>) => {
   return (
-    <DataTable
-      aria-label="Foods"
-      selectionMode="single"
-      sortDescriptor={sortDescriptor}
-      onSortChange={setSortDescriptor}
-      columns={columns}
-      rows={[...store.foods]}
-    />
+    <Dialog>
+      {({ close }) => (
+        <form>
+          <Heading slot="title">Sign up</Heading>
+          <TextField autoFocus label="First Name" />
+          <TextField label="Last Name" />
+          <Button onPress={close}>Submit</Button>
+        </form>
+      )}
+    </Dialog>
   )
-})
+}
 
-const columns: Column<Food>[] = [
-  {
-    id: "brand",
-    label: "Brand",
-    props: { column: { allowsSorting: true } },
-  },
-  {
-    id: "name",
-    label: "Name",
-    props: { column: { isRowHeader: true, allowsSorting: true } },
-  },
-  {
-    id: "carbs",
-    label: "Carbs",
-    cell: (ctx) => formatGrams(ctx.value),
-    props: { column: { allowsSorting: true } },
-  },
-  {
-    id: "proteins",
-    label: "Proteins",
-    cell: (ctx) => formatGrams(ctx.value),
-    props: { column: { allowsSorting: true } },
-  },
-  {
-    id: "fats",
-    label: "Fats",
-    cell: (ctx) => formatGrams(ctx.value),
-    props: { column: { allowsSorting: true } },
-  },
-  {
-    id: "actions",
-    cell: (ctx) => <Actions {...ctx} />,
-  },
-]
+const RemoveFood = (_props: TCellContext<undefined, TRow>) => {
+  return (
+    <AlertDialog
+      title="Delete Folder"
+      actionLabel="Delete"
+      variant="destructive"
+    >
+      Are you sure you want to delete Documents? All contents will be
+      permanently destroyed.
+    </AlertDialog>
+  )
+}
 
-const Actions = (props: CellContext<Food>) => {
+const Actions = (props: TCellContext<undefined, TRow>) => {
   const [dialog, setDialog] = useState<Key>("")
   const Component = { EditFood, RemoveFood }[dialog]
   return (
@@ -102,30 +78,52 @@ const Actions = (props: CellContext<Food>) => {
   )
 }
 
-const EditFood = (_props: CellContext<Food>) => {
-  return (
-    <Dialog>
-      {({ close }) => (
-        <form>
-          <Heading slot="title">Sign up</Heading>
-          <TextField autoFocus label="First Name" />
-          <TextField label="Last Name" />
-          <Button onPress={close}>Submit</Button>
-        </form>
-      )}
-    </Dialog>
-  )
+const columns: TColumns<TRow> = {
+  brand: {
+    label: "Brand",
+    props: { column: { allowsSorting: true } },
+  },
+  name: {
+    label: "Name",
+    props: { column: { isRowHeader: true, allowsSorting: true } },
+  },
+  carbs: {
+    label: "Carbs",
+    cell: (ctx) => formatGrams(ctx.value),
+    props: { column: { allowsSorting: true } },
+  },
+  proteins: {
+    label: "Proteins",
+    cell: (ctx) => formatGrams(ctx.value),
+    props: { column: { allowsSorting: true } },
+  },
+  fats: {
+    label: "Fats",
+    cell: (ctx) => formatGrams(ctx.value),
+    props: { column: { allowsSorting: true } },
+  },
+  actions: {
+    cell: (ctx) => <Actions {...ctx} />,
+  },
 }
 
-const RemoveFood = (_props: CellContext<Food>) => {
-  return (
-    <AlertDialog
-      title="Delete Folder"
-      actionLabel="Delete"
-      variant="destructive"
-    >
-      Are you sure you want to delete Documents? All contents will be
-      permanently destroyed.
-    </AlertDialog>
-  )
+interface Props {
+  store: AppStore
 }
+
+export const Foods = observer(({ store }: Props) => {
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
+    column: "name",
+    direction: "ascending",
+  })
+  return (
+    <DataTable
+      aria-label="Foods"
+      selectionMode="single"
+      sortDescriptor={sortDescriptor}
+      onSortChange={setSortDescriptor}
+      columns={columns}
+      rows={[...store.foods]}
+    />
+  )
+})

@@ -1,6 +1,12 @@
 import * as R from "ramda"
 
-import { genId, getNumberInRange } from "#lib/util.js"
+import { getNumberInRange } from "#lib/util.js"
+
+function genId() {
+  const array = new Uint32Array(1)
+  window.crypto.getRandomValues(array)
+  return array[0]?.toString()
+}
 
 export const foods = R.map(
   (data) => ({
@@ -519,7 +525,7 @@ export function createRandomFoodAmounts(size: number) {
   return R.map(
     () => ({
       food: {
-        id: foods[getNumberInRange(0, foods.length)]!.id,
+        id: foods[getNumberInRange(0, foods.length)]?.id,
         $modelType: "foodRef",
       },
       amount: getNumberInRange(50, 150),

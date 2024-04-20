@@ -1,7 +1,7 @@
 import {
-  composeRenderProps,
   Link as AriaLink,
   type LinkProps as AriaLinkProps,
+  composeRenderProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

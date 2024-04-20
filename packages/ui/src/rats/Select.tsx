@@ -1,10 +1,10 @@
 import { ChevronDown } from "lucide-react"
 import {
+  Select as AriaSelect,
+  type SelectProps as AriaSelectProps,
   Button,
   ListBox,
   type ListBoxItemProps,
-  Select as AriaSelect,
-  type SelectProps as AriaSelectProps,
   SelectValue,
   type ValidationResult,
 } from "react-aria-components"

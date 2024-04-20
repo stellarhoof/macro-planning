@@ -1,14 +1,14 @@
 import { Check } from "lucide-react"
 import {
-  Collection,
-  composeRenderProps,
-  Header,
   ListBox as AriaListBox,
   ListBoxItem as AriaListBoxItem,
-  type ListBoxItemProps,
   type ListBoxProps as AriaListBoxProps,
+  Collection,
+  Header,
+  type ListBoxItemProps,
   Section,
   type SectionProps,
+  composeRenderProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

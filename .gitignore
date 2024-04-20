@@ -37,3 +37,6 @@ tsconfig.tsbuildinfo
 
 # Other
 repl.*
+
+.envrc
+.nvim.lua

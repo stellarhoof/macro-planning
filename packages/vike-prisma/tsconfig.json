@@ -9,13 +9,12 @@
     { "path": "../ui/tsconfig.json" }
   ],
 
-
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable"],
     "paths": {
       "#lib/*": ["../lib/src/*"],
       "#ui/*": ["../ui/src/*"],
-      "#src/*": ["./src/*"],
+      "#src/*": ["./src/*"]
     },
 
     // Do not produce compiled output, only typecheck.

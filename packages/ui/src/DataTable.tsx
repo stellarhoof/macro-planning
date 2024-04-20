@@ -1,4 +1,4 @@
-import { type ReactNode } from "react"
+import type { ReactNode } from "react"
 import {
   type CellProps,
   type ColumnProps,
@@ -8,37 +8,45 @@ import {
 
 import { Cell, Column, Row, Table, TableHeader } from "./rats/Table.jsx"
 
-export type ColumnContext<T extends { [k: string]: any } = object> = {
-  column: Column<T>
+type Key = PropertyKey
+
+type UnknownRec = Record<Key, unknown>
+
+export interface TColumnContext<TVal, TRow extends UnknownRec> {
+  column: TColumn<TVal, TRow>
 }
 
-export type CellContext<T extends { [k: string]: any } = object> = {
-  value: any
-  row: T
-  column: Column<T>
+export interface TCellContext<TVal, TRow extends UnknownRec> {
+  row: TRow
+  value: TVal
+  column: TColumn<TVal, TRow>
 }
 
-export type Column<T extends { [k: string]: any } = object> = {
-  id: string
+export interface TColumn<TVal, TRow extends UnknownRec> {
   label?: string
   props?: { column?: ColumnProps; cell?: CellProps }
-  column?: (context: ColumnContext<T>) => ReactNode
-  cell?: (context: CellContext<T>) => ReactNode
+  column?: (context: TColumnContext<TVal, TRow>) => ReactNode
+  cell?: (context: TCellContext<TVal, TRow>) => ReactNode
 }
 
-type Props<T extends { [k: string]: any } = object> = TableProps & {
-  columns: Column<T>[]
-  rows: T[]
+export type TColumns<TRow extends UnknownRec> = {
+  [K in keyof TRow]?: TColumn<TRow[K], TRow>
 }
 
-export function DataTable<T extends { [k: string]: any } = object>({
+interface Props<TRow extends UnknownRec> extends TableProps {
+  columns: TColumns<TRow>
+  rows: TRow[]
+}
+
+export function DataTable<TRow extends Record<string, unknown>>({
   rows,
   columns,
   ...props
-}: Props<T>) {
+}: Props<TRow>) {
+  const cols = Object.entries(columns).map(([id, col]) => ({ id, ...col }))
   return (
     <Table {...props}>
-      <TableHeader columns={columns}>
+      <TableHeader columns={cols}>
         {(column) => (
           <Column {...column.props?.column}>
             {column.column?.({ column }) ?? column.label}
@@ -47,12 +55,12 @@ export function DataTable<T extends { [k: string]: any } = object>({
       </TableHeader>
       <TableBody items={rows}>
         {(row) => (
-          <Row columns={columns}>
+          <Row columns={cols}>
             {(column) => {
               const value = row[column.id]
               return (
                 <Cell {...column.props?.cell}>
-                  {column.cell?.({ value, row, column }) ?? value}
+                  {column.cell?.({ value, row, column }) ?? value?.toString()}
                 </Cell>
               )
             }}

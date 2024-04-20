@@ -1,11 +1,11 @@
-import { type Food } from "@prisma/client"
+import type { Food } from "@prisma/client"
 import { FilePenLine, MoreHorizontal, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { Heading, type Key, MenuTrigger } from "react-aria-components"
 import { useAsyncList } from "react-stately"
 
 import { formatGrams } from "#lib/util.js"
-import { type CellContext, type Column, DataTable } from "#ui/DataTable.jsx"
+import { DataTable, type TCellContext, type TColumns } from "#ui/DataTable.jsx"
 import { AlertDialog } from "#ui/rats/AlertDialog.jsx"
 import { Button } from "#ui/rats/Button.jsx"
 import { Dialog } from "#ui/rats/Dialog.jsx"
@@ -15,7 +15,9 @@ import { TextField } from "#ui/rats/TextField.jsx"
 
 import { onLoad } from "./Page.telefunc.js"
 
-function EditFood(_props: CellContext<Food>) {
+type TRow = Food & { actions?: undefined }
+
+function EditFood(_props: TCellContext<undefined, TRow>) {
   return (
     <Dialog>
       {({ close }) => (
@@ -30,7 +32,7 @@ function EditFood(_props: CellContext<Food>) {
   )
 }
 
-function RemoveFood(_props: CellContext<Food>) {
+function RemoveFood(_props: TCellContext<undefined, TRow>) {
   return (
     <AlertDialog
       title="Delete Folder"
@@ -43,7 +45,7 @@ function RemoveFood(_props: CellContext<Food>) {
   )
 }
 
-function Actions(props: CellContext<Food>) {
+function Actions(props: TCellContext<undefined, TRow>) {
   const [dialog, setDialog] = useState<Key>("")
   const Component = { EditFood, RemoveFood }[dialog]
   return (
@@ -72,40 +74,34 @@ function Actions(props: CellContext<Food>) {
   )
 }
 
-const columns: Column<Food>[] = [
-  {
-    id: "brand",
+const columns: TColumns<TRow> = {
+  brand: {
     label: "Brand",
     props: { column: { allowsSorting: true } },
   },
-  {
-    id: "name",
+  name: {
     label: "Name",
     props: { column: { isRowHeader: true, allowsSorting: true } },
   },
-  {
-    id: "carbs",
+  carbs: {
     label: "Carbs",
     cell: (ctx) => formatGrams(ctx.value),
     props: { column: { allowsSorting: true } },
   },
-  {
-    id: "proteins",
+  proteins: {
     label: "Proteins",
     cell: (ctx) => formatGrams(ctx.value),
     props: { column: { allowsSorting: true } },
   },
-  {
-    id: "fats",
+  fats: {
     label: "Fats",
     cell: (ctx) => formatGrams(ctx.value),
     props: { column: { allowsSorting: true } },
   },
-  {
-    id: "actions",
+  actions: {
     cell: (ctx) => <Actions {...ctx} />,
   },
-]
+}
 
 // TODO:
 // - Pagination

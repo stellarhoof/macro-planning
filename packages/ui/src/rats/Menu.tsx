@@ -1,18 +1,18 @@
 import { Check } from "lucide-react"
 import {
-  composeRenderProps,
   Menu as AriaMenu,
   MenuItem as AriaMenuItem,
-  type MenuItemProps,
   type MenuProps as AriaMenuProps,
+  type MenuItemProps,
   Separator,
   type SeparatorProps,
+  composeRenderProps,
 } from "react-aria-components"
 
 import {
-  dropdownItemStyles,
   DropdownSection,
   type DropdownSectionProps,
+  dropdownItemStyles,
 } from "./ListBox.jsx"
 import { Popover, type PopoverProps } from "./Popover.jsx"
 

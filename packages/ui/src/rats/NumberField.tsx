@@ -1,19 +1,19 @@
 import { ChevronDown, ChevronUp } from "lucide-react"
 import {
-  Button,
-  type ButtonProps,
   NumberField as AriaNumberField,
   type NumberFieldProps as AriaNumberFieldProps,
+  Button,
+  type ButtonProps,
   type ValidationResult,
 } from "react-aria-components"
 
 import {
   Description,
-  fieldBorderStyles,
   FieldError,
   FieldGroup,
   Input,
   Label,
+  fieldBorderStyles,
 } from "./Field.jsx"
 import { composeTailwindRenderProps } from "./utils.js"
 

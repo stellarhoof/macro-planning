@@ -1,8 +1,8 @@
 import { ChevronRight } from "lucide-react"
 import {
   Breadcrumb as AriaBreadcrumb,
-  type BreadcrumbProps,
   Breadcrumbs as AriaBreadcrumbs,
+  type BreadcrumbProps,
   type BreadcrumbsProps,
   type LinkProps,
 } from "react-aria-components"

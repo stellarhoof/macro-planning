@@ -16,25 +16,27 @@ import development from "./development.json"
 
 try {
   const users = await seedUsers(common.users)
-  const admin = users[0]!
-  const foods = await seedFoods(admin, common.foods)
-  const args = parseArgs({ options: { environment: { type: "string" } } })
+  const admin = users[0]
+  if (admin) {
+    const foods = await seedFoods(admin, common.foods)
+    const args = parseArgs({ options: { environment: { type: "string" } } })
 
-  if (args.values.environment === "development") {
-    // Entities
-    const recipes = await seedRecipes(
-      admin,
-      development.recipes.map((recipe) => ({
-        ...recipe,
-        steps: JSON.stringify(recipe.steps),
-      })),
-    )
-    const meals = await seedMeals(admin, development.meals)
-    await seedPlans(admin, development.plans)
+    if (args.values.environment === "development") {
+      // Entities
+      const recipes = await seedRecipes(
+        admin,
+        development.recipes.map((recipe) => ({
+          ...recipe,
+          steps: JSON.stringify(recipe.steps),
+        })),
+      )
+      const meals = await seedMeals(admin, development.meals)
+      await seedPlans(admin, development.plans)
 
-    // Relationships
-    await seedRecipeFoods(recipes, foods)
-    await seedMealRecipes(meals, recipes)
+      // Relationships
+      await seedRecipeFoods(recipes, foods)
+      await seedMealRecipes(meals, recipes)
+    }
   }
 } catch (e) {
   console.error(e)

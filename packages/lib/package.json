@@ -1,8 +1,5 @@
 {
   "name": "lib",
   "private": true,
-  "type": "module",
-  "dependencies": {
-    "ramda": "^0.29.1"
-  }
+  "type": "module"
 }

@@ -1,8 +1,8 @@
 import {
-  composeRenderProps,
-  OverlayArrow,
   Popover as AriaPopover,
   type PopoverProps as AriaPopoverProps,
+  OverlayArrow,
+  composeRenderProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
@@ -45,6 +45,7 @@ export function Popover({
             viewBox="0 0 12 12"
             className="group-placement-left:-rotate-90 group-placement-right:rotate-90 group-placement-bottom:rotate-180 block fill-white stroke-black/10 stroke-1 dark:fill-[#1f1f21] dark:stroke-zinc-600 forced-colors:fill-[Canvas] forced-colors:stroke-[ButtonBorder]"
           >
+            <title>Popover Arrow</title>
             <path d="M0 0 L6 6 L12 0" />
           </svg>
         </OverlayArrow>

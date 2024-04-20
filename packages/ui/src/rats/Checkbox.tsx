@@ -1,12 +1,12 @@
 import { Check, Minus } from "lucide-react"
-import { type ReactNode } from "react"
+import type { ReactNode } from "react"
 import {
   Checkbox as AriaCheckbox,
   CheckboxGroup as AriaCheckboxGroup,
   type CheckboxGroupProps as AriaCheckboxGroupProps,
   type CheckboxProps,
-  composeRenderProps,
   type ValidationResult,
+  composeRenderProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

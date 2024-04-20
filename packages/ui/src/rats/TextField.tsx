@@ -7,10 +7,10 @@ import { tv } from "tailwind-variants"
 
 import {
   Description,
-  fieldBorderStyles,
   FieldError,
   Input,
   Label,
+  fieldBorderStyles,
 } from "./Field.jsx"
 import { composeTailwindRenderProps, focusRing } from "./utils.js"
 

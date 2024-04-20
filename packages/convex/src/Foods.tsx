@@ -2,12 +2,12 @@ import { useQuery } from "convex/react"
 import { FilePenLine, MoreHorizontal, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { Heading, type Key, MenuTrigger } from "react-aria-components"
-import { type SortDescriptor } from "react-stately"
+import type { SortDescriptor } from "react-stately"
 
 import { api } from "#convex/_generated/api.js"
-import { type Doc } from "#convex/_generated/dataModel.js"
+import type { Doc } from "#convex/_generated/dataModel.js"
 import { formatGrams } from "#lib/util.js"
-import { type CellContext, type Column, DataTable } from "#ui/DataTable.jsx"
+import { DataTable, type TCellContext, type TColumns } from "#ui/DataTable.jsx"
 import { AlertDialog } from "#ui/rats/AlertDialog.jsx"
 import { Button } from "#ui/rats/Button.jsx"
 import { Dialog } from "#ui/rats/Dialog.jsx"
@@ -15,7 +15,9 @@ import { Menu, MenuItem } from "#ui/rats/Menu.jsx"
 import { Modal } from "#ui/rats/Modal.jsx"
 import { TextField } from "#ui/rats/TextField.jsx"
 
-const EditFood = (_props: CellContext<Doc<"food">>) => {
+type TRow = Doc<"food"> & { actions?: undefined }
+
+const EditFood = (_props: TCellContext<undefined, TRow>) => {
   return (
     <Dialog>
       {({ close }) => (
@@ -30,7 +32,7 @@ const EditFood = (_props: CellContext<Doc<"food">>) => {
   )
 }
 
-const RemoveFood = (_props: CellContext<Doc<"food">>) => {
+const RemoveFood = (_props: TCellContext<undefined, TRow>) => {
   return (
     <AlertDialog
       title="Delete Folder"
@@ -43,7 +45,7 @@ const RemoveFood = (_props: CellContext<Doc<"food">>) => {
   )
 }
 
-const Actions = (props: CellContext<Doc<"food">>) => {
+const Actions = (props: TCellContext<undefined, TRow>) => {
   const [dialog, setDialog] = useState<Key>("")
   const Component = { EditFood, RemoveFood }[dialog]
   return (
@@ -72,46 +74,39 @@ const Actions = (props: CellContext<Doc<"food">>) => {
   )
 }
 
-const columns: Column<Doc<"food">>[] = [
-  {
-    id: "name",
+const columns: TColumns<TRow> = {
+  name: {
     label: "Name",
     props: { column: { isRowHeader: true, allowsSorting: true } },
   },
-  {
-    id: "brand",
+  brand: {
     label: "Brand",
     props: { column: { allowsSorting: true } },
   },
-  {
-    id: "fats",
+  fats: {
     label: "Fats",
     cell: (ctx) => formatGrams(ctx.value),
     props: { column: { allowsSorting: true } },
   },
-  {
-    id: "carbs",
+  carbs: {
     label: "Carbs",
     cell: (ctx) => formatGrams(ctx.value),
     props: { column: { allowsSorting: true } },
   },
-  {
-    id: "proteins",
+  proteins: {
     label: "Proteins",
     cell: (ctx) => formatGrams(ctx.value),
     props: { column: { allowsSorting: true } },
   },
-  {
-    id: "calories",
+  calories: {
     label: "Calories",
     cell: (ctx) => ctx.value,
     props: { column: { allowsSorting: true } },
   },
-  {
-    id: "actions",
+  actions: {
     cell: (ctx) => <Actions {...ctx} />,
   },
-]
+}
 
 export const Foods = ({ user }: { user: Doc<"user"> }) => {
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({

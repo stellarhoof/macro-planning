@@ -1,5 +1,13 @@
 import { computed } from "mobx"
-import { idProp, Model, model, prop, Ref, rootRef } from "mobx-keystone"
+import {
+  Model,
+  type ModelData,
+  type Ref,
+  idProp,
+  model,
+  prop,
+  rootRef,
+} from "mobx-keystone"
 import * as R from "ramda"
 
 export type Macro = "carbs" | "proteins" | "fats"
@@ -13,6 +21,8 @@ export class Food extends Model({
   proteins: prop<number>(),
   fats: prop<number>(),
 }) {}
+
+export type TFood = ModelData<Food>
 
 export const foodRef = rootRef<Food>("foodRef")
 

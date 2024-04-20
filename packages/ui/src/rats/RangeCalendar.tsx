@@ -1,10 +1,10 @@
 import {
+  RangeCalendar as AriaRangeCalendar,
+  type RangeCalendarProps as AriaRangeCalendarProps,
   CalendarCell,
   CalendarGrid,
   CalendarGridBody,
   type DateValue,
-  RangeCalendar as AriaRangeCalendar,
-  type RangeCalendarProps as AriaRangeCalendarProps,
   Text,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"

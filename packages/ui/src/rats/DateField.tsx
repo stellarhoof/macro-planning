@@ -9,7 +9,7 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { Description, FieldError, fieldGroupStyles, Label } from "./Field.jsx"
+import { Description, FieldError, Label, fieldGroupStyles } from "./Field.jsx"
 import { composeTailwindRenderProps } from "./utils.js"
 
 export interface DateFieldProps<T extends DateValue>

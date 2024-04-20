@@ -8,7 +8,7 @@ Publish schema with `fauna schema push`
 https://docs.fauna.com/fauna/current/cookbook/advanced/fsl/get_started_fsl
 */
 
-import { Client, endpoints, FaunaError, fql } from "fauna"
+import { Client, FaunaError, endpoints, fql } from "fauna"
 
 // configure your client
 const client = new Client({

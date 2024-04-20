@@ -29,8 +29,12 @@ export function ProgressBar({ label, ...props }: ProgressBarProps) {
           </div>
           <div className="relative h-2 w-64 overflow-hidden rounded-full bg-gray-300 outline outline-1 -outline-offset-1 outline-transparent dark:bg-zinc-700">
             <div
-              className={`absolute top-0 h-full rounded-full bg-blue-600 dark:bg-blue-500 forced-colors:bg-[Highlight] ${isIndeterminate ? "animate-in slide-out-to-right-full repeat-infinite left-full duration-1000 ease-out [--tw-enter-translate-x:calc(-16rem-100%)]" : "left-0"}`}
-              style={{ width: (isIndeterminate ? 40 : percentage) + "%" }}
+              className={`absolute top-0 h-full rounded-full bg-blue-600 dark:bg-blue-500 forced-colors:bg-[Highlight] ${
+                isIndeterminate
+                  ? "animate-in slide-out-to-right-full repeat-infinite left-full duration-1000 ease-out [--tw-enter-translate-x:calc(-16rem-100%)]"
+                  : "left-0"
+              }`}
+              style={{ width: `${isIndeterminate ? 40 : percentage}%` }}
             />
           </div>
         </>
