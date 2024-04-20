@@ -9,7 +9,6 @@
     { "path": "./packages/mobx-keystone/tsconfig.json" },
     { "path": "./packages/convex/tsconfig.json" },
     { "path": "./packages/vike-prisma/tsconfig.json" },
-    { "path": "./packages/vike-fauna/tsconfig.json" },
-    { "path": "./packages/vike-mongodb/tsconfig.json" }
+    { "path": "./packages/vike-fauna/tsconfig.json" }
   ]
 }

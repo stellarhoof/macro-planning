@@ -19,8 +19,6 @@ Started out with a simple manual sqlite approach but it quickly became obvious t
 - HTTP GraphQL endpoint at `http://localhost:8084`
 - HTTP FQL endpoint at `http://localhost:8443`
 
-## ./packages/vike-mongodb
-
 # Vike
 
 - Vike does not have nested routing so it needs a client-side router

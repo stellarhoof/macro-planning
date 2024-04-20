@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite --open",
     "server": "convex dev",
-    "seed": "convex import --append ./convex/seed-snapshot.zip"
+    "seed": "convex import --append ./convex/seed-snapshot.zip",
+    "postinstall": "convex codegen"
   },
   "dependencies": {
     "convex": "^1.11.2",
