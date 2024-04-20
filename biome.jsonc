@@ -28,16 +28,5 @@
     "rules": {
       "recommended": true
     }
-  },
-  "overrides": [
-    {
-      "include": ["./tsconfig.shared.json"],
-      "json": {
-        "parser": {
-          "allowComments": true,
-          "allowTrailingCommas": true
-        }
-      }
-    }
-  ]
+  }
 }

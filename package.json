@@ -3,14 +3,11 @@
   "private": true,
   "type": "module",
   "packageManager": "yarn@4.1.1",
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": ["packages/*"],
   "scripts": {
     "clean": "tsc -b --clean",
     "build": "tsc -b",
-    "format": "biome check --apply",
-    "lint": "biome lint --apply"
+    "check": "biome check --apply"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.7.0",

@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.shared.json",
+  "extends": "../../tsconfig.shared.jsonc",
 
   // https://github.com/microsoft/TypeScript/issues/29172#issuecomment-450966221
   "include": ["src", "types"],
