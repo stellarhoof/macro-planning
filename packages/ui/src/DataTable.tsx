@@ -6,6 +6,7 @@ import {
   type TableProps,
 } from "react-aria-components"
 
+import { startCase } from "#lib/util.js"
 import { Cell, Column, Row, Table, TableHeader } from "./rats/Table.jsx"
 
 type Key = PropertyKey
@@ -23,7 +24,7 @@ export interface TCellContext<TVal, TRow extends UnknownRec> {
 }
 
 export interface TColumn<TVal, TRow extends UnknownRec> {
-  label?: string
+  label?: React.ReactNode
   props?: { column?: ColumnProps; cell?: CellProps }
   column?: (context: TColumnContext<TVal, TRow>) => ReactNode
   cell?: (context: TCellContext<TVal, TRow>) => ReactNode
@@ -43,10 +44,14 @@ export function DataTable<TRow extends Record<string, unknown>>({
   columns,
   ...props
 }: Props<TRow>) {
-  const cols = Object.entries(columns).map(([id, col]) => ({ id, ...col }))
+  const defs = Object.entries(columns).map(([id, col]) => ({
+    id,
+    label: startCase(id),
+    ...col,
+  }))
   return (
     <Table {...props}>
-      <TableHeader columns={cols}>
+      <TableHeader columns={defs}>
         {(column) => (
           <Column {...column.props?.column}>
             {column.column?.({ column }) ?? column.label}
@@ -55,7 +60,7 @@ export function DataTable<TRow extends Record<string, unknown>>({
       </TableHeader>
       <TableBody items={rows}>
         {(row) => (
-          <Row columns={cols}>
+          <Row columns={defs}>
             {(column) => {
               const value = row[column.id]
               return (

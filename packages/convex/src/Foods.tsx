@@ -6,7 +6,7 @@ import type { SortDescriptor } from "react-stately"
 
 import { api } from "#convex/_generated/api.js"
 import type { Doc } from "#convex/_generated/dataModel.js"
-import { formatGrams } from "#lib/util.js"
+import { formatGrams, formatNumber } from "#lib/util.js"
 import { DataTable, type TCellContext, type TColumns } from "#ui/DataTable.jsx"
 import { AlertDialog } from "#ui/rats/AlertDialog.jsx"
 import { Button } from "#ui/rats/Button.jsx"
@@ -76,34 +76,29 @@ const Actions = (props: TCellContext<undefined, TRow>) => {
 
 const columns: TColumns<TRow> = {
   name: {
-    label: "Name",
     props: { column: { isRowHeader: true, allowsSorting: true } },
   },
   brand: {
-    label: "Brand",
     props: { column: { allowsSorting: true } },
   },
   fats: {
-    label: "Fats",
-    cell: (ctx) => formatGrams(ctx.value),
+    cell: ({ value }) => formatGrams(value),
     props: { column: { allowsSorting: true } },
   },
   carbs: {
-    label: "Carbs",
-    cell: (ctx) => formatGrams(ctx.value),
+    cell: ({ value }) => formatGrams(value),
     props: { column: { allowsSorting: true } },
   },
   proteins: {
-    label: "Proteins",
-    cell: (ctx) => formatGrams(ctx.value),
+    cell: ({ value }) => formatGrams(value),
     props: { column: { allowsSorting: true } },
   },
   calories: {
-    label: "Calories",
-    cell: (ctx) => ctx.value,
+    cell: ({ value }) => formatNumber(value),
     props: { column: { allowsSorting: true } },
   },
   actions: {
+    label: false,
     cell: (ctx) => <Actions {...ctx} />,
   },
 }

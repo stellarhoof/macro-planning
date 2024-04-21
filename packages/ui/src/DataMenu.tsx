@@ -1,29 +1,37 @@
-import { type ReactNode, useMemo } from "react"
+import { Iterator } from "iterator-helpers-polyfill"
+import type { ReactNode } from "react"
 
-import { Menu, MenuItem } from "./rats/Menu.jsx"
+import { startCase } from "#lib/util.js"
+import { Menu, MenuItem, type MenuProps } from "./rats/Menu.jsx"
 
 export type DataMenuItem = {
   id: string
   label?: ReactNode
-  onSelect: (value: string | number) => void
+  onSelect: (item: DataMenuItem) => void
 }
 
-export type DataMenuProps = {
-  items?: DataMenuItem[]
-  createItems?: () => DataMenuItem[]
+interface DataMenuProps<T extends DataMenuItem> extends MenuProps<T> {
+  items?: Iterable<T>
 }
 
-export function DataMenu({ items: incomingItems, createItems }: DataMenuProps) {
-  const items = useMemo(
-    () => incomingItems ?? createItems?.() ?? [],
-    [incomingItems, createItems],
-  )
+export function DataMenu<T extends DataMenuItem>({
+  items,
+  ...props
+}: DataMenuProps<T>) {
+  const it = Iterator.from(items ?? []).map((item) => ({
+    label: startCase(item.id),
+    ...item,
+  }))
   return (
     <Menu
-      items={items}
-      onAction={(key) => items.find((item) => item.id === key)?.onSelect(key)}
+      items={it}
+      onAction={(id) => {
+        const item = it.find((x) => x.id === id)
+        if (item) item.onSelect(item)
+      }}
+      {...props}
     >
-      {(item: DataMenuItem) => <MenuItem>{item.id}</MenuItem>}
+      {(item) => <MenuItem>{item.label}</MenuItem>}
     </Menu>
   )
 }

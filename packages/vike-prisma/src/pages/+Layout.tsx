@@ -9,20 +9,10 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <DataTabs
       selectedKey={urlParsed.pathname}
-      tabs={[
-        {
-          value: "/foods",
-          label: "Foods",
-          href: "/foods",
-          content: () => children,
-        },
-        {
-          value: "/help",
-          label: "Help",
-          href: "/help",
-          content: () => children,
-        },
-      ]}
+      tabs={{
+        foods: { href: "/foods", content: () => children },
+        help: { href: "/help", content: () => children },
+      }}
     />
   )
 }

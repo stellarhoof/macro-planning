@@ -79,30 +79,26 @@ const Actions = (props: TCellContext<undefined, TRow>) => {
 }
 
 const columns: TColumns<TRow> = {
-  brand: {
-    label: "Brand",
-    props: { column: { allowsSorting: true } },
-  },
   name: {
-    label: "Name",
     props: { column: { isRowHeader: true, allowsSorting: true } },
   },
-  carbs: {
-    label: "Carbs",
-    cell: (ctx) => formatGrams(ctx.value),
-    props: { column: { allowsSorting: true } },
-  },
-  proteins: {
-    label: "Proteins",
-    cell: (ctx) => formatGrams(ctx.value),
+  brand: {
     props: { column: { allowsSorting: true } },
   },
   fats: {
-    label: "Fats",
-    cell: (ctx) => formatGrams(ctx.value),
+    cell: ({ value }) => formatGrams(value),
+    props: { column: { allowsSorting: true } },
+  },
+  carbs: {
+    cell: ({ value }) => formatGrams(value),
+    props: { column: { allowsSorting: true } },
+  },
+  proteins: {
+    cell: ({ value }) => formatGrams(value),
     props: { column: { allowsSorting: true } },
   },
   actions: {
+    label: false,
     cell: (ctx) => <Actions {...ctx} />,
   },
 }

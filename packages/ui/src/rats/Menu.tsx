@@ -16,7 +16,7 @@ import {
 } from "./ListBox.jsx"
 import { Popover, type PopoverProps } from "./Popover.jsx"
 
-interface MenuProps<T> extends AriaMenuProps<T> {
+export interface MenuProps<T> extends AriaMenuProps<T> {
   placement?: PopoverProps["placement"]
 }
 

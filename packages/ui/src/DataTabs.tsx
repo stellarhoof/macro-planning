@@ -1,31 +1,37 @@
 import type { ReactNode } from "react"
 
+import { startCase } from "#lib/util.js"
+
 import type { TabsProps } from "./rats/Tabs.js"
 import { Tab, TabList, TabPanel, Tabs } from "./rats/Tabs.js"
 
 export type DataTab = {
-  value: string
-  label: ReactNode
   href?: string
+  label?: ReactNode
   content?: () => ReactNode
 }
 
 interface DataTabsProps extends TabsProps {
-  tabs: DataTab[]
+  tabs: Record<string, DataTab>
 }
 
 export function DataTabs({ tabs, ...props }: DataTabsProps) {
+  const defs = Object.entries(tabs).map(([id, col]) => ({
+    id,
+    label: startCase(id),
+    ...col,
+  }))
   return (
     <Tabs {...props}>
       <TabList>
-        {tabs.map((tab) => (
-          <Tab key={tab.value} id={tab.value} href={tab.href}>
+        {defs.map((tab) => (
+          <Tab key={tab.id} id={tab.id} href={tab.href}>
             {tab.label}
           </Tab>
         ))}
       </TabList>
-      {tabs.map((tab) => (
-        <TabPanel key={tab.value} id={tab.value}>
+      {defs.map((tab) => (
+        <TabPanel key={tab.id} id={tab.id}>
           {tab.content?.()}
         </TabPanel>
       ))}

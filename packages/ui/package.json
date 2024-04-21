@@ -30,5 +30,8 @@
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^1.1.1",
     "vite": "^5.2.10"
+  },
+  "dependencies": {
+    "iterator-helpers-polyfill": "^3.0.1"
   }
 }

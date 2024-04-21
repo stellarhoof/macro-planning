@@ -9312,6 +9312,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"iterator-helpers-polyfill@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "iterator-helpers-polyfill@npm:3.0.1"
+  checksum: 10c0/f24071a9d464dc0e0a71790dfc842c8b9035433db8a490f7b59554a85c36072378faa478baa78a2a013be5821ced500c6a2e31fe09ead3fd1f63c4071b8356e6
+  languageName: node
+  linkType: hard
+
 "jackspeak@npm:^2.3.5":
   version: 2.3.6
   resolution: "jackspeak@npm:2.3.6"
@@ -13015,6 +13022,7 @@ __metadata:
     "@storybook/react-vite": "npm:8.0.8"
     "@storybook/test": "npm:8.0.8"
     autoprefixer: "npm:^10.4.19"
+    iterator-helpers-polyfill: "npm:^3.0.1"
     postcss: "npm:^8.4.38"
     storybook: "npm:8.0.8"
     tailwind-merge: "npm:^2.3.0"
