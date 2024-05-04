@@ -6,6 +6,7 @@ import type { SortDescriptor } from "react-stately"
 
 import { api } from "#convex/_generated/api.js"
 import type { Doc } from "#convex/_generated/dataModel.js"
+import schema from "#convex/schema.js"
 import { formatGrams, formatNumber } from "#lib/util.js"
 import { DataTable, type TCellContext, type TColumns } from "#ui/DataTable.jsx"
 import { AlertDialog } from "#ui/rats/AlertDialog.jsx"
@@ -14,6 +15,16 @@ import { Dialog } from "#ui/rats/Dialog.jsx"
 import { Menu, MenuItem } from "#ui/rats/Menu.jsx"
 import { Modal } from "#ui/rats/Modal.jsx"
 import { TextField } from "#ui/rats/TextField.jsx"
+
+interface Index {
+  fields: string[]
+  indexDescriptor: string
+}
+
+// @ts-expect-error
+const sortableFields = (schema.tables.food.indexes as Index[]).map(
+  (index) => index.fields[0],
+)
 
 type TRow = Doc<"food"> & { actions?: undefined }
 

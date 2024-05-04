@@ -1,14 +1,9 @@
 {
-  "extends": "../../tsconfig.shared.jsonc",
-
-  // https://github.com/microsoft/TypeScript/issues/29172#issuecomment-450966221
-  "include": ["src", "types"],
-
+  "extends": ["../../tsconfig.shared.all.jsonc"],
   "references": [
     { "path": "../lib/tsconfig.json" },
     { "path": "../ui/tsconfig.json" }
   ],
-
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable"],
     "paths": {
@@ -17,11 +12,6 @@
       "#pages/*": ["./src/pages/*"],
       "#prisma/*": ["./src/prisma/*"]
     },
-
-    // Do not produce compiled output, only typecheck.
     "noEmit": true,
-
-    // Project references
-    "tsBuildInfoFile": "../../node_modules/.buildinfo/vike-prisma"
   }
 }

@@ -1,0 +1,132 @@
+// Compiler options for all projects.
+//
+// TODO: Evaluate https://github.com/tsconfig/bases
+{
+  "include": ["${configDir}/src", "${configDir}/types"],
+
+  "compilerOptions": {
+    // -----------------------------------------------------------------
+    // [Type checking](https://www.typescriptlang.org/tsconfig/#Type_Checking_6248)
+    // -----------------------------------------------------------------
+
+    // https://www.typescriptlang.org/tsconfig/#allowUnreachableCode
+    "allowUnreachableCode": false,
+
+    // https://www.typescriptlang.org/tsconfig/#allowUnusedLabels
+    "allowUnusedLabels": false,
+
+    // https://www.typescriptlang.org/tsconfig/#noFallthroughCasesInSwitch
+    "noFallthroughCasesInSwitch": true,
+
+    // Check all code paths in a function to ensure they return a value.
+    // https://www.typescriptlang.org/tsconfig/#noImplicitReturns
+    "noImplicitReturns": true,
+
+    // https://www.typescriptlang.org/tsconfig/#noUncheckedIndexedAccess
+    "noUncheckedIndexedAccess": true,
+
+    // Error on unused local variables.
+    // https://www.typescriptlang.org/tsconfig/#noUnusedLocals
+    "noUnusedLocals": true,
+
+    // Error on unused function parameters.
+    // https://www.typescriptlang.org/tsconfig/#noUnusedParameters
+    "noUnusedParameters": true,
+
+    // Provides stronger guarantees when type checking.
+    // https://www.typescriptlang.org/tsconfig/#strict
+    "strict": true,
+
+    // -----------------------------------------------------------------
+    // [Javascript Support](https://www.typescriptlang.org/tsconfig/#JavaScript_Support_6247)
+    // -----------------------------------------------------------------
+
+    // Allow JavaScript files to be imported inside projects.
+    // https://www.typescriptlang.org/tsconfig/#allowJs
+    "allowJs": false,
+
+    // -----------------------------------------------------------------
+    // [Output Formatting](https://www.typescriptlang.org/tsconfig/#Output_Formatting_6256)
+    // -----------------------------------------------------------------
+
+    // Do not truncate error messages.
+    // https://www.typescriptlang.org/tsconfig/#noErrorTruncation
+    "noErrorTruncation": true,
+
+    // -----------------------------------------------------------------
+    // [Interop Constraints](https://www.typescriptlang.org/tsconfig/#Interop_Constraints_6252)
+    // -----------------------------------------------------------------
+
+    // Warn when code can’t be correctly interpreted by a single-file
+    // transpilation process.
+    // https://www.typescriptlang.org/tsconfig/#isolatedModules
+    "isolatedModules": true,
+
+    // Enfoce qualifying type imports with the `type` keyword.
+    // https://www.typescriptlang.org/tsconfig/#verbatimModuleSyntax
+    "verbatimModuleSyntax": true,
+
+    // -----------------------------------------------------------------
+    // [Language](https://www.typescriptlang.org/tsconfig/#Language_and_Environment_6254)
+    // -----------------------------------------------------------------
+
+    // Enables experimental support for decorators, which is a version of
+    // decorators that predates the TC39 standardization process.
+    // https://www.typescriptlang.org/tsconfig/#experimentalDecorators
+    "experimentalDecorators": true,
+
+    // -----------------------------------------------------------------
+    // [Modules](https://www.typescriptlang.org/tsconfig/#Modules_6244)
+    // -----------------------------------------------------------------
+
+    // Module system the emitted code will use.
+    // https://www.typescriptlang.org/tsconfig/#module
+    // https://www.typescriptlang.org/docs/handbook/modules/reference.html#node16-nodenext
+    "module": "nodenext",
+
+    // How module paths will be resolved.
+    // https://www.typescriptlang.org/tsconfig/#moduleResolution
+    "moduleResolution": "nodenext",
+
+    // Allows importing modules with a .json extension.
+    // https://www.typescriptlang.org/tsconfig/#resolveJsonModule
+    "resolveJsonModule": true,
+
+    // Only packages listed here will be included in the global scope.
+    // https://www.typescriptlang.org/tsconfig/#types
+    "types": ["vite/client"],
+
+    // -----------------------------------------------------------------
+    // [Emitting](https://www.typescriptlang.org/tsconfig/#Emit_6246)
+    // -----------------------------------------------------------------
+
+    // Controls how JSX is transpiled when emitting files.
+    // https://www.typescriptlang.org/tsconfig/#jsx
+    "jsx": "preserve",
+
+    // Do not emit compiler output files like JavaScript source code, source
+    // maps or declarations if any errors were reported.
+    "noEmitOnError": true,
+
+    // -----------------------------------------------------------------
+    // [Projects](https://www.typescriptlang.org/tsconfig/#Projects_6255)
+    // -----------------------------------------------------------------
+
+    // Enables incremental compilation, improving performance.
+    // https://www.typescriptlang.org/tsconfig/#incremental
+    "incremental": true,
+
+    // Do not pollute the project's top-level with incremental compilation
+    // cache files.
+    // https://www.typescriptlang.org/tsconfig/#tsBuildInfoFile
+    "tsBuildInfoFile": "${configDir}/node_modules/buildinfo",
+
+    // -----------------------------------------------------------------
+    // [Completeness](https://www.typescriptlang.org/tsconfig/#Completeness_6257)
+    // -----------------------------------------------------------------
+
+    // Skip type checking libraries declaration files.
+    // https://www.typescriptlang.org/tsconfig/#skipLibCheck
+    "skipLibCheck": true,
+  },
+}

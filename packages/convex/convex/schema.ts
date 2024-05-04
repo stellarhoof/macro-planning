@@ -4,7 +4,7 @@ import { v } from "convex/values"
 export default defineSchema({
   user: defineTable({
     email: v.string(),
-  }).index("email", ["email"]),
+  }).index("by_email", ["email"]),
 
   food: defineTable({
     userId: v.id("user"),
@@ -15,7 +15,14 @@ export default defineSchema({
     proteins: v.number(),
     // Computed
     calories: v.number(),
-  }).index("userId", ["userId"]),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_name", ["name"])
+    .index("by_brand", ["brand"])
+    .index("by_fats", ["fats"])
+    .index("by_carbs", ["carbs"])
+    .index("by_proteins", ["proteins"])
+    .index("by_calories", ["calories"]),
 
   // Recipe <-> food relationship
   recipeFood: defineTable({

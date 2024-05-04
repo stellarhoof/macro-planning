@@ -1,0 +1,28 @@
+// Compiler options for shared libraries.
+{
+  "compilerOptions": {
+    "rootDir": "${configDir}/src",
+
+    // Do not emit compiled files but keep declarations as this project is
+    // referenced by other projects.
+    "emitDeclarationOnly": true,
+
+    // Referenced projects must have this setting.
+    // https://www.typescriptlang.org/docs/handbook/project-references.html#composite
+    "composite": true,
+
+    // Project references rely on the compiled declarations (*.d.ts) for
+    // external projects.
+    // https://www.typescriptlang.org/tsconfig/#declaration
+    "declaration": true,
+
+    // Generate sourcemaps for declarations, so that language server
+    // integrations in editors like "Go to" resolve correctly.
+    // https://www.typescriptlang.org/tsconfig/#declarationMap
+    "declarationMap": true,
+
+    // Output declarations to this directory instead of co-locating output with
+    // source.
+    "declarationDir": "${configDir}/dist",
+  },
+}
