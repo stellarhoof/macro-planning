@@ -2,7 +2,7 @@ import { Iterator } from "iterator-helpers-polyfill"
 import type { ReactNode } from "react"
 
 import { startCase } from "#lib/util.ts"
-import { Menu, MenuItem, type MenuProps } from "./rats/Menu.tsx"
+import { Menu, MenuItem, type MenuProps } from "./rats/collections/Menu.tsx"
 
 export type DataMenuItem = {
   id: string

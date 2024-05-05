@@ -2,8 +2,8 @@ import type { ReactNode } from "react"
 
 import { startCase } from "#lib/util.ts"
 
-import type { TabsProps } from "./rats/Tabs.tsx"
-import { Tab, TabList, TabPanel, Tabs } from "./rats/Tabs.tsx"
+import type { TabsProps } from "./rats/navigation/Tabs.tsx"
+import { Tab, TabList, TabPanel, Tabs } from "./rats/navigation/Tabs.tsx"
 
 export type DataTab = {
   href?: string

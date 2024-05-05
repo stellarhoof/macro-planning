@@ -7,7 +7,13 @@ import {
 } from "react-aria-components"
 
 import { startCase } from "#lib/util.ts"
-import { Cell, Column, Row, Table, TableHeader } from "./rats/Table.tsx"
+import {
+  Cell,
+  Column,
+  Row,
+  Table,
+  TableHeader,
+} from "./rats/collections/Table.tsx"
 
 type Key = PropertyKey
 

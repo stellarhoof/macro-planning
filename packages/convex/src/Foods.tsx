@@ -9,12 +9,12 @@ import type { Doc } from "#convex/_generated/dataModel.ts"
 import schema from "#convex/schema.ts"
 import { formatGrams, formatNumber } from "#lib/util.ts"
 import { DataTable, type TCellContext, type TColumns } from "#ui/DataTable.tsx"
-import { AlertDialog } from "#ui/rats/AlertDialog.tsx"
-import { Button } from "#ui/rats/Button.tsx"
-import { Dialog } from "#ui/rats/Dialog.tsx"
-import { Menu, MenuItem } from "#ui/rats/Menu.tsx"
-import { Modal } from "#ui/rats/Modal.tsx"
-import { TextField } from "#ui/rats/form/TextField.tsx"
+import { Button } from "#ui/rats/buttons/Button.tsx"
+import { Menu, MenuItem } from "#ui/rats/collections/Menu.tsx"
+import { TextField } from "#ui/rats/forms/TextField.tsx"
+import { AlertDialog } from "#ui/rats/overlays/AlertDialog.tsx"
+import { Dialog } from "#ui/rats/overlays/Dialog.tsx"
+import { Modal } from "#ui/rats/overlays/Modal.tsx"
 
 interface Index {
   fields: string[]
