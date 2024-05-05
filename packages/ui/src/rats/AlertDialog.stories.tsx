@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { DialogTrigger } from "react-aria-components"
 
-import { AlertDialog } from "./AlertDialog.jsx"
-import { Button } from "./Button.jsx"
-import { Modal } from "./Modal.jsx"
+import { AlertDialog } from "./AlertDialog.tsx"
+import { Button } from "./Button.tsx"
+import { Modal } from "./Modal.tsx"
 
 export default { component: AlertDialog } satisfies Meta<typeof AlertDialog>
 

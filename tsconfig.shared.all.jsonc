@@ -1,6 +1,4 @@
 // Compiler options for all projects.
-//
-// TODO: Evaluate https://github.com/tsconfig/bases
 {
   "include": ["${configDir}/src", "${configDir}/types"],
 
@@ -79,6 +77,10 @@
     // [Modules](https://www.typescriptlang.org/tsconfig/#Modules_6244)
     // -----------------------------------------------------------------
 
+    // Only allowed when not emitting files.
+    // https://www.typescriptlang.org/tsconfig/#allowImportingTsExtensions
+    "allowImportingTsExtensions": true,
+
     // Module system the emitted code will use.
     // https://www.typescriptlang.org/tsconfig/#module
     // https://www.typescriptlang.org/docs/handbook/modules/reference.html#node16-nodenext
@@ -102,7 +104,7 @@
 
     // Controls how JSX is transpiled when emitting files.
     // https://www.typescriptlang.org/tsconfig/#jsx
-    "jsx": "preserve",
+    "jsx": "react-jsx",
 
     // Do not emit compiler output files like JavaScript source code, source
     // maps or declarations if any errors were reported.

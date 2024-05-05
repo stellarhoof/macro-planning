@@ -1,8 +1,8 @@
-import { DataTabs } from "#ui/DataTabs.jsx"
+import { DataTabs } from "#ui/DataTabs.tsx"
 
-import { Foods } from "./Foods.jsx"
-import { Help } from "./Help.jsx"
-import type { AppStore } from "./store.js"
+import { Foods } from "./Foods.tsx"
+import { Help } from "./Help.tsx"
+import type { AppStore } from "./store.ts"
 
 interface Props {
   store: AppStore

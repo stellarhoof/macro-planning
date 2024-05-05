@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Switch } from "./Switch.jsx"
+import { Switch } from "./Switch.tsx"
 
 export default { component: Switch } satisfies Meta<typeof Switch>
 

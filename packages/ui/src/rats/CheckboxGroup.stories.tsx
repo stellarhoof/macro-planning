@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { Checkbox, CheckboxGroup } from "./Checkbox.jsx"
+import { Button } from "./Button.tsx"
+import { Checkbox, CheckboxGroup } from "./Checkbox.tsx"
 
 export default { component: CheckboxGroup } satisfies Meta<typeof CheckboxGroup>
 

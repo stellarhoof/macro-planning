@@ -9,8 +9,8 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { CalendarGridHeader, CalendarHeader } from "./Calendar.jsx"
-import { focusRing } from "./utils.js"
+import { CalendarGridHeader, CalendarHeader } from "./Calendar.tsx"
+import { focusRing } from "./utils.ts"
 
 export interface RangeCalendarProps<T extends DateValue>
   extends Omit<AriaRangeCalendarProps<T>, "visibleDuration"> {

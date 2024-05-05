@@ -10,14 +10,14 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { Description, FieldError, Label } from "./Field.jsx"
+import { Description, FieldError, Label } from "./Field.tsx"
 import {
   DropdownItem,
   DropdownSection,
   type DropdownSectionProps,
-} from "./ListBox.jsx"
-import { Popover } from "./Popover.jsx"
-import { composeTailwindRenderProps, focusRing } from "./utils.js"
+} from "./ListBox.tsx"
+import { Popover } from "./Popover.tsx"
+import { composeTailwindRenderProps, focusRing } from "./utils.ts"
 
 const styles = tv({
   extend: focusRing,

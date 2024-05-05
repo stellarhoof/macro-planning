@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "./Button.jsx"
+import { Button } from "./Button.tsx"
 
 export default { component: Button } satisfies Meta<typeof Button>
 

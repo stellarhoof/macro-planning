@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { PrinterIcon, SaveIcon } from "lucide-react"
 import { TooltipTrigger } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { Tooltip } from "./Tooltip.jsx"
+import { Button } from "./Button.tsx"
+import { Tooltip } from "./Tooltip.tsx"
 
 export default { component: Tooltip } satisfies Meta<typeof Tooltip>
 

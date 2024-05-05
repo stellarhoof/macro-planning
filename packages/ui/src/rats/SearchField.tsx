@@ -5,9 +5,9 @@ import {
   type ValidationResult,
 } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { Description, FieldError, FieldGroup, Input, Label } from "./Field.jsx"
-import { composeTailwindRenderProps } from "./utils.js"
+import { Button } from "./Button.tsx"
+import { Description, FieldError, FieldGroup, Input, Label } from "./Field.tsx"
+import { composeTailwindRenderProps } from "./utils.ts"
 
 export interface SearchFieldProps extends AriaSearchFieldProps {
   label?: string

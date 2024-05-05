@@ -3,7 +3,7 @@ import { useMemo, useState } from "react"
 import type { SortDescriptor } from "react-aria-components"
 import { TableBody } from "react-aria-components"
 
-import { Cell, Column, Row, Table, TableHeader } from "./Table.jsx"
+import { Cell, Column, Row, Table, TableHeader } from "./Table.tsx"
 
 export default { component: Table } satisfies Meta<typeof Table>
 

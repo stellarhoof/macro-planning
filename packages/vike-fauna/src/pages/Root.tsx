@@ -2,7 +2,7 @@ import type { ReactNode } from "react"
 import { StrictMode } from "react"
 import type { Config, PageContext as VikePageContext } from "vike/types"
 
-import { PageContextProvider } from "./PageContext.js"
+import { PageContextProvider } from "./PageContext.ts"
 
 const PassThrough = ({ children }: { children?: ReactNode }) => <>{children}</>
 

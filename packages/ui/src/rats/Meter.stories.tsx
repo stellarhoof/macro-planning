@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Meter } from "./Meter.jsx"
+import { Meter } from "./Meter.tsx"
 
 export default { component: Meter } satisfies Meta<typeof Meter>
 

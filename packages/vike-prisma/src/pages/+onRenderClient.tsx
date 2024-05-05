@@ -5,7 +5,7 @@ import {
 } from "react-dom/client"
 import type { PageContextClient } from "vike/types"
 
-import { Root } from "./Root.jsx"
+import { Root } from "./Root.tsx"
 
 let root: RootNode
 

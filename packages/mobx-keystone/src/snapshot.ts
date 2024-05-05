@@ -1,4 +1,4 @@
-import { getNumberInRange } from "#lib/util.js"
+import { getNumberInRange } from "#lib/util.ts"
 
 function genId() {
   const array = new Uint32Array(1)

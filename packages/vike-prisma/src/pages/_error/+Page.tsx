@@ -1,4 +1,4 @@
-import { usePageContext } from "#pages/PageContext.js"
+import { usePageContext } from "#pages/PageContext.ts"
 
 export function Page() {
   const context = usePageContext()

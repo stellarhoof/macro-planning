@@ -1,8 +1,8 @@
 import type { Food, Meal, Plan, Recipe, User } from "@prisma/client"
 
-import { getNumberInRange } from "#lib/util.js"
+import { getNumberInRange } from "#lib/util.ts"
 
-import { prisma } from "../client.js"
+import { prisma } from "../client.ts"
 
 export async function seedUsers(
   users: Omit<User, "id" | "createdAt" | "updatedAt">[],

@@ -14,8 +14,8 @@ import {
   Input,
   Label,
   fieldBorderStyles,
-} from "./Field.jsx"
-import { composeTailwindRenderProps } from "./utils.js"
+} from "./Field.tsx"
+import { composeTailwindRenderProps } from "./utils.ts"
 
 export interface NumberFieldProps extends AriaNumberFieldProps {
   label?: string

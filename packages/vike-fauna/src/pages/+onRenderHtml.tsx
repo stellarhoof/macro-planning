@@ -4,7 +4,7 @@ import { renderToString } from "react-dom/server"
 import { dangerouslySkipEscape } from "vike/server"
 import type { PageContextServer } from "vike/types"
 
-import { Root } from "./Root.jsx"
+import { Root } from "./Root.tsx"
 
 const index = await readFile("index.html", { encoding: "utf-8" })
 

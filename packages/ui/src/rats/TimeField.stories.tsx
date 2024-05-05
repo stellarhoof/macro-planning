@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { TimeField } from "./TimeField.jsx"
+import { Button } from "./Button.tsx"
+import { TimeField } from "./TimeField.tsx"
 
 export default { component: TimeField } satisfies Meta<typeof TimeField>
 

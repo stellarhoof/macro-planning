@@ -5,7 +5,7 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { focusRing } from "./utils.js"
+import { focusRing } from "./utils.ts"
 
 const styles = tv({
   extend: focusRing,

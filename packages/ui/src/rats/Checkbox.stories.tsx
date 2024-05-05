@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Checkbox } from "./Checkbox.jsx"
+import { Checkbox } from "./Checkbox.tsx"
 
 export default { component: Checkbox } satisfies Meta<typeof Checkbox>
 

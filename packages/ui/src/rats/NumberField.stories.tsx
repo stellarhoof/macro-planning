@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { NumberField } from "./NumberField.jsx"
+import { Button } from "./Button.tsx"
+import { NumberField } from "./NumberField.tsx"
 
 export default { component: NumberField } satisfies Meta<typeof NumberField>
 

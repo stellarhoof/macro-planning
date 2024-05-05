@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { DateRangePicker } from "./DateRangePicker.jsx"
+import { Button } from "./Button.tsx"
+import { DateRangePicker } from "./DateRangePicker.tsx"
 
 export default { component: DateRangePicker } satisfies Meta<
   typeof DateRangePicker

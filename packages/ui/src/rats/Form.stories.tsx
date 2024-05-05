@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "./Button.jsx"
-import { DateField } from "./DateField.jsx"
-import { Form } from "./Form.jsx"
-import { TextField } from "./TextField.jsx"
+import { Button } from "./Button.tsx"
+import { DateField } from "./DateField.tsx"
+import { Form } from "./Form.tsx"
+import { TextField } from "./TextField.tsx"
 
 export default { component: Form } satisfies Meta<typeof Form>
 

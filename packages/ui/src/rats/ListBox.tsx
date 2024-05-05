@@ -12,7 +12,7 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { composeTailwindRenderProps, focusRing } from "./utils.js"
+import { composeTailwindRenderProps, focusRing } from "./utils.ts"
 
 interface ListBoxProps<T>
   extends Omit<AriaListBoxProps<T>, "layout" | "orientation"> {}

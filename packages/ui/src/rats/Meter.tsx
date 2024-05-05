@@ -4,8 +4,8 @@ import {
   type MeterProps as AriaMeterProps,
 } from "react-aria-components"
 
-import { Label } from "./Field.jsx"
-import { composeTailwindRenderProps } from "./utils.js"
+import { Label } from "./Field.tsx"
+import { composeTailwindRenderProps } from "./utils.ts"
 
 export interface MeterProps extends AriaMeterProps {
   label?: string

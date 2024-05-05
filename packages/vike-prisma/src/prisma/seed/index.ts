@@ -1,6 +1,6 @@
 import { parseArgs } from "node:util"
 
-import { prisma } from "#prisma/client.js"
+import { prisma } from "#prisma/client.ts"
 
 import {
   seedFoods,
@@ -10,7 +10,7 @@ import {
   seedRecipeFoods,
   seedRecipes,
   seedUsers,
-} from "../models/food.js"
+} from "../models/food.ts"
 import common from "./common.json"
 import development from "./development.json"
 

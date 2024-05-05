@@ -4,9 +4,9 @@ import { fromSnapshot } from "mobx-keystone"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 
-import { App } from "./App.jsx"
-import { snapshot } from "./snapshot.js"
-import { AppStore } from "./store.js"
+import { App } from "./App.tsx"
+import { snapshot } from "./snapshot.ts"
+import { AppStore } from "./store.ts"
 
 const store = fromSnapshot(AppStore, snapshot)
 

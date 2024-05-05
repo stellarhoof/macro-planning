@@ -1,8 +1,8 @@
 import type { ReactNode } from "react"
 
-import { DataTabs } from "#ui/DataTabs.jsx"
+import { DataTabs } from "#ui/DataTabs.tsx"
 
-import { usePageContext } from "./PageContext.js"
+import { usePageContext } from "./PageContext.ts"
 
 export function Layout({ children }: { children: ReactNode }) {
   const { urlParsed } = usePageContext()

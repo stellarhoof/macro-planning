@@ -3,8 +3,8 @@ import {
   type ProgressBarProps as AriaProgressBarProps,
 } from "react-aria-components"
 
-import { Label } from "./Field.jsx"
-import { composeTailwindRenderProps } from "./utils.js"
+import { Label } from "./Field.tsx"
+import { composeTailwindRenderProps } from "./utils.ts"
 
 export interface ProgressBarProps extends AriaProgressBarProps {
   label?: string

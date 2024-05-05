@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { ListBox, ListBoxItem } from "./ListBox.jsx"
+import { ListBox, ListBoxItem } from "./ListBox.tsx"
 
 export default { component: ListBox } satisfies Meta<typeof ListBox>
 

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { ComboBox, ComboBoxItem, ComboBoxSection } from "./ComboBox.jsx"
+import { Button } from "./Button.tsx"
+import { ComboBox, ComboBoxItem, ComboBoxSection } from "./ComboBox.tsx"
 
 export default { component: ComboBox } satisfies Meta<typeof ComboBox>
 

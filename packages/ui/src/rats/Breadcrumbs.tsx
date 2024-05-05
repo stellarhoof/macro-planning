@@ -8,7 +8,7 @@ import {
 } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 
-import { Link } from "./Link.jsx"
+import { Link } from "./Link.tsx"
 
 export function Breadcrumbs<T extends object>(props: BreadcrumbsProps<T>) {
   return (

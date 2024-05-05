@@ -4,7 +4,7 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { composeTailwindRenderProps, focusRing } from "./utils.js"
+import { composeTailwindRenderProps, focusRing } from "./utils.ts"
 
 export interface SwitchProps extends Omit<AriaSwitchProps, "children"> {
   children: React.ReactNode

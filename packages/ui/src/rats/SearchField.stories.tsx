@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { SearchField } from "./SearchField.jsx"
+import { Button } from "./Button.tsx"
+import { SearchField } from "./SearchField.tsx"
 
 export default { component: SearchField } satisfies Meta<typeof SearchField>
 

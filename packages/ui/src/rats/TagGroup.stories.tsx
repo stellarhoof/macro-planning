@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Tag, TagGroup } from "./TagGroup.jsx"
+import { Tag, TagGroup } from "./TagGroup.tsx"
 
 export default { component: TagGroup } satisfies Meta<typeof TagGroup>
 

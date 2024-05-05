@@ -13,8 +13,8 @@ import {
   DropdownSection,
   type DropdownSectionProps,
   dropdownItemStyles,
-} from "./ListBox.jsx"
-import { Popover, type PopoverProps } from "./Popover.jsx"
+} from "./ListBox.tsx"
+import { Popover, type PopoverProps } from "./Popover.tsx"
 
 export interface MenuProps<T> extends AriaMenuProps<T> {
   placement?: PopoverProps["placement"]

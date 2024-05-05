@@ -6,8 +6,8 @@ import {
   type TableProps,
 } from "react-aria-components"
 
-import { startCase } from "#lib/util.js"
-import { Cell, Column, Row, Table, TableHeader } from "./rats/Table.jsx"
+import { startCase } from "#lib/util.ts"
+import { Cell, Column, Row, Table, TableHeader } from "./rats/Table.tsx"
 
 type Key = PropertyKey
 

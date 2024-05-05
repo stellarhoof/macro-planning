@@ -14,8 +14,8 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { Button } from "./Button.jsx"
-import { focusRing } from "./utils.js"
+import { Button } from "./Button.tsx"
+import { focusRing } from "./utils.ts"
 
 const cellStyles = tv({
   extend: focusRing,

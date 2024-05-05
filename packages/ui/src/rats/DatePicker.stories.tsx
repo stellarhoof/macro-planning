@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { DatePicker } from "./DatePicker.jsx"
+import { Button } from "./Button.tsx"
+import { DatePicker } from "./DatePicker.tsx"
 
 export default { component: DatePicker } satisfies Meta<typeof DatePicker>
 

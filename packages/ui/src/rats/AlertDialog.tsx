@@ -3,8 +3,8 @@ import type { ReactNode } from "react"
 import { chain } from "react-aria"
 import { type DialogProps, Heading } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { Dialog } from "./Dialog.jsx"
+import { Button } from "./Button.tsx"
+import { Dialog } from "./Dialog.tsx"
 
 interface AlertDialogProps extends Omit<DialogProps, "children"> {
   title: string

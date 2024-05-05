@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { BoldIcon, ItalicIcon, UnderlineIcon } from "lucide-react"
 import { Group } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { Checkbox } from "./Checkbox.jsx"
-import { Separator } from "./Separator.jsx"
-import { ToggleButton } from "./ToggleButton.jsx"
-import { Toolbar } from "./Toolbar.jsx"
+import { Button } from "./Button.tsx"
+import { Checkbox } from "./Checkbox.tsx"
+import { Separator } from "./Separator.tsx"
+import { ToggleButton } from "./ToggleButton.tsx"
+import { Toolbar } from "./Toolbar.tsx"
 
 export default { component: Toolbar } satisfies Meta<typeof Toolbar>
 

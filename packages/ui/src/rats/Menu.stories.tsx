@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { MoreHorizontal } from "lucide-react"
 import { MenuTrigger } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { Menu, MenuItem, MenuSection, MenuSeparator } from "./Menu.jsx"
+import { Button } from "./Button.tsx"
+import { Menu, MenuItem, MenuSection, MenuSeparator } from "./Menu.tsx"
 
 export default { component: Menu } satisfies Meta<typeof Menu>
 

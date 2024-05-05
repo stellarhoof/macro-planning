@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Tab, TabList, TabPanel, Tabs } from "./Tabs.jsx"
+import { Tab, TabList, TabPanel, Tabs } from "./Tabs.tsx"
 
 export default { component: Tabs } satisfies Meta<typeof Tabs>
 

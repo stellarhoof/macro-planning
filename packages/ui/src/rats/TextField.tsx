@@ -11,8 +11,8 @@ import {
   Input,
   Label,
   fieldBorderStyles,
-} from "./Field.jsx"
-import { composeTailwindRenderProps, focusRing } from "./utils.js"
+} from "./Field.tsx"
+import { composeTailwindRenderProps, focusRing } from "./utils.ts"
 
 const inputStyles = tv({
   extend: focusRing,

@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { HelpCircle } from "lucide-react"
 import { DialogTrigger, Heading } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { Dialog } from "./Dialog.jsx"
-import { Popover } from "./Popover.jsx"
+import { Button } from "./Button.tsx"
+import { Dialog } from "./Dialog.tsx"
+import { Popover } from "./Popover.tsx"
 
 export default { component: Popover } satisfies Meta<typeof Popover>
 

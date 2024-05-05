@@ -8,16 +8,16 @@ import {
   type SortDescriptor,
 } from "react-aria-components"
 
-import { formatGrams } from "#lib/util.js"
-import { DataTable, type TCellContext, type TColumns } from "#ui/DataTable.jsx"
-import { AlertDialog } from "#ui/rats/AlertDialog.jsx"
-import { Button } from "#ui/rats/Button.jsx"
-import { Dialog } from "#ui/rats/Dialog.jsx"
-import { Menu, MenuItem } from "#ui/rats/Menu.jsx"
-import { Modal } from "#ui/rats/Modal.jsx"
-import { TextField } from "#ui/rats/TextField.jsx"
+import { formatGrams } from "#lib/util.ts"
+import { DataTable, type TCellContext, type TColumns } from "#ui/DataTable.tsx"
+import { AlertDialog } from "#ui/rats/AlertDialog.tsx"
+import { Button } from "#ui/rats/Button.tsx"
+import { Dialog } from "#ui/rats/Dialog.tsx"
+import { Menu, MenuItem } from "#ui/rats/Menu.tsx"
+import { Modal } from "#ui/rats/Modal.tsx"
+import { TextField } from "#ui/rats/TextField.tsx"
 
-import type { AppStore, TFood } from "./store.js"
+import type { AppStore, TFood } from "./store.ts"
 
 type TRow = TFood & { actions?: undefined }
 

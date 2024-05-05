@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { RangeCalendar } from "./RangeCalendar.jsx"
+import { RangeCalendar } from "./RangeCalendar.tsx"
 
 export default { component: RangeCalendar } satisfies Meta<typeof RangeCalendar>
 

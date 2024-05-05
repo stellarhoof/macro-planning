@@ -14,7 +14,7 @@ import {
 import { twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 
-import { composeTailwindRenderProps, focusRing } from "./utils.js"
+import { composeTailwindRenderProps, focusRing } from "./utils.ts"
 
 export function Label(props: LabelProps) {
   return (

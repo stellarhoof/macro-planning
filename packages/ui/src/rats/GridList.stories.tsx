@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { GridList, GridListItem } from "./GridList.jsx"
+import { GridList, GridListItem } from "./GridList.tsx"
 
 export default { component: GridList } satisfies Meta<typeof GridList>
 

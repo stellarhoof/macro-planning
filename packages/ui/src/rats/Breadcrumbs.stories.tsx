@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Breadcrumb, Breadcrumbs } from "./Breadcrumbs.jsx"
+import { Breadcrumb, Breadcrumbs } from "./Breadcrumbs.tsx"
 
 export default { component: Breadcrumbs } satisfies Meta<typeof Breadcrumbs>
 

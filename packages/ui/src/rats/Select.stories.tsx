@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.jsx"
-import { Select, SelectItem, SelectSection } from "./Select.jsx"
+import { Button } from "./Button.tsx"
+import { Select, SelectItem, SelectSection } from "./Select.tsx"
 
 export default { component: Select } satisfies Meta<typeof Select>
 

@@ -1,10 +1,10 @@
 import { useQuery } from "convex/react"
 
 import { api } from "#convex/_generated/api.js"
-import { DataTabs } from "#ui/DataTabs.jsx"
+import { DataTabs } from "#ui/DataTabs.tsx"
 
-import { Foods } from "./Foods.jsx"
-import { Help } from "./Help.jsx"
+import { Foods } from "./Foods.tsx"
+import { Help } from "./Help.tsx"
 
 function App() {
   const user = useQuery(api.functions.getUser, {
