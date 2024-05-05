@@ -14,7 +14,7 @@ import { Button } from "#ui/rats/Button.tsx"
 import { Dialog } from "#ui/rats/Dialog.tsx"
 import { Menu, MenuItem } from "#ui/rats/Menu.tsx"
 import { Modal } from "#ui/rats/Modal.tsx"
-import { TextField } from "#ui/rats/TextField.tsx"
+import { TextField } from "#ui/rats/form/TextField.tsx"
 
 interface Index {
   fields: string[]

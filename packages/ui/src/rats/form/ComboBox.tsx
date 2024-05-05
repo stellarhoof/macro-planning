@@ -7,15 +7,16 @@ import {
   type ValidationResult,
 } from "react-aria-components"
 
-import { Button } from "./Button.tsx"
-import { Description, FieldError, FieldGroup, Input, Label } from "./Field.tsx"
+import { Button } from "../Button.tsx"
+import { Description, FieldError, FieldGroup, Label } from "../Field.tsx"
 import {
   DropdownItem,
   DropdownSection,
   type DropdownSectionProps,
-} from "./ListBox.tsx"
-import { Popover } from "./Popover.tsx"
-import { composeTailwindRenderProps } from "./utils.ts"
+} from "../ListBox.tsx"
+import { Popover } from "../Popover.tsx"
+import { composeTailwindRenderProps } from "../utils.ts"
+import { Input } from "./Input.tsx"
 
 export interface ComboBoxProps<T extends object>
   extends Omit<AriaComboBoxProps<T>, "children"> {

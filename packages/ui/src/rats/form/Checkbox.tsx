@@ -10,8 +10,8 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { Description, FieldError, Label } from "./Field.tsx"
-import { composeTailwindRenderProps, focusRing } from "./utils.ts"
+import { Description, FieldError, Label } from "../Field.tsx"
+import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 
 export interface CheckboxGroupProps
   extends Omit<AriaCheckboxGroupProps, "children"> {

@@ -7,7 +7,7 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { Checkbox } from "./Checkbox.tsx"
+import { Checkbox } from "./form/Checkbox.tsx"
 import { composeTailwindRenderProps, focusRing } from "./utils.ts"
 
 export function GridList<T extends object>({

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.tsx"
+import { Button } from "../Button.tsx"
 import { Radio, RadioGroup } from "./RadioGroup.tsx"
 
 export default { component: RadioGroup } satisfies Meta<typeof RadioGroup>

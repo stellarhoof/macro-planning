@@ -3,10 +3,10 @@ import { BoldIcon, ItalicIcon, UnderlineIcon } from "lucide-react"
 import { Group } from "react-aria-components"
 
 import { Button } from "./Button.tsx"
-import { Checkbox } from "./Checkbox.tsx"
 import { Separator } from "./Separator.tsx"
 import { ToggleButton } from "./ToggleButton.tsx"
 import { Toolbar } from "./Toolbar.tsx"
+import { Checkbox } from "./form/Checkbox.tsx"
 
 export default { component: Toolbar } satisfies Meta<typeof Toolbar>
 

@@ -1,27 +1,27 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.tsx"
-import { NumberField } from "./NumberField.tsx"
+import { Button } from "../Button.tsx"
+import { SearchField } from "./SearchField.tsx"
 
-export default { component: NumberField } satisfies Meta<typeof NumberField>
+export default { component: SearchField } satisfies Meta<typeof SearchField>
 
-type Story = StoryObj<typeof NumberField>
+type Story = StoryObj<typeof SearchField>
 
 export const Example: Story = {
   args: {
-    label: "Cookies",
+    label: "Search",
   },
 }
 
 export const Validation: Story = {
   args: {
-    label: "Cookies",
+    label: "Search",
     isRequired: true,
   },
   render: (args) => (
     <Form className="flex flex-col items-start gap-2">
-      <NumberField {...args} />
+      <SearchField {...args} />
       <Button type="submit" variant="secondary">
         Submit
       </Button>

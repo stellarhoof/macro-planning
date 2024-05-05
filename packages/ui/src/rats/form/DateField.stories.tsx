@@ -1,29 +1,27 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Form } from "react-aria-components"
 
-import { Button } from "./Button.tsx"
-import { DateRangePicker } from "./DateRangePicker.tsx"
+import { Button } from "../Button.tsx"
+import { DateField } from "./DateField.tsx"
 
-export default { component: DateRangePicker } satisfies Meta<
-  typeof DateRangePicker
->
+export default { component: DateField } satisfies Meta<typeof DateField>
 
-type Story = StoryObj<typeof DateRangePicker>
+type Story = StoryObj<typeof DateField>
 
 export const Example: Story = {
   args: {
-    label: "Trip dates",
+    label: "Event date",
   },
 }
 
 export const Validation: Story = {
   args: {
-    label: "Trip dates",
+    label: "Event date",
     isRequired: true,
   },
   render: (args) => (
     <Form className="flex flex-col items-start gap-2">
-      <DateRangePicker {...args} />
+      <DateField {...args} />
       <Button type="submit" variant="secondary">
         Submit
       </Button>

@@ -11,11 +11,11 @@ import {
   Description,
   FieldError,
   FieldGroup,
-  Input,
   Label,
   fieldBorderStyles,
-} from "./Field.tsx"
-import { composeTailwindRenderProps } from "./utils.ts"
+} from "../Field.tsx"
+import { composeTailwindRenderProps } from "../utils.ts"
+import { Input } from "./Input.tsx"
 
 export interface NumberFieldProps extends AriaNumberFieldProps {
   label?: string

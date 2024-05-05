@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "./Button.tsx"
+import { Button } from "../Button.tsx"
 import { DateField } from "./DateField.tsx"
 import { Form } from "./Form.tsx"
 import { TextField } from "./TextField.tsx"

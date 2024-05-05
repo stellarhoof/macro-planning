@@ -21,7 +21,7 @@ import {
 import { twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 
-import { Checkbox } from "./Checkbox.tsx"
+import { Checkbox } from "./form/Checkbox.tsx"
 import { composeTailwindRenderProps, focusRing } from "./utils.ts"
 
 export function Table(props: TableProps) {
