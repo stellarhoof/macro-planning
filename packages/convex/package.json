@@ -9,8 +9,11 @@
     "postinstall": "convex codegen"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.19.2",
+    "@tanstack/table-core": "^8.19.2",
     "convex": "^1.12.2",
     "lucide-react": "^0.399.0",
+    "radashi": "^12.1.0",
     "react": "^18.3.1",
     "react-aria-components": "^1.2.1",
     "react-dom": "^18.3.1",

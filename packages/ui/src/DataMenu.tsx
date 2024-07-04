@@ -1,7 +1,7 @@
 import { Iterator } from "iterator-helpers-polyfill"
 import type { ReactNode } from "react"
 
-import { startCase } from "#lib/util.ts"
+import * as _ from "radashi"
 import { Menu, MenuItem, type MenuProps } from "./rats/collections/Menu.tsx"
 
 export type DataMenuItem = {
@@ -19,7 +19,7 @@ export function DataMenu<T extends DataMenuItem>({
   ...props
 }: DataMenuProps<T>) {
   const it = Iterator.from(items ?? []).map((item) => ({
-    label: startCase(item.id),
+    label: _.title(item.id),
     ...item,
   }))
   return (

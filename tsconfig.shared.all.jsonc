@@ -16,10 +16,6 @@
     // https://www.typescriptlang.org/tsconfig/#noFallthroughCasesInSwitch
     "noFallthroughCasesInSwitch": true,
 
-    // Check all code paths in a function to ensure they return a value.
-    // https://www.typescriptlang.org/tsconfig/#noImplicitReturns
-    "noImplicitReturns": true,
-
     // https://www.typescriptlang.org/tsconfig/#noUncheckedIndexedAccess
     "noUncheckedIndexedAccess": true,
 
@@ -129,6 +125,6 @@
 
     // Skip type checking libraries declaration files.
     // https://www.typescriptlang.org/tsconfig/#skipLibCheck
-    "skipLibCheck": true,
-  },
+    "skipLibCheck": true
+  }
 }

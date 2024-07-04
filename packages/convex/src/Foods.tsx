@@ -1,13 +1,22 @@
 import { useQuery } from "convex/react"
 import { FilePenLine, MoreHorizontal, Trash2 } from "lucide-react"
+import * as _ from "radashi"
 import { useState } from "react"
 import { Heading, type Key, MenuTrigger } from "react-aria-components"
-import type { SortDescriptor } from "react-stately"
 
+import { useReactTable } from "@tanstack/react-table"
+import {
+  type CellContext,
+  type ColumnHelper,
+  type SortingState,
+  createColumnHelper,
+  getCoreRowModel,
+} from "@tanstack/table-core"
 import { api } from "#convex/_generated/api.js"
 import type { Doc } from "#convex/_generated/dataModel.ts"
-import { formatGrams, formatNumber } from "#lib/util.ts"
-import { DataTable, type TCellContext, type TColumns } from "#ui/DataTable.tsx"
+import { type ExportedTable, tables } from "#convex/tables.ts"
+import { def, formatGrams, formatNumber } from "#lib/util.ts"
+import { DataTable } from "#ui/DataTable.tsx"
 import { Button } from "#ui/rats/buttons/Button.tsx"
 import { Menu, MenuItem } from "#ui/rats/collections/Menu.tsx"
 import { TextField } from "#ui/rats/forms/TextField.tsx"
@@ -15,9 +24,32 @@ import { AlertDialog } from "#ui/rats/overlays/AlertDialog.tsx"
 import { Dialog } from "#ui/rats/overlays/Dialog.tsx"
 import { Modal } from "#ui/rats/overlays/Modal.tsx"
 
-type TRow = Doc<"food"> & { actions?: undefined }
+function createColumnHelperPlus<TData extends Record<PropertyKey, unknown>>(
+  table: ExportedTable,
+): ColumnHelper<TData> {
+  const sortableFields = Object.values(table.indexes).map(
+    (index) => index.fields[0],
+  )
+  const helper = createColumnHelper<TData>()
+  return {
+    accessor(accessor, column) {
+      return helper.accessor(
+        accessor,
+        typeof accessor === "string"
+          ? def(column, "enableSorting", sortableFields.includes(accessor))
+          : column,
+      )
+    },
+    display: helper.display,
+    group: helper.group,
+  }
+}
 
-const EditFood = (_props: TCellContext<undefined, TRow>) => {
+type Food = Doc<"food">
+
+const columnHelper = createColumnHelperPlus<Food>(tables.food)
+
+const EditFood = (_props: CellContext<Food, unknown>) => {
   return (
     <Dialog>
       {({ close }) => (
@@ -32,7 +64,7 @@ const EditFood = (_props: TCellContext<undefined, TRow>) => {
   )
 }
 
-const RemoveFood = (_props: TCellContext<undefined, TRow>) => {
+const RemoveFood = (_props: CellContext<Food, unknown>) => {
   return (
     <AlertDialog
       title="Delete Folder"
@@ -45,7 +77,7 @@ const RemoveFood = (_props: TCellContext<undefined, TRow>) => {
   )
 }
 
-const Actions = (props: TCellContext<undefined, TRow>) => {
+const Actions = (props: CellContext<Food, unknown>) => {
   const [dialog, setDialog] = useState<Key>("")
   const Component = { EditFood, RemoveFood }[dialog]
   return (
@@ -74,49 +106,47 @@ const Actions = (props: TCellContext<undefined, TRow>) => {
   )
 }
 
-const columns: TColumns<TRow> = {
-  name: {
-    props: { column: { isRowHeader: true, allowsSorting: true } },
-  },
-  brand: {
-    props: { column: { allowsSorting: true } },
-  },
-  fats: {
-    cell: ({ value }) => formatGrams(value),
-    props: { column: { allowsSorting: true } },
-  },
-  carbs: {
-    cell: ({ value }) => formatGrams(value),
-    props: { column: { allowsSorting: true } },
-  },
-  proteins: {
-    cell: ({ value }) => formatGrams(value),
-    props: { column: { allowsSorting: true } },
-  },
-  calories: {
-    cell: ({ value }) => formatNumber(value),
-    props: { column: { allowsSorting: true } },
-  },
-  actions: {
-    label: false,
+const columns = [
+  columnHelper.accessor("name", {
+    meta: {
+      props: { header: { isRowHeader: true } },
+    },
+  }),
+  columnHelper.accessor("brand", {}),
+  columnHelper.accessor("fats", {
+    cell: ({ getValue }) => formatGrams(getValue()),
+  }),
+  columnHelper.accessor("carbs", {
+    cell: ({ getValue }) => formatGrams(getValue()),
+  }),
+  columnHelper.accessor("proteins", {
+    cell: ({ getValue }) => formatGrams(getValue()),
+  }),
+  columnHelper.accessor("calories", {
+    cell: ({ getValue }) => formatNumber(getValue()),
+  }),
+  columnHelper.display({
+    id: "actions",
     cell: (ctx) => <Actions {...ctx} />,
-  },
-}
+  }),
+]
 
 export const Foods = ({ user }: { user: Doc<"user"> }) => {
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: "name",
-    direction: "ascending",
+  const data = useQuery(api.functions.getFoods, { userId: user._id }) ?? []
+  const [sorting, setSorting] = useState<SortingState>([])
+  const table = useReactTable({
+    data,
+    columns,
+    state: { sorting },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
   })
-  const rows = useQuery(api.functions.getFoods, { userId: user._id }) ?? []
   return (
     <DataTable
       aria-label="Foods"
       selectionMode="single"
-      sortDescriptor={sortDescriptor}
-      onSortChange={setSortDescriptor}
-      columns={columns}
-      rows={rows.map((row) => ({ ...row, id: row._id }))}
+      table={table}
+      sorting={sorting}
     />
   )
 }

@@ -1,3 +1,5 @@
+import * as _ from "radashi"
+
 export function formatNumber(
   value: number,
   options?: Intl.NumberFormatOptions,
@@ -20,7 +22,9 @@ export function getNumberInRange(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min)
 }
 
-export function startCase(s: string) {
-  const result = s.replace(/([A-Z])/g, " $1")
-  return result.charAt(0).toUpperCase() + result.slice(1)
+export function def<T extends object>(obj: T, path: string, value: unknown): T {
+  if (!_.get(obj, path)) {
+    return _.set(obj, path, value)
+  }
+  return obj
 }

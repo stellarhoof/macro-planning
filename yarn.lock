@@ -5763,6 +5763,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/react-table@npm:^8.19.2":
+  version: 8.19.2
+  resolution: "@tanstack/react-table@npm:8.19.2"
+  dependencies:
+    "@tanstack/table-core": "npm:8.19.2"
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 10c0/6941e12cdb907709d6a2b919efb2daae01348eb3cc964fb437a7725461fc306375604ac83e09ea4dc793e34075b8b69a89b7bfd182b4762b711db2a721c21139
+  languageName: node
+  linkType: hard
+
+"@tanstack/table-core@npm:8.19.2, @tanstack/table-core@npm:^8.19.2":
+  version: 8.19.2
+  resolution: "@tanstack/table-core@npm:8.19.2"
+  checksum: 10c0/f09f1b4860899466f106fd5b89faf465f0d5210416505d0d6a6641025da05dec7f8eb193ca98d204288f05eb2b617497e0cd9e274ead3f504391749696cfcd3f
+  languageName: node
+  linkType: hard
+
 "@testing-library/dom@npm:10.1.0":
   version: 10.1.0
   resolution: "@testing-library/dom@npm:10.1.0"
@@ -7519,6 +7538,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "convex@workspace:packages/convex"
   dependencies:
+    "@tanstack/react-table": "npm:^8.19.2"
+    "@tanstack/table-core": "npm:^8.19.2"
     "@vitejs/plugin-react": "npm:^4.3.1"
     alias-hq: "npm:^6.2.3"
     autoprefixer: "npm:^10.4.19"
@@ -7527,6 +7548,7 @@ __metadata:
     convex: "npm:^1.12.2"
     lucide-react: "npm:^0.399.0"
     postcss: "npm:^8.4.39"
+    radashi: "npm:^12.1.0"
     react: "npm:^18.3.1"
     react-aria-components: "npm:^1.2.1"
     react-dom: "npm:^18.3.1"
@@ -11801,6 +11823,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"radashi@npm:^12.1.0":
+  version: 12.1.0
+  resolution: "radashi@npm:12.1.0"
+  checksum: 10c0/007c08456bae3cfbda6f1992699b2486fb676706706c1d4b9fca1e178622d1c3fb398dc8f0125fbc3c6a0996416b468714d5efaded3218fe8c76bebdf0841100
+  languageName: node
+  linkType: hard
+
 "ramda@npm:0.29.0":
   version: 0.29.0
   resolution: "ramda@npm:0.29.0"
@@ -13664,6 +13693,7 @@ __metadata:
     autoprefixer: "npm:^10.4.19"
     iterator-helpers-polyfill: "npm:^3.0.1"
     postcss: "npm:^8.4.39"
+    radashi: "npm:^12.1.0"
     storybook: "npm:8.1.11"
     tailwind-merge: "npm:^2.3.0"
     tailwind-variants: "npm:^0.2.1"

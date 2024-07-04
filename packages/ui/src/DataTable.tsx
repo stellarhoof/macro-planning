@@ -1,12 +1,11 @@
-import type { ReactNode } from "react"
-import {
-  type CellProps,
-  type ColumnProps,
-  TableBody,
-  type TableProps,
-} from "react-aria-components"
+import { flexRender } from "@tanstack/react-table"
+import type {
+  SortingState as TanstackSortingState,
+  Table as TanstackTable,
+} from "@tanstack/table-core"
+import * as _ from "radashi"
+import { TableBody, type TableProps } from "react-aria-components"
 
-import { startCase } from "#lib/util.ts"
 import {
   Cell,
   Column,
@@ -15,66 +14,68 @@ import {
   TableHeader,
 } from "./rats/collections/Table.tsx"
 
-type Key = PropertyKey
+type UnknownRec = Record<PropertyKey, unknown>
 
-type UnknownRec = Record<Key, unknown>
-
-export interface TColumnContext<TVal, TRow extends UnknownRec> {
-  column: TColumn<TVal, TRow>
+interface TanstackTableProps<T extends UnknownRec> {
+  table: TanstackTable<T>
+  sorting: TanstackSortingState
 }
 
-export interface TCellContext<TVal, TRow extends UnknownRec> {
-  row: TRow
-  value: TVal
-  column: TColumn<TVal, TRow>
+function useTanstackTableProps<T extends UnknownRec>({
+  table,
+  sorting,
+}: TanstackTableProps<T>): Pick<TableProps, "sortDescriptor" | "onSortChange"> {
+  return {
+    sortDescriptor: sorting.length
+      ? {
+          column: sorting[0]?.id,
+          direction: sorting[0]?.desc ? "descending" : "ascending",
+        }
+      : undefined,
+    onSortChange: (sortDescriptor) => {
+      table.setSorting([
+        {
+          id: `${sortDescriptor.column}`,
+          desc: sortDescriptor.direction === "descending",
+        },
+      ])
+    },
+  }
 }
 
-export interface TColumn<TVal, TRow extends UnknownRec> {
-  label?: React.ReactNode
-  props?: { column?: ColumnProps; cell?: CellProps }
-  column?: (context: TColumnContext<TVal, TRow>) => ReactNode
-  cell?: (context: TCellContext<TVal, TRow>) => ReactNode
-}
+interface DataTableProps<T extends UnknownRec>
+  extends Omit<TableProps, "sortDescriptor" | "onSortChange">,
+    TanstackTableProps<T> {}
 
-export type TColumns<TRow extends UnknownRec> = {
-  [K in keyof TRow]?: TColumn<TRow[K], TRow>
-}
-
-interface Props<TRow extends UnknownRec> extends TableProps {
-  columns: TColumns<TRow>
-  rows: TRow[]
-}
-
-export function DataTable<TRow extends Record<string, unknown>>({
-  rows,
-  columns,
+export function DataTable<T extends UnknownRec>({
+  table,
+  sorting,
   ...props
-}: Props<TRow>) {
-  const defs = Object.entries(columns).map(([id, col]) => ({
-    id,
-    label: startCase(id),
-    ...col,
-  }))
+}: DataTableProps<T>) {
   return (
-    <Table {...props}>
-      <TableHeader columns={defs}>
-        {(column) => (
-          <Column {...column.props?.column}>
-            {column.column?.({ column }) ?? column.label}
+    <Table {...useTanstackTableProps({ table, sorting })} {...props}>
+      <TableHeader columns={table.getFlatHeaders()}>
+        {(header) => (
+          <Column
+            id={header.id}
+            allowsSorting={header.column.getCanSort()}
+            {...header.column.columnDef.meta?.props?.header}
+          >
+            {flexRender(header.column.columnDef.header, header.getContext())}
           </Column>
         )}
       </TableHeader>
-      <TableBody items={rows}>
+      <TableBody items={table.getRowModel().rows}>
         {(row) => (
-          <Row columns={defs}>
-            {(column) => {
-              const value = row[column.id]
-              return (
-                <Cell {...column.props?.cell}>
-                  {column.cell?.({ value, row, column }) ?? value?.toString()}
-                </Cell>
-              )
-            }}
+          <Row columns={row.getVisibleCells()}>
+            {(cell) => (
+              <Cell
+                textValue={cell.getValue() as string}
+                {...cell.column.columnDef.meta?.props?.cell}
+              >
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </Cell>
+            )}
           </Row>
         )}
       </TableBody>
