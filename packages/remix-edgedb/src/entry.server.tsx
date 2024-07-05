@@ -1,7 +1,10 @@
 /**
- * By default, Remix will handle generating the HTTP Response for you.
- * You are free to delete this file if you'd like to, but if you ever want it revealed again, you can run `npx remix reveal` ✨
- * For more information, see https://remix.run/file-conventions/entry.server
+ * This module should render the markup for the current page using a
+ * `<RemixServer>` element with the context and url for the current request.
+ * This markup will (optionally) be re-hydrated once JavaScript loads in the
+ * browser using `./entry.client.ts`.
+ *
+ * See https://remix.run/file-conventions/entry.server
  */
 
 import { PassThrough } from "node:stream"

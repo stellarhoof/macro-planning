@@ -35,7 +35,7 @@ export class FoodAmount extends Model({
   }
   @computed
   get carbs() {
-    return Math.round(this.food.current.carbs * (this.amount / 100))
+    return this.getMacro("carbs")
   }
   @computed
   get proteins() {

@@ -14603,9 +14603,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remix@workspace:packages/remix":
+"remix-edgedb@workspace:packages/remix-edgedb":
   version: 0.0.0-use.local
-  resolution: "remix@workspace:packages/remix"
+  resolution: "remix-edgedb@workspace:packages/remix-edgedb"
   dependencies:
     "@remix-run/dev": "npm:^2.10.2"
     "@remix-run/node": "npm:^2.10.2"
