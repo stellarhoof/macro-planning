@@ -6,6 +6,7 @@
     "dev": "vite --open"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.19.2",
     "lucide-react": "^0.400.0",
     "mobx": "^6.13.0",
     "mobx-keystone": "^1.10.2",

@@ -12709,6 +12709,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "mobx-keystone@workspace:packages/mobx-keystone"
   dependencies:
+    "@tanstack/react-table": "npm:^8.19.2"
     "@vitejs/plugin-react": "npm:^4.3.1"
     alias-hq: "npm:^6.2.3"
     autoprefixer: "npm:^10.4.19"
@@ -16518,6 +16519,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vike-fauna@workspace:packages/vike-fauna"
   dependencies:
+    "@tanstack/react-table": "npm:^8.19.2"
     "@types/koa": "npm:^2.15.0"
     "@types/koa-bodyparser": "npm:^4.3.12"
     "@types/koa-compress": "npm:^4.0.6"

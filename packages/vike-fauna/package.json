@@ -7,6 +7,7 @@
     "db": "docker run --rm --name faunadb -p 8443:8443 -p 8084:8084 -v /tmp/faunadb/volume:/var/lib/faunadb -v /tmp/faunadb/logs:/var/log/faunadb fauna/faunadb"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.19.2",
     "fauna": "^2.1.0",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",

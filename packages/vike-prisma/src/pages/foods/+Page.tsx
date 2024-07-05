@@ -4,8 +4,8 @@ import { useState } from "react"
 import { Heading, type Key, MenuTrigger } from "react-aria-components"
 import { useAsyncList } from "react-stately"
 
-import { formatGrams } from "#lib/util.ts"
-import { DataTable, type TCellContext, type TColumns } from "#ui/DataTable.tsx"
+import { formatGrams, formatNumber } from "#lib/util.ts"
+import { DataTable } from "#ui/DataTable.tsx"
 import { Button } from "#ui/rats/buttons/Button.tsx"
 import { Menu, MenuItem } from "#ui/rats/collections/Menu.tsx"
 import { TextField } from "#ui/rats/forms/TextField.tsx"
@@ -13,11 +13,18 @@ import { AlertDialog } from "#ui/rats/overlays/AlertDialog.tsx"
 import { Dialog } from "#ui/rats/overlays/Dialog.tsx"
 import { Modal } from "#ui/rats/overlays/Modal.tsx"
 
+import {
+  type CellContext,
+  type SortingState,
+  createColumnHelper,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table"
 import { onLoad } from "./Page.telefunc.ts"
 
-type TRow = Food & { actions?: undefined }
+const columnHelper = createColumnHelper<Food>()
 
-function EditFood(_props: TCellContext<undefined, TRow>) {
+const EditFood = (_props: CellContext<Food, unknown>) => {
   return (
     <Dialog>
       {({ close }) => (
@@ -32,7 +39,7 @@ function EditFood(_props: TCellContext<undefined, TRow>) {
   )
 }
 
-function RemoveFood(_props: TCellContext<undefined, TRow>) {
+const RemoveFood = (_props: CellContext<Food, unknown>) => {
   return (
     <AlertDialog
       title="Delete Folder"
@@ -45,7 +52,7 @@ function RemoveFood(_props: TCellContext<undefined, TRow>) {
   )
 }
 
-function Actions(props: TCellContext<undefined, TRow>) {
+const Actions = (props: CellContext<Food, unknown>) => {
   const [dialog, setDialog] = useState<Key>("")
   const Component = { EditFood, RemoveFood }[dialog]
   return (
@@ -74,37 +81,33 @@ function Actions(props: TCellContext<undefined, TRow>) {
   )
 }
 
-const columns: TColumns<TRow> = {
-  name: {
-    props: { column: { isRowHeader: true, allowsSorting: true } },
-  },
-  brand: {
-    props: { column: { allowsSorting: true } },
-  },
-  fats: {
-    cell: ({ value }) => formatGrams(value),
-    props: { column: { allowsSorting: true } },
-  },
-  carbs: {
-    cell: ({ value }) => formatGrams(value),
-    props: { column: { allowsSorting: true } },
-  },
-  proteins: {
-    cell: ({ value }) => formatGrams(value),
-    props: { column: { allowsSorting: true } },
-  },
-  actions: {
-    label: false,
+const columns = [
+  columnHelper.accessor("name", {
+    meta: {
+      props: { header: { isRowHeader: true } },
+    },
+  }),
+  columnHelper.accessor("brand", {}),
+  columnHelper.accessor("fats", {
+    cell: ({ getValue }) => formatGrams(getValue()),
+  }),
+  columnHelper.accessor("carbs", {
+    cell: ({ getValue }) => formatGrams(getValue()),
+  }),
+  columnHelper.accessor("proteins", {
+    cell: ({ getValue }) => formatGrams(getValue()),
+  }),
+  columnHelper.accessor("calories", {
+    cell: ({ getValue }) => formatNumber(getValue()),
+  }),
+  columnHelper.display({
+    id: "actions",
     cell: (ctx) => <Actions {...ctx} />,
-  },
-}
+  }),
+]
 
-// TODO:
-// - Pagination
-// - Computed fields
-// - Filtering
-// - CRUD
 export function Page() {
+  // TODO: Figure out how to use tanstack sorting with useAsyncList
   const list = useAsyncList<Food>({
     initialSortDescriptor: {
       column: "name",
@@ -118,15 +121,20 @@ export function Page() {
       return { items }
     },
   })
-
+  const [sorting, setSorting] = useState<SortingState>([])
+  const table = useReactTable({
+    data: list.items,
+    columns,
+    state: { sorting },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+  })
   return (
     <DataTable
       aria-label="Foods"
       selectionMode="single"
-      sortDescriptor={list.sortDescriptor}
-      onSortChange={list.sort}
-      columns={columns}
-      rows={list.items}
+      table={table}
+      sorting={sorting}
     />
   )
 }

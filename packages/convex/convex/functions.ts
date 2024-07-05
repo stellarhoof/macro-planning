@@ -21,8 +21,6 @@ const fieldToIndex = _.mapValues(
   (indexes) => indexes?.[0]?.indexDescriptor ?? "",
 )
 
-const x = Object.groupBy(tables.food.indexes, (index) => index.fields[0] ?? "")
-
 export const getFoods = query({
   args: {
     userId: v.id("user"),

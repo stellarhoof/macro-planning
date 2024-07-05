@@ -22,7 +22,7 @@ type VectorIndex = {
 }
 
 export interface ExportedTable {
-  documentType: Validator<unknown, false, string>
+  documentType: Validator<unknown, "optional", string>
   indexes: Index[]
   searchIndexes: SearchIndex[]
   vectorIndexes: VectorIndex[]
