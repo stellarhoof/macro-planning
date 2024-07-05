@@ -10,6 +10,6 @@
     { "path": "./packages/convex/tsconfig.json" },
     { "path": "./packages/vike-prisma/tsconfig.json" },
     { "path": "./packages/vike-fauna/tsconfig.json" },
-    { "path": "./packages/remix/tsconfig.json" }
+    { "path": "./packages/remix-edgedb/tsconfig.json" }
   ]
 }
