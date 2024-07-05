@@ -9,9 +9,9 @@
     "paths": {
       "#lib/*": ["../lib/src/*"],
       "#ui/*": ["../ui/src/*"],
-      "#pages/*": ["./src/pages/*"],
-      "#prisma/*": ["./src/prisma/*"]
+      "#src/*": ["./src/*"]
     },
+    "types": ["@remix-run/node", "vite/client"],
     "noEmit": true
   }
 }

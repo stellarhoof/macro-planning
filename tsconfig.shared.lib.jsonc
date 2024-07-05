@@ -23,6 +23,6 @@
 
     // Output declarations to this directory instead of co-locating output with
     // source.
-    "declarationDir": "${configDir}/dist",
-  },
+    "declarationDir": "${configDir}/dist"
+  }
 }

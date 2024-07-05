@@ -1,6 +1,9 @@
 {
-  "extends": ["../../tsconfig.shared.all.jsonc", "../../tsconfig.shared.lib.jsonc"],
+  "extends": [
+    "../../tsconfig.shared.all.jsonc",
+    "../../tsconfig.shared.lib.jsonc"
+  ],
   "compilerOptions": {
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "lib": ["esnext", "dom", "dom.iterable"]
   }
 }

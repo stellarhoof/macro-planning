@@ -11,6 +11,6 @@
       "#ui/*": ["../ui/src/*"],
       "#pages/*": ["./src/pages/*"]
     },
-    "noEmit": true,
+    "noEmit": true
   }
 }

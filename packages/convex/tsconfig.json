@@ -12,6 +12,6 @@
       "#src/*": ["./src/*"],
       "#convex/*": ["./convex/*"]
     },
-    "noEmit": true,
+    "noEmit": true
   }
 }
