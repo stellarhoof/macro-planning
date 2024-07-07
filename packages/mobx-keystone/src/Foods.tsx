@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Heading, type Key, MenuTrigger } from "react-aria-components"
 
 import { formatGrams } from "#lib/util.ts"
-import { DataTable } from "#ui/DataTable.tsx"
+import { TanstackDataTable } from "#ui/TanstackDataTable.tsx"
 import { Button } from "#ui/rats/buttons/Button.tsx"
 import { Menu, MenuItem } from "#ui/rats/collections/Menu.tsx"
 import { TextField } from "#ui/rats/forms/TextField.tsx"
@@ -123,7 +123,7 @@ export const Foods = observer(({ store }: Props) => {
     getCoreRowModel: getCoreRowModel(),
   })
   return (
-    <DataTable
+    <TanstackDataTable
       aria-label="Foods"
       selectionMode="single"
       table={table}

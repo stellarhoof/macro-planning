@@ -47,7 +47,7 @@ interface DataTableProps<T extends UnknownRec>
   extends Omit<TableProps, "sortDescriptor" | "onSortChange">,
     TanstackTableProps<T> {}
 
-export function DataTable<T extends UnknownRec>({
+export function TanstackDataTable<T extends UnknownRec>({
   table,
   sorting,
   ...props

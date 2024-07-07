@@ -1,14 +1,15 @@
 import * as edgedb from "edgedb"
-import { useState } from "react"
 
 import { formatGrams, formatNumber } from "#lib/util.ts"
-import { DataTable } from "#ui/DataTable.tsx"
+import { TanstackDataTable } from "#ui/TanstackDataTable.tsx"
 import type { Food } from "../../../dbschema/interfaces.ts"
 import { Actions } from "./Actions.tsx"
 
-import { useLoaderData } from "@remix-run/react"
+import type { LoaderFunctionArgs } from "@remix-run/node"
+import { useLoaderData, useSearchParams } from "@remix-run/react"
 import {
   type SortingState,
+  type Updater,
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
@@ -16,8 +17,19 @@ import {
 
 const client = edgedb.createClient()
 
-export async function loader() {
-  return await client.query<Food>("select Food {*}")
+function getOrderSearchParams(searchParams: URLSearchParams) {
+  return {
+    orderBy: searchParams.get("orderBy") ?? "name",
+    orderDir: searchParams.get("orderDir") ?? "asc",
+  }
+}
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url)
+  const { orderBy, orderDir } = getOrderSearchParams(url.searchParams)
+  return await client.query<Food>(
+    `select Food {*} order by .${orderBy} ${orderDir}`,
+  )
 }
 
 const columnHelper = createColumnHelper<Food>()
@@ -47,22 +59,49 @@ const columns = [
   }),
 ]
 
+function searchParamsToSortingState(
+  searchParams: URLSearchParams,
+): SortingState {
+  const { orderBy, orderDir } = getOrderSearchParams(searchParams)
+  return [{ id: orderBy, desc: orderDir === "desc" }]
+}
+
+function sortingStateToSearchParams(sortingState: SortingState) {
+  const sorting = sortingState[0]
+  if (sorting) {
+    return {
+      orderBy: sorting.id,
+      orderDir: sorting.desc ? "desc" : "asc",
+    }
+  }
+}
+
 export default function Foods() {
   const data = useLoaderData<typeof loader>()
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  function onSortingChange(updater: Updater<SortingState>) {
+    if (typeof updater !== "function") {
+      const params = sortingStateToSearchParams(updater)
+      if (params) {
+        setSearchParams(params)
+      }
+    }
+  }
+
   const table = useReactTable({
     data,
     columns,
-    state: { sorting },
-    onSortingChange: setSorting,
+    onSortingChange,
     getCoreRowModel: getCoreRowModel(),
   })
+
   return (
-    <DataTable
+    <TanstackDataTable
       aria-label="Foods"
       selectionMode="single"
       table={table}
-      sorting={sorting}
+      sorting={searchParamsToSortingState(searchParams)}
     />
   )
 }
