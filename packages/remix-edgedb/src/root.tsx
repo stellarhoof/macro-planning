@@ -9,7 +9,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "@remix-run/react"
+import { Tab, TabList, TabPanel, Tabs } from "#ui/rats/navigation/Tabs.tsx"
 import rootCss from "./root.css?url"
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: rootCss }]
@@ -34,5 +36,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />
+  const { pathname } = useLocation()
+  return (
+    <Tabs selectedKey={pathname}>
+      <TabList aria-label="Tabs">
+        <Tab id="/foods" href="/foods">
+          Foods
+        </Tab>
+        <Tab id="/help" href="/help">
+          Help
+        </Tab>
+      </TabList>
+      <TabPanel id={pathname}>
+        <Outlet />
+      </TabPanel>
+    </Tabs>
+  )
 }

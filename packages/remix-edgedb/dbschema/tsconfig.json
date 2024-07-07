@@ -1,0 +1,11 @@
+{
+  "extends": ["../../../tsconfig.shared.all.jsonc"],
+  "include": ["."],
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    // Until https://github.com/edgedb/edgedb-js/pull/979 gets released.
+    "verbatimModuleSyntax": false
+  }
+}

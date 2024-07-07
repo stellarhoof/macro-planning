@@ -6,17 +6,21 @@
   "scripts": {
     "dev": "remix vite:dev",
     "build": "remix vite:build",
-    "start": "remix-serve ./build/server/index.js"
+    "start": "remix-serve ./build/server/index.js",
+    "postinstall": "npx @edgedb/generate edgeql-js"
   },
   "dependencies": {
     "@remix-run/node": "^2.10.2",
     "@remix-run/react": "^2.10.2",
     "@remix-run/serve": "^2.10.2",
+    "@tanstack/react-table": "^8.19.2",
+    "edgedb": "^1.5.7",
     "isbot": "^4.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@edgedb/generate": "^0.5.3",
     "@remix-run/dev": "^2.10.2",
     "alias-hq": "^6.2.3",
     "autoprefixer": "^10.4.19",

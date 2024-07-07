@@ -2149,6 +2149,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@edgedb/generate@npm:^0.5.3":
+  version: 0.5.3
+  resolution: "@edgedb/generate@npm:0.5.3"
+  dependencies:
+    "@iarna/toml": "npm:^2.2.5"
+  peerDependencies:
+    edgedb: ^1.5.0
+  bin:
+    generate: dist/cli.js
+  checksum: 10c0/7a9bc7c0f95b5135eb3bb75729b20b5abce3cc02f1d459c2b4e15746afa4dc1b45e8004d9b4cf80641bc04fdf649ea32a83b96164a3c36b99fcb489c0172ea26
+  languageName: node
+  linkType: hard
+
 "@emotion/hash@npm:^0.9.0":
   version: 0.9.1
   resolution: "@emotion/hash@npm:0.9.1"
@@ -3009,6 +3022,13 @@ __metadata:
   dependencies:
     tslib: "npm:^2.4.0"
   checksum: 10c0/c9ff5d34ca8b6fe59f8f303a3cc31a92d343e095a6987e273e5cc23f0fe99feb557a392a05da95931c7d24106acb6988e588d00ddd05b0934005aafd7fdbafe6
+  languageName: node
+  linkType: hard
+
+"@iarna/toml@npm:^2.2.5":
+  version: 2.2.5
+  resolution: "@iarna/toml@npm:2.2.5"
+  checksum: 10c0/d095381ad4554aca233b7cf5a91f243ef619e5e15efd3157bc640feac320545450d14b394aebbf6f02a2047437ced778ae598d5879a995441ab7b6c0b2c2f201
   languageName: node
   linkType: hard
 
@@ -8821,6 +8841,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"edgedb@npm:^1.5.7":
+  version: 1.5.7
+  resolution: "edgedb@npm:1.5.7"
+  dependencies:
+    debug: "npm:^4.3.4"
+    env-paths: "npm:^3.0.0"
+    semver: "npm:^7.6.0"
+    shell-quote: "npm:^1.8.1"
+    which: "npm:^4.0.0"
+  bin:
+    edgedb: dist/cli.mjs
+  checksum: 10c0/9675014d8b2632958aca61c1b4cfb000fb43e98e5785e24ebb23fe82094e3ceaaa2df1851ee38a03bb39fdfac0a3ff6d0a9c1c85741ab9c5c7e500e6fb7df3e6
+  languageName: node
+  linkType: hard
+
 "ee-first@npm:1.1.1":
   version: 1.1.1
   resolution: "ee-first@npm:1.1.1"
@@ -8896,6 +8931,13 @@ __metadata:
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
   checksum: 10c0/285325677bf00e30845e330eec32894f5105529db97496ee3f598478e50f008c5352a41a30e5e72ec9de8a542b5a570b85699cd63bd2bc646dbcb9f311d83bc4
+  languageName: node
+  linkType: hard
+
+"env-paths@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "env-paths@npm:3.0.0"
+  checksum: 10c0/76dec878cee47f841103bacd7fae03283af16f0702dad65102ef0a556f310b98a377885e0f32943831eb08b5ab37842a323d02529f3dfd5d0a40ca71b01b435f
   languageName: node
   linkType: hard
 
@@ -14607,14 +14649,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "remix-edgedb@workspace:packages/remix-edgedb"
   dependencies:
+    "@edgedb/generate": "npm:^0.5.3"
     "@remix-run/dev": "npm:^2.10.2"
     "@remix-run/node": "npm:^2.10.2"
     "@remix-run/react": "npm:^2.10.2"
     "@remix-run/serve": "npm:^2.10.2"
+    "@tanstack/react-table": "npm:^8.19.2"
     alias-hq: "npm:^6.2.3"
     autoprefixer: "npm:^10.4.19"
     browserslist: "npm:^4.23.1"
     browserslist-to-esbuild: "npm:^2.1.1"
+    edgedb: "npm:^1.5.7"
     isbot: "npm:^4.1.0"
     postcss: "npm:^8.4.39"
     react: "npm:^18.3.1"
@@ -14915,7 +14960,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.1.1, semver@npm:^7.5.3, semver@npm:^7.6.2":
+"semver@npm:^7.1.1, semver@npm:^7.5.3, semver@npm:^7.6.0, semver@npm:^7.6.2":
   version: 7.6.2
   resolution: "semver@npm:7.6.2"
   bin:
@@ -15037,6 +15082,13 @@ __metadata:
   version: 3.0.0
   resolution: "shebang-regex@npm:3.0.0"
   checksum: 10c0/1dbed0726dd0e1152a92696c76c7f06084eb32a90f0528d11acd764043aacf76994b2fb30aa1291a21bd019d6699164d048286309a278855ee7bec06cf6fb690
+  languageName: node
+  linkType: hard
+
+"shell-quote@npm:^1.8.1":
+  version: 1.8.1
+  resolution: "shell-quote@npm:1.8.1"
+  checksum: 10c0/8cec6fd827bad74d0a49347057d40dfea1e01f12a6123bf82c4649f3ef152fc2bc6d6176e6376bffcd205d9d0ccb4f1f9acae889384d20baff92186f01ea455a
   languageName: node
   linkType: hard
 

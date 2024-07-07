@@ -12,10 +12,10 @@ export function App({ store }: Props) {
   return (
     <DataTabs
       defaultSelectedKey="foods"
-      tabs={{
-        foods: { content: () => <Foods store={store} /> },
-        help: { content: () => <Help /> },
-      }}
+      tabs={[
+        { id: "foods", content: () => <Foods store={store} /> },
+        { id: "help", content: () => <Help /> },
+      ]}
     />
   )
 }

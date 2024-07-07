@@ -13,10 +13,10 @@ function App() {
   return user ? (
     <DataTabs
       defaultSelectedKey="foods"
-      tabs={{
-        foods: { content: () => <Foods user={user} /> },
-        help: { content: () => <Help /> },
-      }}
+      tabs={[
+        { id: "foods", content: () => <Foods user={user} /> },
+        { id: "help", content: () => <Help /> },
+      ]}
     />
   ) : null
 }

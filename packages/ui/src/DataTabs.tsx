@@ -6,24 +6,21 @@ import type { TabsProps } from "./rats/navigation/Tabs.tsx"
 import { Tab, TabList, TabPanel, Tabs } from "./rats/navigation/Tabs.tsx"
 
 export type DataTab = {
+  id: string
   href?: string
   label?: ReactNode
   content?: () => ReactNode
 }
 
 interface DataTabsProps extends TabsProps {
-  tabs: Record<string, DataTab>
+  tabs: DataTab[]
 }
 
 export function DataTabs({ tabs, ...props }: DataTabsProps) {
-  const defs = Object.entries(tabs).map(([id, col]) => ({
-    id,
-    label: _.title(id),
-    ...col,
-  }))
+  const defs = tabs.map((col) => ({ label: _.title(col.id), ...col }))
   return (
     <Tabs {...props}>
-      <TabList>
+      <TabList aria-label="tabs">
         {defs.map((tab) => (
           <Tab key={tab.id} id={tab.id} href={tab.href}>
             {tab.label}
