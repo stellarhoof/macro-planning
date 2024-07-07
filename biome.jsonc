@@ -6,7 +6,7 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.7.0/schema.json",
   "files": {
-    "ignore": ["packages/convex/convex/_generated"]
+    "ignore": ["packages/convex/convex/_generated/**/*"]
   },
   "vcs": {
     "enabled": true,

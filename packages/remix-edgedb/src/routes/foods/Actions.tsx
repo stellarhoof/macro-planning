@@ -1,41 +1,17 @@
-import * as edgedb from "edgedb"
 import { FilePenLine, MoreHorizontal, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { Heading, type Key, MenuTrigger } from "react-aria-components"
 
-import { formatGrams, formatNumber } from "#lib/util.ts"
-import { DataTable } from "#ui/DataTable.tsx"
 import { Button } from "#ui/rats/buttons/Button.tsx"
 import { Menu, MenuItem } from "#ui/rats/collections/Menu.tsx"
 import { TextField } from "#ui/rats/forms/TextField.tsx"
 import { AlertDialog } from "#ui/rats/overlays/AlertDialog.tsx"
 import { Dialog } from "#ui/rats/overlays/Dialog.tsx"
 import { Modal } from "#ui/rats/overlays/Modal.tsx"
-import e from "../../dbschema/edgeql-js/index.ts"
-import type { Food } from "../../dbschema/interfaces.ts"
 
-import { useLoaderData } from "@remix-run/react"
-import {
-  type CellContext,
-  type SortingState,
-  createColumnHelper,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+import type { Food } from "../../../dbschema/interfaces.ts"
 
-const client = edgedb.createClient()
-
-export async function loader() {
-  const query = e.select(e.Movie, () => ({
-    id: true,
-    title: true,
-    actors: { name: true },
-  }))
-  const result = await query.run(client)
-  return result
-}
-
-const columnHelper = createColumnHelper<Food>()
+import type { CellContext } from "@tanstack/react-table"
 
 const EditFood = (_props: CellContext<Food, unknown>) => {
   return (
@@ -65,7 +41,7 @@ const RemoveFood = (_props: CellContext<Food, unknown>) => {
   )
 }
 
-const Actions = (props: CellContext<Food, unknown>) => {
+export const Actions = (props: CellContext<Food, unknown>) => {
   const [dialog, setDialog] = useState<Key>("")
   const Component = { EditFood, RemoveFood }[dialog]
   return (
@@ -91,50 +67,5 @@ const Actions = (props: CellContext<Food, unknown>) => {
         </Modal>
       )}
     </>
-  )
-}
-
-const columns = [
-  columnHelper.accessor("name", {
-    meta: {
-      props: { header: { isRowHeader: true } },
-    },
-  }),
-  columnHelper.accessor("brand", {}),
-  columnHelper.accessor("fats", {
-    cell: ({ getValue }) => formatGrams(getValue()),
-  }),
-  columnHelper.accessor("carbs", {
-    cell: ({ getValue }) => formatGrams(getValue()),
-  }),
-  columnHelper.accessor("proteins", {
-    cell: ({ getValue }) => formatGrams(getValue()),
-  }),
-  columnHelper.accessor("calories", {
-    cell: ({ getValue }) => formatNumber(getValue()),
-  }),
-  columnHelper.display({
-    id: "actions",
-    cell: (ctx) => <Actions {...ctx} />,
-  }),
-]
-
-export default function Foods() {
-  const data = useLoaderData<typeof loader>()
-  const [sorting, setSorting] = useState<SortingState>([])
-  const table = useReactTable({
-    data,
-    columns,
-    state: { sorting },
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-  })
-  return (
-    <DataTable
-      aria-label="Foods"
-      selectionMode="single"
-      table={table}
-      sorting={sorting}
-    />
   )
 }

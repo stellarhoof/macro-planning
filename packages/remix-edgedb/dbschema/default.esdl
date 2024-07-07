@@ -1,6 +1,6 @@
 module default {
   type User {
-    required email: str;
+    required email: str { constraint exclusive; };
     multi foods: Food;
     multi recipes: Recipe;
     multi meals: Meal;
@@ -8,7 +8,7 @@ module default {
   }
 
   type Food {
-    required name: str;
+    required name: str { constraint exclusive; };
     brand: str;
     required fats: int16;
     required carbs: int16;
@@ -26,7 +26,7 @@ module default {
   }
 
   type Recipe {
-    required name: str;
+    required name: str { constraint exclusive; };
     steps: array<str>;
     multi foodAmounts: FoodAmount;
     required grams := sum((for amount in .foodAmounts union amount.grams));
@@ -37,7 +37,7 @@ module default {
   }
   
   type Meal {
-    required name: str;
+    required name: str { constraint exclusive; };
     multi recipes: Recipe;
     multi foodAmounts: FoodAmount;
     required grams :=
@@ -58,7 +58,7 @@ module default {
   }
 
   type Plan {
-    required name: str;
+    required name: str { constraint exclusive; };
     required fats: int16;
     required carbs: int16;
     required proteins: int16;
