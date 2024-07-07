@@ -7,32 +7,40 @@
     "dev": "remix vite:dev",
     "build": "remix vite:build",
     "start": "remix-serve ./build/server/index.js",
-    "postinstall": "npx @edgedb/generate interfaces"
+    "postinstall": "npx @edgedb/generate interfaces",
+    "prepare": "ts-patch install && typia patch"
   },
   "dependencies": {
-    "@remix-run/node": "^2.10.2",
-    "@remix-run/react": "^2.10.2",
-    "@remix-run/serve": "^2.10.2",
-    "@tanstack/react-table": "^8.19.2",
-    "edgedb": "^1.5.7",
-    "isbot": "^4.1.0",
+    "@remix-run/node": "^2.10.3",
+    "@remix-run/react": "^2.10.3",
+    "@remix-run/serve": "^2.10.3",
+    "@tanstack/react-table": "^8.19.3",
+    "@tanstack/react-virtual": "^3.8.3",
+    "edgedb": "^1.5.8",
+    "isbot": "^5.1.13",
+    "radashi": "^12.1.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "typia": "^6.6.0"
   },
   "devDependencies": {
-    "@edgedb/generate": "^0.5.3",
-    "@remix-run/dev": "^2.10.2",
+    "@edgedb/generate": "^0.5.4",
+    "@remix-run/dev": "^2.10.3",
+    "@ryoppippi/unplugin-typia": "npm:@jsr/ryoppippi__unplugin-typia@^0.6.8",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "alias-hq": "^6.2.3",
     "autoprefixer": "^10.4.19",
-    "browserslist": "^4.23.1",
+    "browserslist": "^4.23.2",
     "browserslist-to-esbuild": "^2.1.1",
-    "postcss": "^8.4.39",
-    "tailwind-merge": "^2.3.0",
+    "postcss": "^8.4.40",
+    "tailwind-merge": "^2.4.0",
     "tailwind-variants": "^0.2.1",
-    "tailwindcss": "^3.4.4",
+    "tailwindcss": "^3.4.7",
     "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-react-aria-components": "^1.1.3",
+    "tailwindcss-react-aria-components": "^1.1.4",
+    "ts-patch": "^3.2.1",
     "tsx": "^4.16.2",
-    "vite": "^5.3.3"
+    "vite": "^5.3.5"
   }
 }

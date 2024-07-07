@@ -1,7 +1,6 @@
 import type { ReactNode } from "react"
 
-import * as _ from "radashi"
-
+import { startCase } from "es-toolkit"
 import type { TabsProps } from "./rats/navigation/Tabs.tsx"
 import { Tab, TabList, TabPanel, Tabs } from "./rats/navigation/Tabs.tsx"
 
@@ -17,7 +16,7 @@ interface DataTabsProps extends TabsProps {
 }
 
 export function DataTabs({ tabs, ...props }: DataTabsProps) {
-  const defs = tabs.map((col) => ({ label: _.title(col.id), ...col }))
+  const defs = tabs.map((col) => ({ label: startCase(col.id), ...col }))
   return (
     <Tabs {...props}>
       <TabList aria-label="tabs">

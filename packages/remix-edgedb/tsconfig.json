@@ -12,6 +12,7 @@
       "#src/*": ["./src/*"]
     },
     "types": ["@remix-run/node", "vite/client"],
-    "noEmit": true
+    "noEmit": true,
+    "plugins": [{ "transform": "typia/lib/transform" }]
   }
 }

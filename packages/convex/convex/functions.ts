@@ -1,5 +1,5 @@
 import { v } from "convex/values"
-import * as _ from "radashi"
+import { mapValues } from "radashi"
 
 import type { IndexNames } from "convex/server"
 import type { DataModel } from "./_generated/dataModel.js"
@@ -16,7 +16,7 @@ export const getUser = query({
   },
 })
 
-const fieldToIndex = _.mapValues(
+const fieldToIndex = mapValues(
   Object.groupBy(tables.food.indexes, (index) => index.fields[0] ?? ""),
   (indexes) => indexes?.[0]?.indexDescriptor ?? "",
 )

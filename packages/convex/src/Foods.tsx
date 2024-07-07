@@ -1,6 +1,5 @@
 import { useQuery } from "convex/react"
 import { FilePenLine, MoreHorizontal, Trash2 } from "lucide-react"
-import * as _ from "radashi"
 import { useState } from "react"
 import { Heading, type Key, MenuTrigger } from "react-aria-components"
 

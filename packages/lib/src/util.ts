@@ -1,4 +1,5 @@
-import * as _ from "radashi"
+import { omitBy } from "es-toolkit"
+import { get, set } from "es-toolkit/compat"
 
 export function formatNumber(
   value: number,
@@ -23,8 +24,12 @@ export function getNumberInRange(min: number, max: number) {
 }
 
 export function def<T extends object>(obj: T, path: string, value: unknown): T {
-  if (!_.get(obj, path)) {
-    return _.set(obj, path, value)
+  if (!get(obj, path)) {
+    return set(obj, path, value)
   }
   return obj
+}
+
+export function defaults<T>(defaults: T, obj: Partial<T>): T {
+  return { ...defaults, ...omitBy(obj, (value) => value === undefined) }
 }

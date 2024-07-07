@@ -21,16 +21,40 @@ import {
 import { twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 
+import { forwardRef } from "react"
 import { Checkbox } from "../forms/Checkbox.tsx"
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 
-export function Table(props: TableProps) {
-  return (
-    <ResizableTableContainer className="overflow-auto scroll-pt-[2.281rem] relative border dark:border-zinc-600 rounded-lg">
-      <AriaTable {...props} className="border-separate border-spacing-0" />
-    </ResizableTableContainer>
-  )
+type ClassName<T> =
+  | string
+  | ((values: T & { defaultClassName: string | undefined }) => string)
+  | undefined
+
+export function mergeClassNames<T>(left: ClassName<T>, right: ClassName<T>) {
+  if (typeof right === "function" || typeof left === "function") {
+    return ((values) => {
+      return twMerge(
+        typeof left === "function" ? left(values) : left,
+        typeof right === "function" ? right(values) : right,
+      )
+    }) as Exclude<ClassName<T>, string>
+  }
+  return twMerge(left, right)
 }
+
+export const Table = forwardRef<HTMLTableElement, TableProps>(
+  function Table(props, ref) {
+    return (
+      <ResizableTableContainer className="overflow-auto scroll-pt-[2.281rem] relative border dark:border-zinc-600 rounded-lg">
+        <AriaTable
+          ref={ref}
+          {...props}
+          className="border-separate border-spacing-0"
+        />
+      </ResizableTableContainer>
+    )
+  },
+)
 
 const columnStyles = tv({
   extend: focusRing,
@@ -42,7 +66,7 @@ const resizerStyles = tv({
   base: "w-px px-[8px] box-content py-1 h-5 bg-clip-content bg-gray-400 dark:bg-zinc-500 forced-colors:bg-[ButtonBorder] cursor-col-resize rounded resizing:bg-blue-600 forced-colors:resizing:bg-[Highlight] resizing:w-[2px] resizing:pl-[7px] -outline-offset-2",
 })
 
-export function Column(props: ColumnProps) {
+export function Column(props: ColumnProps & { enableResizing?: boolean }) {
   return (
     <AriaColumn
       {...props}
@@ -72,7 +96,9 @@ export function Column(props: ColumnProps) {
                 </span>
               )}
             </Group>
-            {!props.width && <ColumnResizer className={resizerStyles} />}
+            {!props.width && props.enableResizing && (
+              <ColumnResizer className={resizerStyles} />
+            )}
           </div>
         ),
       )}
@@ -112,16 +138,20 @@ const rowStyles = tv({
   base: "group/row relative cursor-default select-none -outline-offset-2 text-gray-900 disabled:text-gray-300 dark:text-zinc-200 dark:disabled:text-zinc-600 text-sm hover:bg-gray-100 dark:hover:bg-zinc-700/60 selected:bg-blue-100 selected:hover:bg-blue-200 dark:selected:bg-blue-700/30 dark:selected:hover:bg-blue-700/40",
 })
 
-export function Row<T extends object>({
-  id,
-  columns,
-  children,
-  ...otherProps
-}: RowProps<T>) {
+// biome-ignore lint:
+export const Row = forwardRef<HTMLTableRowElement, RowProps<any>>(function Row(
+  { id, columns, children, className, ...otherProps },
+  ref,
+) {
   const { selectionBehavior, allowsDragging } = useTableOptions()
 
   return (
-    <AriaRow id={id} {...otherProps} className={rowStyles}>
+    <AriaRow
+      ref={ref}
+      id={id}
+      {...otherProps}
+      className={mergeClassNames(rowStyles, className)}
+    >
       {allowsDragging && (
         <Cell>
           <Button slot="drag">≡</Button>
@@ -135,7 +165,7 @@ export function Row<T extends object>({
       <Collection items={columns}>{children}</Collection>
     </AriaRow>
   )
-}
+})
 
 const cellStyles = tv({
   extend: focusRing,

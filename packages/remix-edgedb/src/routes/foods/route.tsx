@@ -1,35 +1,80 @@
 import * as edgedb from "edgedb"
 
-import { formatGrams, formatNumber } from "#lib/util.ts"
+import { defaults, formatGrams, formatNumber } from "#lib/util.ts"
 import { TanstackDataTable } from "#ui/TanstackDataTable.tsx"
 import type { Food } from "../../../dbschema/interfaces.ts"
 import { Actions } from "./Actions.tsx"
 
 import type { LoaderFunctionArgs } from "@remix-run/node"
-import { useLoaderData, useSearchParams } from "@remix-run/react"
 import {
-  type SortingState,
-  type Updater,
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import { useRef } from "react"
+
+import { useLoaderData } from "@remix-run/react"
+import typia from "typia"
+import {
+  type PaginationSearchParams,
+  useSearchParamsPagination,
+} from "#src/util/useSearchParamsPagination.ts"
+import {
+  type SortingSearchParams,
+  useSearchParamsTanstackSorting,
+} from "#src/util/useSearchParamsTanstackSorting.ts"
+import { Button } from "#ui/rats/buttons/Button.tsx"
 
 const client = edgedb.createClient()
 
-function getOrderSearchParams(searchParams: URLSearchParams) {
-  return {
-    orderBy: searchParams.get("orderBy") ?? "name",
-    orderDir: searchParams.get("orderDir") ?? "asc",
-  }
+interface SearchParams extends PaginationSearchParams, SortingSearchParams {}
+
+const searchParamsDefaults: SearchParams = {
+  page: 0,
+  pageSize: 10,
+  orderBy: "name",
+  orderDir: "asc",
+}
+
+function parseSearchParams(searchParams: URLSearchParams): SearchParams {
+  const parsed = typia.http.query<{
+    pageSize: number
+    page: number
+    orderBy: string
+    orderDir: "asc" | "desc"
+  }>(searchParams)
+  return defaults(searchParamsDefaults, parsed)
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const url = new URL(request.url)
-  const { orderBy, orderDir } = getOrderSearchParams(url.searchParams)
-  return await client.query<Food>(
-    `select Food {*} order by .${orderBy} ${orderDir}`,
-  )
+  const { searchParams } = new URL(request.url)
+
+  const { page, pageSize, orderBy, orderDir } = parseSearchParams(searchParams)
+
+  const query = `
+    with
+      remaining := (select Food order by .${orderBy} ${orderDir} offset ${page * pageSize}),
+      results := (select remaining limit ${pageSize})
+    select {
+      items := results {*},
+      hasPreviousPage := ${page} > 0,
+      hasNextPage := count(remaining) > ${pageSize}
+    }
+  `
+
+  const result = await client.querySingle<{
+    items: Food[]
+    hasPreviousPage: boolean
+    hasNextPage: boolean
+  }>(query)
+
+  const defaultResult = {
+    items: [],
+    hasPreviousPage: false,
+    hasNextPage: false,
+  }
+
+  return result ?? defaultResult
 }
 
 const columnHelper = createColumnHelper<Food>()
@@ -59,49 +104,40 @@ const columns = [
   }),
 ]
 
-function searchParamsToSortingState(
-  searchParams: URLSearchParams,
-): SortingState {
-  const { orderBy, orderDir } = getOrderSearchParams(searchParams)
-  return [{ id: orderBy, desc: orderDir === "desc" }]
-}
-
-function sortingStateToSearchParams(sortingState: SortingState) {
-  const sorting = sortingState[0]
-  if (sorting) {
-    return {
-      orderBy: sorting.id,
-      orderDir: sorting.desc ? "desc" : "asc",
-    }
-  }
-}
-
+// See https://news.ycombinator.com/item?id=30376689
 export default function Foods() {
-  const data = useLoaderData<typeof loader>()
-  const [searchParams, setSearchParams] = useSearchParams()
+  const ref = useRef<HTMLTableElement>(null)
 
-  function onSortingChange(updater: Updater<SortingState>) {
-    if (typeof updater !== "function") {
-      const params = sortingStateToSearchParams(updater)
-      if (params) {
-        setSearchParams(params)
-      }
-    }
-  }
+  const data = useLoaderData<typeof loader>()
+
+  const [onPreviousPage, onNextPage] =
+    useSearchParamsPagination(searchParamsDefaults)
+
+  const [sorting, setSorting] =
+    useSearchParamsTanstackSorting(searchParamsDefaults)
 
   const table = useReactTable({
-    data,
+    data: data.items,
     columns,
-    onSortingChange,
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
   })
 
   return (
-    <TanstackDataTable
-      aria-label="Foods"
-      selectionMode="single"
-      table={table}
-      sorting={searchParamsToSortingState(searchParams)}
-    />
+    <>
+      <TanstackDataTable
+        ref={ref}
+        aria-label="Foods"
+        selectionMode="single"
+        table={table}
+        sorting={sorting}
+      />
+      <Button isDisabled={!data.hasPreviousPage} onPress={onPreviousPage}>
+        Prev Page
+      </Button>
+      <Button isDisabled={!data.hasNextPage} onPress={onNextPage}>
+        Next Page
+      </Button>
+    </>
   )
 }

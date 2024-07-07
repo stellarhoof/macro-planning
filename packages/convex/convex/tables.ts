@@ -1,6 +1,6 @@
 import type { TableDefinition } from "convex/server"
 import type { Validator } from "convex/values"
-import * as _ from "radashi"
+import { mapValues } from "radashi"
 import schema from "./schema.js"
 
 type Index = {
@@ -32,6 +32,6 @@ type TableWithExport<T extends TableDefinition> = T & {
   export: () => ExportedTable
 }
 
-export const tables = _.mapValues(schema.tables, (table) =>
+export const tables = mapValues(schema.tables, (table) =>
   (table as TableWithExport<typeof table>).export(),
 )

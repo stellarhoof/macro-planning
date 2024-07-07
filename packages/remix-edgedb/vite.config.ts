@@ -1,4 +1,5 @@
 import { vitePlugin as remix } from "@remix-run/dev"
+import UnpluginTypia from "@ryoppippi/unplugin-typia/vite"
 import hq from "alias-hq"
 import browserslistToEsbuild from "browserslist-to-esbuild"
 import { defineConfig } from "vite"
@@ -9,6 +10,7 @@ const target = browserslistToEsbuild("defaults")
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    UnpluginTypia(),
     remix({
       appDirectory: "src",
       future: {
