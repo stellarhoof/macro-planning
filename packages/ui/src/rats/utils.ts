@@ -18,3 +18,20 @@ export function composeTailwindRenderProps<T>(
 ): string | ((v: T) => string) {
   return composeRenderProps(className, (className) => twMerge(tw, className))
 }
+
+type ClassName<T> =
+  | string
+  | ((values: T & { defaultClassName: string | undefined }) => string)
+  | undefined
+
+export function mergeClassNames<T>(left: ClassName<T>, right: ClassName<T>) {
+  if (typeof right === "function" || typeof left === "function") {
+    return ((values) => {
+      return twMerge(
+        typeof left === "function" ? left(values) : left,
+        typeof right === "function" ? right(values) : right,
+      )
+    }) as Exclude<ClassName<T>, string>
+  }
+  return twMerge(left, right)
+}

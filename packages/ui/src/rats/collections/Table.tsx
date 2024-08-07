@@ -18,43 +18,23 @@ import {
   composeRenderProps,
   useTableOptions,
 } from "react-aria-components"
-import { twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 
-import { forwardRef } from "react"
+import type { Ref } from "react"
 import { Checkbox } from "../forms/Checkbox.tsx"
-import { composeTailwindRenderProps, focusRing } from "../utils.ts"
+import {
+  composeTailwindRenderProps,
+  focusRing,
+  mergeClassNames,
+} from "../utils.ts"
 
-type ClassName<T> =
-  | string
-  | ((values: T & { defaultClassName: string | undefined }) => string)
-  | undefined
-
-export function mergeClassNames<T>(left: ClassName<T>, right: ClassName<T>) {
-  if (typeof right === "function" || typeof left === "function") {
-    return ((values) => {
-      return twMerge(
-        typeof left === "function" ? left(values) : left,
-        typeof right === "function" ? right(values) : right,
-      )
-    }) as Exclude<ClassName<T>, string>
-  }
-  return twMerge(left, right)
+export function Table(props: TableProps) {
+  return (
+    <ResizableTableContainer className="overflow-auto scroll-pt-[2.281rem] relative border dark:border-zinc-600 rounded-lg">
+      <AriaTable {...props} className="border-separate border-spacing-0" />
+    </ResizableTableContainer>
+  )
 }
-
-export const Table = forwardRef<HTMLTableElement, TableProps>(
-  function Table(props, ref) {
-    return (
-      <ResizableTableContainer className="overflow-auto scroll-pt-[2.281rem] relative border dark:border-zinc-600 rounded-lg">
-        <AriaTable
-          ref={ref}
-          {...props}
-          className="border-separate border-spacing-0"
-        />
-      </ResizableTableContainer>
-    )
-  },
-)
 
 const columnStyles = tv({
   extend: focusRing,
@@ -108,13 +88,12 @@ export function Column(props: ColumnProps & { enableResizing?: boolean }) {
 
 export function TableHeader<T extends object>(props: TableHeaderProps<T>) {
   const { selectionBehavior, selectionMode, allowsDragging } = useTableOptions()
-
   return (
     <AriaTableHeader
       {...props}
-      className={twMerge(
-        "sticky top-0 z-10 bg-gray-100/60 dark:bg-zinc-700/60 backdrop-blur-md supports-[-moz-appearance:none]:bg-gray-100 dark:supports-[-moz-appearance:none]:bg-zinc-700 forced-colors:bg-[Canvas] rounded-t-lg border-b dark:border-b-zinc-700",
+      className={composeTailwindRenderProps(
         props.className,
+        "sticky top-0 z-10 bg-gray-100/60 dark:bg-zinc-700/60 backdrop-blur-md supports-[-moz-appearance:none]:bg-gray-100 dark:supports-[-moz-appearance:none]:bg-zinc-700 forced-colors:bg-[Canvas] rounded-t-lg border-b dark:border-b-zinc-700",
       )}
     >
       {/* Add extra columns for drag and drop and selection. */}
@@ -138,19 +117,18 @@ const rowStyles = tv({
   base: "group/row relative cursor-default select-none -outline-offset-2 text-gray-900 disabled:text-gray-300 dark:text-zinc-200 dark:disabled:text-zinc-600 text-sm hover:bg-gray-100 dark:hover:bg-zinc-700/60 selected:bg-blue-100 selected:hover:bg-blue-200 dark:selected:bg-blue-700/30 dark:selected:hover:bg-blue-700/40",
 })
 
-// biome-ignore lint:
-export const Row = forwardRef<HTMLTableRowElement, RowProps<any>>(function Row(
-  { id, columns, children, className, ...otherProps },
-  ref,
-) {
+export function Row<T extends object>({
+  id,
+  columns,
+  children,
+  ...props
+}: RowProps<T> & { ref?: Ref<HTMLTableRowElement> }) {
   const { selectionBehavior, allowsDragging } = useTableOptions()
-
   return (
     <AriaRow
-      ref={ref}
       id={id}
-      {...otherProps}
-      className={mergeClassNames(rowStyles, className)}
+      {...props}
+      className={mergeClassNames(rowStyles, props.className)}
     >
       {allowsDragging && (
         <Cell>
@@ -165,7 +143,7 @@ export const Row = forwardRef<HTMLTableRowElement, RowProps<any>>(function Row(
       <Collection items={columns}>{children}</Collection>
     </AriaRow>
   )
-})
+}
 
 const cellStyles = tv({
   extend: focusRing,

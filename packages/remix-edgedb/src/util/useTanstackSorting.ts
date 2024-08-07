@@ -8,15 +8,15 @@ export interface SortingSearchParams {
   orderDir: "asc" | "desc"
 }
 
-export type UseSearchParamsTanstackSorting = [
+export type UseTanstackSorting = [
   SortingState,
   (updater: Updater<SortingState>) => void,
 ]
 
-export function useSearchParamsTanstackSorting({
+export function useTanstackSorting({
   orderBy,
   orderDir,
-}: SortingSearchParams): UseSearchParamsTanstackSorting {
+}: SortingSearchParams): UseTanstackSorting {
   const [searchParams, setSearchParams] = useParsedSearchParams(
     (searchParams) => {
       const parsed = typia.http.query<SortingSearchParams>(searchParams)

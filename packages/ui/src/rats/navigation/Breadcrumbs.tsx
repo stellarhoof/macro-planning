@@ -8,6 +8,7 @@ import {
 } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 
+import { composeTailwindRenderProps } from "../utils.ts"
 import { Link } from "./Link.tsx"
 
 export function Breadcrumbs<T extends object>(props: BreadcrumbsProps<T>) {
@@ -19,11 +20,16 @@ export function Breadcrumbs<T extends object>(props: BreadcrumbsProps<T>) {
   )
 }
 
-export function Breadcrumb(props: BreadcrumbProps & LinkProps) {
+export function Breadcrumb(
+  props: BreadcrumbProps & Omit<LinkProps, "className">,
+) {
   return (
     <AriaBreadcrumb
       {...props}
-      className={twMerge("flex items-center gap-1", props.className)}
+      className={composeTailwindRenderProps(
+        props.className,
+        "flex items-center gap-1",
+      )}
     >
       <Link variant="secondary" {...props} />
       {props.href && (
