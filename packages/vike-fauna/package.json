@@ -7,7 +7,7 @@
     "db": "docker run --rm --name faunadb -p 8443:8443 -p 8084:8084 -v /tmp/faunadb/volume:/var/lib/faunadb -v /tmp/faunadb/logs:/var/log/faunadb fauna/faunadb"
   },
   "dependencies": {
-    "@tanstack/react-table": "^8.19.3",
+    "@tanstack/react-table": "^8.20.5",
     "fauna": "^2.2.0",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
@@ -15,13 +15,13 @@
     "koa-connect": "^2.1.0",
     "koa-router": "^12.0.1",
     "koa-static": "^5.0.0",
-    "lucide-react": "^0.418.0",
+    "lucide-react": "^0.439.0",
     "react": "19.0.0-rc-fb9a90fa48-20240614",
-    "react-aria-components": "^1.3.1",
+    "react-aria-components": "^1.3.3",
     "react-dom": "19.0.0-rc-fb9a90fa48-20240614",
-    "react-stately": "^3.32.1",
-    "telefunc": "^0.1.76",
-    "vike": "^0.4.182"
+    "react-stately": "^3.32.2",
+    "telefunc": "^0.1.79",
+    "vike": "^0.4.195"
   },
   "devDependencies": {
     "@types/koa": "^2.15.0",
@@ -31,16 +31,16 @@
     "@types/koa-static": "^4.0.4",
     "@vitejs/plugin-react": "^4.3.1",
     "alias-hq": "^6.2.3",
-    "autoprefixer": "^10.4.19",
-    "browserslist": "^4.23.2",
+    "autoprefixer": "^10.4.20",
+    "browserslist": "^4.23.3",
     "browserslist-to-esbuild": "^2.1.1",
-    "postcss": "^8.4.40",
-    "tailwind-merge": "^2.4.0",
+    "postcss": "^8.4.45",
+    "tailwind-merge": "^2.5.2",
     "tailwind-variants": "^0.2.1",
-    "tailwindcss": "^3.4.7",
+    "tailwindcss": "^3.4.10",
     "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-react-aria-components": "^1.1.4",
-    "tsx": "^4.16.4",
-    "vite": "^5.3.5"
+    "tailwindcss-react-aria-components": "^1.1.5",
+    "tsx": "^4.19.0",
+    "vite": "^5.4.3"
   }
 }
