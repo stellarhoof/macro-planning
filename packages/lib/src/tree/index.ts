@@ -1,0 +1,5 @@
+export { type MapOptions, map } from "./methods/map.ts"
+export { type ReduceOptions, reduce } from "./methods/reduce.ts"
+export { type FindOptions, find } from "./methods/find.ts"
+export { type ForEachOptions, forEach } from "./methods/forEach.ts"
+export { type FilterOptions, filter } from "./methods/filter.ts"

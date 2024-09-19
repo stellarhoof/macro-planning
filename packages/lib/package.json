@@ -1,5 +1,11 @@
 {
   "name": "lib",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "json-schema": "^0.4.0"
+  },
+  "dependencies": {
+    "es-toolkit": "^1.23.0"
+  }
 }

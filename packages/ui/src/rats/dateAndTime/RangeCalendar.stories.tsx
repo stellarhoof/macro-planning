@@ -8,7 +8,6 @@ type Story = StoryObj<typeof RangeCalendar>
 
 export const Example: Story = {
   args: {
-    // @ts-expect-error I'll fix this later
     "aria-label": "Trip dates",
   },
 }
