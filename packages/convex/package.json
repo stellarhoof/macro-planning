@@ -14,9 +14,9 @@
     "convex": "^1.16.3",
     "es-toolkit": "^1.23.0",
     "lucide-react": "^0.447.0",
-    "react": "19.0.0-rc-fb9a90fa48-20240614",
+    "react": "19.0.0-rc-1460d67c-20241003",
     "react-aria-components": "^1.4.0",
-    "react-dom": "19.0.0-rc-fb9a90fa48-20240614",
+    "react-dom": "19.0.0-rc-1460d67c-20241003",
     "react-stately": "^3.33.0"
   },
   "devDependencies": {

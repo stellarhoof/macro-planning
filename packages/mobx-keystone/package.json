@@ -11,9 +11,9 @@
     "mobx": "^6.13.3",
     "mobx-keystone": "^1.11.1",
     "mobx-react-lite": "^4.0.7",
-    "react": "19.0.0-rc-fb9a90fa48-20240614",
+    "react": "19.0.0-rc-1460d67c-20241003",
     "react-aria-components": "^1.4.0",
-    "react-dom": "19.0.0-rc-fb9a90fa48-20240614"
+    "react-dom": "19.0.0-rc-1460d67c-20241003"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.2",
