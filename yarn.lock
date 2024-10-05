@@ -6370,15 +6370,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:types-react-dom@rc":
-  version: 19.0.0-rc.1
-  resolution: "types-react-dom@npm:19.0.0-rc.1"
-  dependencies:
-    "@types/react": "npm:*"
-  checksum: 10c0/a6b3aea0ad4cd3b08afde28e869b30f4759a84ea8edf549c2e99d38328f07697f21b792842ef352e086e964b3fb947a54746390ae76ca586ae1a913338f94c1e
-  languageName: node
-  linkType: hard
-
 "@types/react@npm:*, @types/react@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
   version: 18.2.64
   resolution: "@types/react@npm:18.2.64"
@@ -6397,15 +6388,6 @@ __metadata:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 10c0/ce80512246ca5bda69db85b9f4f1835189334acfb6b2c4f3eda8cabff1ff1a3ea9ce4f3b895bdbc18c94140aa45592331aa3fdeb557f525c1b048de7ce84fc0e
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:types-react@rc":
-  version: 19.0.0-rc.1
-  resolution: "types-react@npm:19.0.0-rc.1"
-  dependencies:
-    csstype: "npm:^3.0.2"
-  checksum: 10c0/408cd9f3f960e806d510f7a9a3569f92a7f1cff3c57f5465fab4c139f0020c88dc7a08e6f357d2a116bd2c76e641851ce84527cb765f36824a6e818e0d477bbc
   languageName: node
   linkType: hard
 
@@ -9452,9 +9434,9 @@ __metadata:
     es-toolkit: "npm:^1.23.0"
     lucide-react: "npm:^0.447.0"
     postcss: "npm:^8.4.47"
-    react: "npm:19.0.0-rc-1460d67c-20241003"
+    react: "npm:18.3.1"
     react-aria-components: "npm:^1.4.0"
-    react-dom: "npm:19.0.0-rc-1460d67c-20241003"
+    react-dom: "npm:18.3.1"
     react-stately: "npm:^3.33.0"
     tailwind-merge: "npm:^2.5.3"
     tailwind-variants: "npm:^0.2.1"
@@ -12615,8 +12597,8 @@ __metadata:
     "@biomejs/biome": "npm:^1.9.3"
     "@types/json-schema": "npm:^7.0.15"
     "@types/node": "npm:^22.7.4"
-    "@types/react": "npm:types-react@rc"
-    "@types/react-dom": "npm:types-react-dom@rc"
+    "@types/react": "npm:^18.3.11"
+    "@types/react-dom": "npm:^18.3.0"
     ts-patch: "npm:^3.2.1"
     typescript: "npm:^5.6.2"
     vitest: "npm:^2.1.2"
@@ -13576,9 +13558,9 @@ __metadata:
     mobx-keystone: "npm:^1.11.1"
     mobx-react-lite: "npm:^4.0.7"
     postcss: "npm:^8.4.47"
-    react: "npm:19.0.0-rc-1460d67c-20241003"
+    react: "npm:18.3.1"
     react-aria-components: "npm:^1.4.0"
-    react-dom: "npm:19.0.0-rc-1460d67c-20241003"
+    react-dom: "npm:18.3.1"
     tailwind-merge: "npm:^2.5.3"
     tailwind-variants: "npm:^0.2.1"
     tailwindcss: "npm:^3.4.13"
@@ -15042,14 +15024,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.0.0-rc-1460d67c-20241003":
-  version: 19.0.0-rc-1460d67c-20241003
-  resolution: "react-dom@npm:19.0.0-rc-1460d67c-20241003"
+"react-dom@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react-dom@npm:18.3.1"
   dependencies:
-    scheduler: "npm:0.25.0-rc-1460d67c-20241003"
+    loose-envify: "npm:^1.1.0"
+    scheduler: "npm:^0.23.2"
   peerDependencies:
-    react: 19.0.0-rc-1460d67c-20241003
-  checksum: 10c0/11bd8d8faea35e2cd1785d231f93f50bccfca784bffdaea8b18d4c074f007607710943632eeaeef7d45e481e7cd3f0ef3d6c9d70175d3e334126b39aa2e3e30a
+    react: ^18.3.1
+  checksum: 10c0/a752496c1941f958f2e8ac56239172296fcddce1365ce45222d04a1947e0cc5547df3e8447f855a81d6d39f008d7c32eab43db3712077f09e3f67c4874973e85
   languageName: node
   linkType: hard
 
@@ -15165,10 +15148,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.0.0-rc-1460d67c-20241003":
-  version: 19.0.0-rc-1460d67c-20241003
-  resolution: "react@npm:19.0.0-rc-1460d67c-20241003"
-  checksum: 10c0/6c0ce011ed34c033167122d12ed7b12aaae59b1e37e8677fe2fe4193fcdffee8fa154b69c7cf415809034975f0ad696588f0a51ce24e9ff0a1e08ba753cfb9b5
+"react@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+  checksum: 10c0/283e8c5efcf37802c9d1ce767f302dd569dd97a70d9bb8c7be79a789b9902451e0d16334b05d73299b20f048cbc3c7d288bbbde10b701fa194e2089c237dbea3
   languageName: node
   linkType: hard
 
@@ -15373,8 +15358,8 @@ __metadata:
     isbot: "npm:^5.1.17"
     postcss: "npm:^8.4.47"
     radashi: "npm:^12.1.0"
-    react: "npm:19.0.0-rc-1460d67c-20241003"
-    react-dom: "npm:19.0.0-rc-1460d67c-20241003"
+    react: "npm:18.3.1"
+    react-dom: "npm:18.3.1"
     tailwind-merge: "npm:^2.5.3"
     tailwind-variants: "npm:^0.2.1"
     tailwindcss: "npm:^3.4.13"
@@ -15678,19 +15663,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.25.0-rc-1460d67c-20241003":
-  version: 0.25.0-rc-1460d67c-20241003
-  resolution: "scheduler@npm:0.25.0-rc-1460d67c-20241003"
-  checksum: 10c0/9df183328ef8cc42ef70ca7997781ee6adf556578da4346e8edd93f4ec82606d3fa9fc4590b807aea18a3e6a42a87331e49350ba345946c963e8ffcb61011407
-  languageName: node
-  linkType: hard
-
 "scheduler@npm:^0.23.0":
   version: 0.23.0
   resolution: "scheduler@npm:0.23.0"
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: 10c0/b777f7ca0115e6d93e126ac490dbd82642d14983b3079f58f35519d992fa46260be7d6e6cede433a92db70306310c6f5f06e144f0e40c484199e09c1f7be53dd
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.23.2":
+  version: 0.23.2
+  resolution: "scheduler@npm:0.23.2"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+  checksum: 10c0/26383305e249651d4c58e6705d5f8425f153211aef95f15161c151f7b8de885f24751b377e4a0b3dd42cce09aad3f87a61dab7636859c0d89b7daf1a1e2a5c78
   languageName: node
   linkType: hard
 
@@ -16877,8 +16864,8 @@ __metadata:
     "@storybook/test": "npm:8.3.5"
     "@types/react": "npm:^18.3.11"
     "@types/react-dom": "npm:^18.3.0"
-    react: "npm:19.0.0-rc-1460d67c-20241003"
-    react-dom: "npm:19.0.0-rc-1460d67c-20241003"
+    react: "npm:18.3.1"
+    react-dom: "npm:18.3.1"
     storybook: "npm:8.3.5"
     ts-pattern: "npm:5.4.0"
     vite: "npm:^5.4.8"
@@ -16909,8 +16896,8 @@ __metadata:
     es-toolkit: "npm:^1.23.0"
     iterator-helpers-polyfill: "npm:^3.0.1"
     postcss: "npm:^8.4.47"
-    react: "npm:19.0.0-rc-1460d67c-20241003"
-    react-dom: "npm:19.0.0-rc-1460d67c-20241003"
+    react: "npm:18.3.1"
+    react-dom: "npm:18.3.1"
     storybook: "npm:8.3.5"
     tailwind-merge: "npm:^2.5.3"
     tailwind-variants: "npm:^0.2.1"
@@ -17289,9 +17276,9 @@ __metadata:
     koa-static: "npm:^5.0.0"
     lucide-react: "npm:^0.447.0"
     postcss: "npm:^8.4.47"
-    react: "npm:19.0.0-rc-1460d67c-20241003"
+    react: "npm:18.3.1"
     react-aria-components: "npm:^1.4.0"
-    react-dom: "npm:19.0.0-rc-1460d67c-20241003"
+    react-dom: "npm:18.3.1"
     react-stately: "npm:^3.33.0"
     tailwind-merge: "npm:^2.5.3"
     tailwind-variants: "npm:^0.2.1"
@@ -17329,9 +17316,9 @@ __metadata:
     lucide-react: "npm:^0.447.0"
     postcss: "npm:^8.4.47"
     prisma: "npm:^5.20.0"
-    react: "npm:19.0.0-rc-1460d67c-20241003"
+    react: "npm:18.3.1"
     react-aria-components: "npm:^1.4.0"
-    react-dom: "npm:19.0.0-rc-1460d67c-20241003"
+    react-dom: "npm:18.3.1"
     react-stately: "npm:^3.33.0"
     tailwind-merge: "npm:^2.5.3"
     tailwind-variants: "npm:^0.2.1"

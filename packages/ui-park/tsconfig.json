@@ -9,6 +9,7 @@
     "paths": {
       "#lib/*": ["../lib/src/*"],
       "#src/*": ["./src/*"]
-    }
+    },
+    "verbatimModuleSyntax": false
   }
 }
