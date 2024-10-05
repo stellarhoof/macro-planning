@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 
-import { DataTabs } from "#ui/DataTabs.tsx"
+import { DataTabs } from "#ui-rats/DataTabs.tsx"
 
 import { usePageContext } from "./PageContext.ts"
 

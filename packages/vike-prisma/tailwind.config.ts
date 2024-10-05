@@ -3,7 +3,7 @@ import animate from "tailwindcss-animate"
 import ariaComponents from "tailwindcss-react-aria-components"
 
 export default {
-  content: ["./src/{lib,pages}/**/*.{ts,tsx}", "../ui/src/**/*.{ts,tsx}"],
+  content: ["./src/{lib,pages}/**/*.{ts,tsx}", "../ui-rats/src/**/*.{ts,tsx}"],
   plugins: [
     // https://react-spectrum.adobe.com/react-aria/styling.html#plugin
     ariaComponents,

@@ -1,4 +1,4 @@
-import { DataTabs } from "#ui/DataTabs.tsx"
+import { DataTabs } from "#ui-rats/DataTabs.tsx"
 
 import { Foods } from "./Foods.tsx"
 import { Help } from "./Help.tsx"
