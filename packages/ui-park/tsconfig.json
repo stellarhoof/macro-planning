@@ -10,6 +10,7 @@
       "#lib/*": ["../lib/src/*"],
       "#src/*": ["./src/*"]
     },
-    "verbatimModuleSyntax": false
+    "module": "preserve",
+    "moduleResolution": "bundler"
   }
 }

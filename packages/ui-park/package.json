@@ -16,6 +16,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^2.0.2",
     "@pandacss/dev": "^0.46.1",
+    "@park-ui/panda-preset": "^0.42.0",
     "@storybook/addon-essentials": "8.3.5",
     "@storybook/addon-interactions": "8.3.5",
     "@storybook/addon-links": "8.3.5",
@@ -23,8 +24,7 @@
     "@storybook/react": "8.3.5",
     "@storybook/react-vite": "8.3.5",
     "@storybook/test": "8.3.5",
-    "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
+    "alias-hq": "^6.2.4",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "storybook": "8.3.5",
