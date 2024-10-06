@@ -8,10 +8,7 @@
     "start:sb": "storybook dev -p 6006"
   },
   "dependencies": {
-    "@ark-ui/anatomy": "3.5.0",
-    "@ark-ui/react": "^4.1.0",
-    "@radix-ui/colors": "3.0.0",
-    "ts-pattern": "5.4.0"
+    "@ark-ui/react": "^4.1.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^2.0.2",

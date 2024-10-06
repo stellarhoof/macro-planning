@@ -6,11 +6,10 @@
     "build:sb": "storybook build",
     "start:sb": "storybook dev -p 6006"
   },
-  "peerDependencies": {
-    "lucide-react": "^0.352.0",
-    "react": "^18.2.0",
-    "react-aria-components": "^1.1.1",
-    "react-dom": "^18.2.0"
+  "dependencies": {
+    "@tanstack/react-virtual": "^3.10.8",
+    "es-toolkit": "^1.23.0",
+    "iterator-helpers-polyfill": "^3.0.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^2.0.2",
@@ -18,14 +17,20 @@
     "@storybook/addon-interactions": "8.3.5",
     "@storybook/addon-links": "8.3.5",
     "@storybook/blocks": "8.3.5",
+    "@storybook/experimental-addon-test": "^8.3.5",
     "@storybook/react": "8.3.5",
     "@storybook/react-vite": "8.3.5",
     "@storybook/test": "8.3.5",
+    "@types/jest-image-snapshot": "^6",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
+    "@vitest/browser": "^2.1.2",
     "autoprefixer": "^10.4.20",
+    "jest-image-snapshot": "^6.4.0",
+    "playwright": "^1.47.2",
     "postcss": "^8.4.47",
     "react": "18.3.1",
+    "react-aria-components": "^1.4.0",
     "react-dom": "18.3.1",
     "storybook": "8.3.5",
     "tailwind-merge": "^2.5.3",
@@ -33,11 +38,13 @@
     "tailwindcss": "^3.4.13",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^1.1.6",
-    "vite": "^5.4.8"
+    "vite": "^5.4.8",
+    "vitest": "^2.1.2"
   },
-  "dependencies": {
-    "@tanstack/react-virtual": "^3.10.8",
-    "es-toolkit": "^1.23.0",
-    "iterator-helpers-polyfill": "^3.0.1"
+  "peerDependencies": {
+    "lucide-react": "^0.352.0",
+    "react": "^18.2.0",
+    "react-aria-components": "^1.1.1",
+    "react-dom": "^18.2.0"
   }
 }

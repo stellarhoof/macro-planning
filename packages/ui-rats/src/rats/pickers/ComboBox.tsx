@@ -8,13 +8,13 @@ import {
 } from "react-aria-components"
 
 import { Description, FieldError, FieldGroup, Label } from "../Field.tsx"
+import { Input } from "../Field.tsx"
 import { Button } from "../buttons/Button.tsx"
 import {
   DropdownItem,
   DropdownSection,
   type DropdownSectionProps,
 } from "../collections/ListBox.tsx"
-import { Input } from "../forms/Input.tsx"
 import { Popover } from "../overlays/Popover.tsx"
 import { composeTailwindRenderProps } from "../utils.ts"
 

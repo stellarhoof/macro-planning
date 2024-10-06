@@ -6,6 +6,9 @@
   "references": [{ "path": "../lib/tsconfig.json" }],
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable"],
-    "paths": { "#lib/*": ["../lib/src/*"] }
+    "paths": {
+      "#lib/*": ["../lib/src/*"],
+      "#src/*": ["./src/*"]
+    }
   }
 }

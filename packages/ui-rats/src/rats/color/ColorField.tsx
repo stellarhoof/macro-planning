@@ -1,6 +1,6 @@
 import {
-  TextField as AriaTextField,
-  type TextFieldProps as AriaTextFieldProps,
+  ColorField as AriaColorField,
+  type ColorFieldProps as AriaColorFieldProps,
   type ValidationResult,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
@@ -23,20 +23,20 @@ const inputStyles = tv({
   },
 })
 
-export interface TextFieldProps extends AriaTextFieldProps {
+export interface ColorFieldProps extends AriaColorFieldProps {
   label?: string
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export function TextField({
+export function ColorField({
   label,
   description,
   errorMessage,
   ...props
-}: TextFieldProps) {
+}: ColorFieldProps) {
   return (
-    <AriaTextField
+    <AriaColorField
       {...props}
       className={composeTailwindRenderProps(
         props.className,
@@ -47,6 +47,6 @@ export function TextField({
       <Input className={inputStyles} />
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
-    </AriaTextField>
+    </AriaColorField>
   )
 }

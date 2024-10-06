@@ -11,6 +11,10 @@ export const Primary: Story = {
     variant: "primary",
     children: "Button",
   },
+  play(x) {
+    console.log(x)
+    // expect(readFileSync("./Primary.png")).toMatchImageSnapshot()
+  },
 }
 
 export const Secondary: Story = {
