@@ -7,6 +7,7 @@ import {
   type ValidationResult,
 } from "react-aria-components"
 
+import { type ForwardedRef, forwardRef } from "react"
 import {
   Description,
   FieldError,
@@ -23,52 +24,52 @@ export interface NumberFieldProps extends AriaNumberFieldProps {
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export function NumberField({
-  label,
-  description,
-  errorMessage,
-  ...props
-}: NumberFieldProps) {
-  return (
-    <AriaNumberField
-      {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "group flex flex-col gap-1",
-      )}
-    >
-      <Label>{label}</Label>
-      <FieldGroup>
-        {(renderProps) => (
-          <>
-            <Input />
-            <div
-              className={fieldBorderStyles({
-                ...renderProps,
-                class: "flex flex-col border-s-2",
-              })}
-            >
-              <StepperButton slot="increment">
-                <ChevronUp aria-hidden className="h-4 w-4" />
-              </StepperButton>
+export const NumberField = forwardRef(
+  (
+    { label, description, errorMessage, ...props }: NumberFieldProps,
+    ref: ForwardedRef<HTMLInputElement>,
+  ) => {
+    return (
+      <AriaNumberField
+        {...props}
+        className={composeTailwindRenderProps(
+          props.className,
+          "group flex flex-col gap-1",
+        )}
+      >
+        <Label>{label}</Label>
+        <FieldGroup>
+          {(renderProps) => (
+            <>
+              <Input ref={ref} />
               <div
                 className={fieldBorderStyles({
                   ...renderProps,
-                  class: "border-b-2",
+                  class: "flex flex-col border-s-2",
                 })}
-              />
-              <StepperButton slot="decrement">
-                <ChevronDown aria-hidden className="h-4 w-4" />
-              </StepperButton>
-            </div>
-          </>
-        )}
-      </FieldGroup>
-      {description && <Description>{description}</Description>}
-      <FieldError>{errorMessage}</FieldError>
-    </AriaNumberField>
-  )
-}
+              >
+                <StepperButton slot="increment">
+                  <ChevronUp aria-hidden className="h-4 w-4" />
+                </StepperButton>
+                <div
+                  className={fieldBorderStyles({
+                    ...renderProps,
+                    class: "border-b-2",
+                  })}
+                />
+                <StepperButton slot="decrement">
+                  <ChevronDown aria-hidden className="h-4 w-4" />
+                </StepperButton>
+              </div>
+            </>
+          )}
+        </FieldGroup>
+        {description && <Description>{description}</Description>}
+        <FieldError>{errorMessage}</FieldError>
+      </AriaNumberField>
+    )
+  },
+)
 
 function StepperButton(props: ButtonProps) {
   return (

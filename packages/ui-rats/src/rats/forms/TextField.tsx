@@ -5,11 +5,13 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
+import { type ForwardedRef, forwardRef } from "react"
 import {
   Description,
   FieldError,
   Input,
   Label,
+  TextArea,
   fieldBorderStyles,
 } from "../Field.tsx"
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
@@ -29,24 +31,46 @@ export interface TextFieldProps extends AriaTextFieldProps {
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export function TextField({
-  label,
-  description,
-  errorMessage,
-  ...props
-}: TextFieldProps) {
-  return (
-    <AriaTextField
-      {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "flex flex-col gap-1",
-      )}
-    >
-      {label && <Label>{label}</Label>}
-      <Input className={inputStyles} />
-      {description && <Description>{description}</Description>}
-      <FieldError>{errorMessage}</FieldError>
-    </AriaTextField>
-  )
-}
+export const TextField = forwardRef(
+  (
+    { label, description, errorMessage, ...props }: TextFieldProps,
+    ref: ForwardedRef<HTMLInputElement>,
+  ) => {
+    return (
+      <AriaTextField
+        {...props}
+        className={composeTailwindRenderProps(
+          props.className,
+          "flex flex-col gap-1",
+        )}
+      >
+        {label && <Label>{label}</Label>}
+        <Input ref={ref} className={inputStyles} />
+        {description && <Description>{description}</Description>}
+        <FieldError>{errorMessage}</FieldError>
+      </AriaTextField>
+    )
+  },
+)
+
+export const TextAreaField = forwardRef(
+  (
+    { label, description, errorMessage, ...props }: TextFieldProps,
+    ref: ForwardedRef<HTMLTextAreaElement>,
+  ) => {
+    return (
+      <AriaTextField
+        {...props}
+        className={composeTailwindRenderProps(
+          props.className,
+          "flex flex-col gap-1",
+        )}
+      >
+        {label && <Label>{label}</Label>}
+        <TextArea ref={ref} className={inputStyles} />
+        {description && <Description>{description}</Description>}
+        <FieldError>{errorMessage}</FieldError>
+      </AriaTextField>
+    )
+  },
+)

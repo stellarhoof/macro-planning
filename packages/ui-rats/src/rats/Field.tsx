@@ -7,26 +7,47 @@ import {
   FieldError as RACFieldError,
   Input as RACInput,
   Label as RACLabel,
+  TextArea as RACTextArea,
   Text,
+  type TextAreaProps,
   type TextProps,
   composeRenderProps,
 } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
 
+import { type ForwardedRef, forwardRef } from "react"
 import { composeTailwindRenderProps, focusRing } from "./utils.ts"
 
-export function Input(props: InputProps) {
-  return (
-    <RACInput
-      {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "min-w-0 flex-1 bg-white px-2 py-1.5 text-sm text-gray-800 outline outline-0 disabled:text-gray-200 dark:bg-zinc-900 dark:text-zinc-200 dark:disabled:text-zinc-600",
-      )}
-    />
-  )
-}
+export const Input = forwardRef(
+  (props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
+    return (
+      <RACInput
+        ref={ref}
+        {...props}
+        className={composeTailwindRenderProps(
+          props.className,
+          "min-w-0 flex-1 bg-white px-3 py-1.5 text-sm text-gray-800 outline outline-0 disabled:text-gray-200 dark:bg-zinc-900 dark:text-zinc-200 dark:disabled:text-zinc-600",
+        )}
+      />
+    )
+  },
+)
+
+export const TextArea = forwardRef(
+  (props: TextAreaProps, ref: ForwardedRef<HTMLTextAreaElement>) => {
+    return (
+      <RACTextArea
+        ref={ref}
+        {...props}
+        className={composeTailwindRenderProps(
+          props.className,
+          "min-w-0 bg-white px-3 py-1.5 text-sm text-gray-800 outline outline-0 disabled:text-gray-200 dark:bg-zinc-900 dark:text-zinc-200 dark:disabled:text-zinc-600",
+        )}
+      />
+    )
+  },
+)
 
 export function Label(props: LabelProps) {
   return (

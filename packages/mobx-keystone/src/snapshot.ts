@@ -3,7 +3,6 @@ import { getNumberInRange } from "#lib/util.ts"
 function genId() {
   const array = new Uint32Array(1)
   window.crypto.getRandomValues(array)
-  // biome-ignore lint:
   return array[0]!.toString()
 }
 
@@ -524,7 +523,6 @@ function range(from: number, to: number) {
 export function createRandomFoodAmounts(size: number) {
   return range(0, size).map(() => ({
     food: {
-      // biome-ignore lint:
       id: foods[getNumberInRange(0, foods.length)]!.id,
       $modelType: "foodRef",
     },
