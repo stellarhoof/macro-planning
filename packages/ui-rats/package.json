@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@tanstack/react-virtual": "^3.10.8",
-    "es-toolkit": "^1.24.0",
+    "es-toolkit": "^1.25.0",
     "iterator-helpers-polyfill": "^3.0.1"
   },
   "devDependencies": {
@@ -23,7 +23,7 @@
     "@storybook/test": "8.3.5",
     "@types/jest-image-snapshot": "^6.4.0",
     "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
+    "@types/react-dom": "^18.3.1",
     "@vitest/browser": "^2.1.2",
     "autoprefixer": "^10.4.20",
     "jest-image-snapshot": "^6.4.0",

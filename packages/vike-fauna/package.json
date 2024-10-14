@@ -15,13 +15,13 @@
     "koa-connect": "^2.1.0",
     "koa-router": "^13.0.1",
     "koa-static": "^5.0.0",
-    "lucide-react": "^0.451.0",
+    "lucide-react": "^0.452.0",
     "react": "18.3.1",
     "react-aria-components": "^1.4.0",
     "react-dom": "18.3.1",
     "react-stately": "^3.33.0",
     "telefunc": "^0.1.79",
-    "vike": "^0.4.198"
+    "vike": "^0.4.199"
   },
   "devDependencies": {
     "@types/koa": "^2.15.0",

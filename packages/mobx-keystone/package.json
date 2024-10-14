@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@tanstack/react-table": "^8.20.5",
-    "lucide-react": "^0.451.0",
+    "lucide-react": "^0.452.0",
     "mobx": "^6.13.3",
     "mobx-keystone": "^1.11.1",
     "mobx-react-lite": "^4.0.7",

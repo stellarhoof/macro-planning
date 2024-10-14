@@ -8,7 +8,7 @@
     "start:sb": "storybook dev -p 6006"
   },
   "dependencies": {
-    "es-toolkit": "^1.24.0",
+    "es-toolkit": "^1.25.0",
     "react-aria": "^3.35.0",
     "react-aria-components": "^1.4.0",
     "react-hook-form": "^7.53.0",

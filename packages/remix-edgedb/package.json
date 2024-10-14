@@ -11,23 +11,23 @@
     "prepare": "ts-patch install && typia patch"
   },
   "dependencies": {
-    "@remix-run/node": "^2.12.1",
-    "@remix-run/react": "^2.12.1",
-    "@remix-run/serve": "^2.12.1",
+    "@remix-run/node": "^2.13.1",
+    "@remix-run/react": "^2.13.1",
+    "@remix-run/serve": "^2.13.1",
     "@tanstack/react-table": "^8.20.5",
     "edgedb": "^1.5.12",
     "isbot": "^5.1.17",
     "radashi": "^12.1.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "typia": "^6.11.1"
+    "typia": "^6.11.2"
   },
   "devDependencies": {
     "@edgedb/generate": "^0.5.6",
-    "@remix-run/dev": "^2.12.1",
+    "@remix-run/dev": "^2.13.1",
     "@ryoppippi/unplugin-typia": "^1.0.6",
     "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
+    "@types/react-dom": "^18.3.1",
     "alias-hq": "^6.2.4",
     "autoprefixer": "^10.4.20",
     "browserslist": "^4.24.0",

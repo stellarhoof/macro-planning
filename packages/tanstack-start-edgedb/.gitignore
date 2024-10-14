@@ -1,0 +1,6 @@
+# EdgeDB
+dbschema/edgeql-js
+dbschema/interfaces.ts
+
+# Tanstack Router
+src/routeTree.gen.ts
