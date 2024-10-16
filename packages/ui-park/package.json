@@ -8,7 +8,7 @@
     "start:sb": "storybook dev -p 6006"
   },
   "dependencies": {
-    "@ark-ui/react": "^4.1.1"
+    "@ark-ui/react": "^4.1.2"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^2.0.2",
@@ -25,7 +25,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "storybook": "8.3.5",
-    "vite": "^5.4.8"
+    "vite": "^5.4.9"
   },
   "peerDependencies": {
     "@pandacss/dev": ">0.22.0",

@@ -9,9 +9,15 @@
     "paths": {
       "#lib/*": ["../lib/src/*"],
       "#ui-rats/*": ["../ui-rats/src/*"],
-      "#src/*": ["./src/*"]
+      "#src/*": ["./src/*"],
+      "#dbschema/*": ["./dbschema/*"]
     },
     "types": ["vite/client"],
-    "noEmit": true
+    "noEmit": true,
+
+    // :(
+    // edgeql-js generates extensionless files
+    "module": "esnext",
+    "moduleResolution": "bundler"
   }
 }

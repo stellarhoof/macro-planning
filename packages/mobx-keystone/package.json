@@ -7,12 +7,12 @@
   },
   "dependencies": {
     "@tanstack/react-table": "^8.20.5",
-    "lucide-react": "^0.452.0",
-    "mobx": "^6.13.3",
+    "lucide-react": "^0.453.0",
+    "mobx": "^6.13.4",
     "mobx-keystone": "^1.11.1",
     "mobx-react-lite": "^4.0.7",
     "react": "18.3.1",
-    "react-aria-components": "^1.4.0",
+    "react-aria-components": "^1.4.1",
     "react-dom": "18.3.1"
   },
   "devDependencies": {
@@ -22,11 +22,11 @@
     "browserslist": "^4.24.0",
     "browserslist-to-esbuild": "^2.1.1",
     "postcss": "^8.4.47",
-    "tailwind-merge": "^2.5.3",
+    "tailwind-merge": "^2.5.4",
     "tailwind-variants": "^0.2.1",
-    "tailwindcss": "^3.4.13",
+    "tailwindcss": "^3.4.14",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^1.1.6",
-    "vite": "^5.4.8"
+    "vite": "^5.4.9"
   }
 }
