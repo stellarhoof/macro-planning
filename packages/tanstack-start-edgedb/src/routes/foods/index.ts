@@ -6,8 +6,8 @@ import { Component } from "./Component.tsx"
 import { getFoods } from "./server.ts"
 
 const searchSchema = z.object({
-  limit: fallback(z.number(), 10).default(10),
-  offset: fallback(z.number(), 0).default(0),
+  page: fallback(z.number(), 0).default(0),
+  pageSize: fallback(z.number(), 10).default(10),
   orderBy: fallback(z.string(), "name").default("name"),
   orderDir: fallback(z.enum(["asc", "desc"]), "asc").default("asc"),
 })

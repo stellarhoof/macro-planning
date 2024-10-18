@@ -50,7 +50,7 @@ export function Component() {
   const navigate = useNavigate({ from: route.id })
 
   const table = useReactTable({
-    data,
+    data: data.items,
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: (updater) => {
@@ -84,26 +84,20 @@ export function Component() {
         ]}
       />
       <Button
-        isDisabled={data.pagination.prevCursor === null}
+        isDisabled={!data.hasPreviousPage}
         onPress={() =>
           navigate({
-            search: (prev) => ({
-              ...prev,
-              cursor: data.pagination.prevCursor ?? "",
-            }),
+            search: (prev) => ({ ...prev, page: prev.page - 1 }),
           })
         }
       >
         Prev Page
       </Button>
       <Button
-        isDisabled={data.pagination.nextCursor === null}
+        isDisabled={!data.hasNextPage}
         onPress={() =>
           navigate({
-            search: (prev) => ({
-              ...prev,
-              cursor: data.pagination.nextCursor ?? "",
-            }),
+            search: (prev) => ({ ...prev, page: prev.page + 1 }),
           })
         }
       >

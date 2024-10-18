@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/start"
 import { type Client, createClient } from "edgedb"
-import e from "#dbschema/edgeql-js/index.ts"
 
 import type { Food } from "#dbschema/interfaces.ts"
 
@@ -11,25 +10,29 @@ export function getClient() {
 }
 
 interface SearchParams {
-  offset: number
-  limit: number
+  page: number
+  pageSize: number
   orderBy: string
   orderDir: "asc" | "desc"
 }
 
 export const getFoods = createServerFn("GET", async (params: SearchParams) => {
-  console.log(params)
-
   const query = `
-    select Food
-    order by .${params.orderBy} ${params.orderDir}
-    offset ${params.offset}
-    limit ${params.limit}
+    with
+      remaining := (select Food order by .${params.orderBy} ${params.orderDir} offset ${params.page * params.pageSize}),
+      results := (select remaining limit ${params.pageSize})
+    select {
+      items := results {*},
+      hasPreviousPage := ${params.page} > 0,
+      hasNextPage := count(remaining) > ${params.pageSize}
+    }
   `
 
-  const result = await getClient().query<Food[]>(query)
+  const result = await getClient().querySingle<{
+    items: Food[]
+    hasPreviousPage: boolean
+    hasNextPage: boolean
+  }>(query)
 
-  console.log(result)
-
-  return result
+  return result ?? { items: [], hasPreviousPage: false, hasNextPage: false }
 })
