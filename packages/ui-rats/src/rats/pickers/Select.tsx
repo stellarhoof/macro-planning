@@ -9,7 +9,7 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { type ForwardedRef, forwardRef } from "react"
+import type { ForwardedRef } from "react"
 import { Description, FieldError, Label } from "../Field.tsx"
 import { DropdownItem, DropdownSection } from "../collections/ListBox.tsx"
 import { Popover } from "../overlays/Popover.tsx"
@@ -38,51 +38,45 @@ export interface SelectProps<T extends object>
   errorMessage?: string | ((validation: ValidationResult) => string)
   items?: Iterable<T>
   children: React.ReactNode | ((item: T) => React.ReactNode)
+  ref?: ForwardedRef<HTMLDivElement>
 }
 
-export const Select = forwardRef(
-  (
-    {
-      label,
-      description,
-      errorMessage,
-      children,
-      items,
-      ...props
-    }: // This will get better once React 19 comes out and we don't need
-    // forwardRef anymore.
-    // biome-ignore lint/suspicious/noExplicitAny:
-    SelectProps<any>,
-    ref: ForwardedRef<HTMLDivElement>,
-  ) => {
-    return (
-      <AriaSelect
-        {...props}
-        ref={ref}
-        className={composeTailwindRenderProps(
-          props.className,
-          "group flex flex-col gap-1",
-        )}
-      >
-        {label && <Label>{label}</Label>}
-        <Button className={styles}>
-          <SelectValue className="flex-1 text-sm placeholder-shown:italic" />
-          <ChevronDown
-            aria-hidden
-            className="w-4 h-4 text-gray-600 dark:text-zinc-400 forced-colors:text-[ButtonText] group-disabled:text-gray-200 dark:group-disabled:text-zinc-600 forced-colors:group-disabled:text-[GrayText]"
-          />
-        </Button>
-        {description && <Description>{description}</Description>}
-        <FieldError>{errorMessage}</FieldError>
-        <Popover className="min-w-[--trigger-width]">
-          <ListBox
-            items={items}
-            className="max-h-[inherit] overflow-auto p-1 outline-none [clip-path:inset(0_0_0_0_round_.75rem)]"
-          >
-            {children}
-          </ListBox>
-        </Popover>
-      </AriaSelect>
-    )
-  },
-)
+export function Select<T extends object>({
+  label,
+  description,
+  errorMessage,
+  children,
+  items,
+  ref,
+  ...props
+}: SelectProps<T>) {
+  return (
+    <AriaSelect
+      {...props}
+      ref={ref}
+      className={composeTailwindRenderProps(
+        props.className,
+        "group flex flex-col gap-1",
+      )}
+    >
+      {label && <Label>{label}</Label>}
+      <Button className={styles}>
+        <SelectValue className="flex-1 text-sm placeholder-shown:italic" />
+        <ChevronDown
+          aria-hidden
+          className="w-4 h-4 text-gray-600 dark:text-zinc-400 forced-colors:text-[ButtonText] group-disabled:text-gray-200 dark:group-disabled:text-zinc-600 forced-colors:group-disabled:text-[GrayText]"
+        />
+      </Button>
+      {description && <Description>{description}</Description>}
+      <FieldError>{errorMessage}</FieldError>
+      <Popover className="min-w-[--trigger-width]">
+        <ListBox
+          items={items}
+          className="max-h-[inherit] overflow-auto p-1 outline-none [clip-path:inset(0_0_0_0_round_.75rem)]"
+        >
+          {children}
+        </ListBox>
+      </Popover>
+    </AriaSelect>
+  )
+}

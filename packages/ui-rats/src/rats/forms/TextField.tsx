@@ -5,7 +5,7 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { type ForwardedRef, forwardRef } from "react"
+import type { ForwardedRef } from "react"
 import {
   Description,
   FieldError,
@@ -26,51 +26,61 @@ const inputStyles = tv({
 })
 
 export interface TextFieldProps extends AriaTextFieldProps {
+  ref?: ForwardedRef<HTMLInputElement>
   label?: string
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export const TextField = forwardRef(
-  (
-    { label, description, errorMessage, ...props }: TextFieldProps,
-    ref: ForwardedRef<HTMLInputElement>,
-  ) => {
-    return (
-      <AriaTextField
-        {...props}
-        className={composeTailwindRenderProps(
-          props.className,
-          "flex flex-col gap-1",
-        )}
-      >
-        {label && <Label>{label}</Label>}
-        <Input ref={ref} className={inputStyles} />
-        {description && <Description>{description}</Description>}
-        <FieldError>{errorMessage}</FieldError>
-      </AriaTextField>
-    )
-  },
-)
+export function TextField({
+  label,
+  description,
+  errorMessage,
+  ref,
+  ...props
+}: TextFieldProps) {
+  return (
+    <AriaTextField
+      {...props}
+      className={composeTailwindRenderProps(
+        props.className,
+        "flex flex-col gap-1",
+      )}
+    >
+      {label && <Label>{label}</Label>}
+      <Input ref={ref} className={inputStyles} />
+      {description && <Description>{description}</Description>}
+      <FieldError>{errorMessage}</FieldError>
+    </AriaTextField>
+  )
+}
 
-export const TextAreaField = forwardRef(
-  (
-    { label, description, errorMessage, ...props }: TextFieldProps,
-    ref: ForwardedRef<HTMLTextAreaElement>,
-  ) => {
-    return (
-      <AriaTextField
-        {...props}
-        className={composeTailwindRenderProps(
-          props.className,
-          "flex flex-col gap-1",
-        )}
-      >
-        {label && <Label>{label}</Label>}
-        <TextArea ref={ref} className={inputStyles} />
-        {description && <Description>{description}</Description>}
-        <FieldError>{errorMessage}</FieldError>
-      </AriaTextField>
-    )
-  },
-)
+export interface TextAreaProps extends AriaTextFieldProps {
+  ref?: ForwardedRef<HTMLTextAreaElement>
+  label?: string
+  description?: string
+  errorMessage?: string | ((validation: ValidationResult) => string)
+}
+
+export function TextAreaField({
+  label,
+  description,
+  errorMessage,
+  ref,
+  ...props
+}: TextAreaProps) {
+  return (
+    <AriaTextField
+      {...props}
+      className={composeTailwindRenderProps(
+        props.className,
+        "flex flex-col gap-1",
+      )}
+    >
+      {label && <Label>{label}</Label>}
+      <TextArea ref={ref} className={inputStyles} />
+      {description && <Description>{description}</Description>}
+      <FieldError>{errorMessage}</FieldError>
+    </AriaTextField>
+  )
+}

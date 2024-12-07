@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import { Fragment, type ReactNode } from "react"
 import {
   Radio as RACRadio,
   RadioGroup as RACRadioGroup,
@@ -18,21 +18,28 @@ export interface RadioGroupProps extends Omit<RACRadioGroupProps, "children"> {
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export function RadioGroup(props: RadioGroupProps) {
+export function RadioGroup({
+  label,
+  children,
+  description,
+  errorMessage,
+  className,
+  ...props
+}: RadioGroupProps) {
   return (
     <RACRadioGroup
       {...props}
       className={composeTailwindRenderProps(
-        props.className,
+        className,
         "group flex flex-col gap-2",
       )}
     >
-      <Label>{props.label}</Label>
+      <Label>{label}</Label>
       <div className="group-orientation-horizontal:gap-4 group-orientation-vertical:flex-col flex gap-2">
-        {props.children}
+        {children}
       </div>
-      {props.description && <Description>{props.description}</Description>}
-      <FieldError>{props.errorMessage}</FieldError>
+      {description && <Description>{description}</Description>}
+      <FieldError>{errorMessage}</FieldError>
     </RACRadioGroup>
   )
 }
@@ -65,10 +72,10 @@ export function Radio(props: RadioProps) {
       )}
     >
       {(renderProps) => (
-        <>
+        <Fragment>
           <div className={styles(renderProps)} />
           {props.children}
-        </>
+        </Fragment>
       )}
     </RACRadio>
   )

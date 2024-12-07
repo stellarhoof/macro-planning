@@ -8,29 +8,29 @@
     "start:sb": "storybook dev -p 6006"
   },
   "dependencies": {
-    "@ark-ui/react": "^4.1.2"
+    "@ark-ui/react": "^4.4.4"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^2.0.2",
-    "@pandacss/dev": "^0.46.1",
-    "@park-ui/panda-preset": "^0.42.0",
-    "@storybook/addon-essentials": "8.3.5",
-    "@storybook/addon-interactions": "8.3.5",
-    "@storybook/addon-links": "8.3.5",
-    "@storybook/blocks": "8.3.5",
-    "@storybook/react": "8.3.5",
-    "@storybook/react-vite": "8.3.5",
-    "@storybook/test": "8.3.5",
+    "@chromatic-com/storybook": "^3.2.2",
+    "@pandacss/dev": "^0.48.1",
+    "@park-ui/panda-preset": "^0.43.1",
+    "@storybook/addon-essentials": "8.4.7",
+    "@storybook/addon-interactions": "8.4.7",
+    "@storybook/addon-links": "8.4.7",
+    "@storybook/blocks": "8.4.7",
+    "@storybook/react": "8.4.7",
+    "@storybook/react-vite": "8.4.7",
+    "@storybook/test": "8.4.7",
     "alias-hq": "^6.2.4",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "storybook": "8.3.5",
-    "vite": "^5.4.9"
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "storybook": "8.4.7",
+    "vite": "^6.0.3"
   },
   "peerDependencies": {
     "@pandacss/dev": ">0.22.0",
     "lucide-react": "^0.352.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }

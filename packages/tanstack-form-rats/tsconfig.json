@@ -1,0 +1,17 @@
+{
+  "extends": ["../../tsconfig.shared.all.jsonc"],
+  "references": [
+    { "path": "../lib/tsconfig.json" },
+    { "path": "../ui-rats/tsconfig.json" }
+  ],
+  "compilerOptions": {
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "jsx": "react-jsx",
+    "paths": {
+      "#lib/*": ["../lib/src/*"],
+      "#ui-rats/*": ["../ui-rats/src/*"],
+      "#src/*": ["./src/*"]
+    },
+    "noEmit": true
+  }
+}

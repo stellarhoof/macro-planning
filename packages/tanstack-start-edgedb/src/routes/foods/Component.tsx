@@ -17,22 +17,37 @@ const columnHelper = createColumnHelper<Food>()
 
 const columns = [
   columnHelper.accessor("name", {
+    header: "Name",
     meta: {
-      props: { header: { isRowHeader: true } },
+      props: {
+        header: {
+          isRowHeader: true,
+        },
+      },
     },
   }),
-  columnHelper.accessor("brand", {}),
+  columnHelper.accessor("brand", {
+    header: "Brand",
+  }),
   columnHelper.accessor("fats", {
+    header: "Fats",
     cell: ({ getValue }) => formatGrams(getValue()),
+    meta: { props: { cell: { className: "text-right" } } },
   }),
   columnHelper.accessor("carbs", {
+    header: "Carbs",
     cell: ({ getValue }) => formatGrams(getValue()),
+    meta: { props: { cell: { className: "text-right" } } },
   }),
   columnHelper.accessor("proteins", {
+    header: "Proteins",
     cell: ({ getValue }) => formatGrams(getValue()),
+    meta: { props: { cell: { className: "text-right" } } },
   }),
   columnHelper.accessor("calories", {
+    header: "Calories",
     cell: ({ getValue }) => formatNumber(getValue()),
+    meta: { props: { cell: { className: "text-right" } } },
   }),
   columnHelper.display({
     id: "actions",
@@ -74,7 +89,7 @@ export function Component() {
       <TanstackDataTable
         ref={ref}
         aria-label="Foods"
-        selectionMode="single"
+        selectionMode="multiple"
         table={table}
         sorting={[
           {

@@ -22,11 +22,7 @@ import { tv } from "tailwind-variants"
 
 import type { Ref } from "react"
 import { Checkbox } from "../forms/Checkbox.tsx"
-import {
-  composeTailwindRenderProps,
-  focusRing,
-  mergeClassNames,
-} from "../utils.ts"
+import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 
 export function Table(props: TableProps) {
   return (
@@ -128,7 +124,9 @@ export function Row<T extends object>({
     <AriaRow
       id={id}
       {...props}
-      className={mergeClassNames(rowStyles, props.className)}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        rowStyles({ ...renderProps, className }),
+      )}
     >
       {allowsDragging && (
         <Cell>
@@ -151,5 +149,12 @@ const cellStyles = tv({
 })
 
 export function Cell(props: CellProps) {
-  return <AriaCell {...props} className={cellStyles} />
+  return (
+    <AriaCell
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        cellStyles({ ...renderProps, className }),
+      )}
+    />
+  )
 }

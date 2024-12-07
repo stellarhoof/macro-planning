@@ -6,7 +6,7 @@ import {
   type ValidationResult,
 } from "react-aria-components"
 
-import { type ForwardedRef, forwardRef } from "react"
+import type { ForwardedRef } from "react"
 import { Description, FieldError, FieldGroup, Label } from "../Field.tsx"
 import { Input } from "../Field.tsx"
 import { Button } from "../buttons/Button.tsx"
@@ -24,49 +24,43 @@ export interface ComboBoxProps<T extends object>
   description?: string | null
   errorMessage?: string | ((validation: ValidationResult) => string)
   children: React.ReactNode | ((item: T) => React.ReactNode)
+  ref?: ForwardedRef<HTMLInputElement>
 }
 
-export const ComboBox = forwardRef(
-  (
-    {
-      label,
-      description,
-      errorMessage,
-      children,
-      items,
-      ...props
-    }: // This will get better once React 19 comes out and we don't need
-    // forwardRef anymore.
-    // biome-ignore lint/suspicious/noExplicitAny:
-    ComboBoxProps<any>,
-    ref: ForwardedRef<HTMLInputElement>,
-  ) => {
-    return (
-      <AriaComboBox
-        {...props}
-        className={composeTailwindRenderProps(
-          props.className,
-          "group flex flex-col gap-1",
-        )}
-      >
-        <Label>{label}</Label>
-        <FieldGroup>
-          <Input ref={ref} />
-          <Button variant="icon" className="mr-1 rounded">
-            <ChevronDown aria-hidden className="h-4 w-4" />
-          </Button>
-        </FieldGroup>
-        {description && <Description>{description}</Description>}
-        <FieldError>{errorMessage}</FieldError>
-        <Popover className="w-[--trigger-width]">
-          <ListBox
-            items={items}
-            className="max-h-[inherit] overflow-auto p-1 outline-0 [clip-path:inset(0_0_0_0_round_.75rem)]"
-          >
-            {children}
-          </ListBox>
-        </Popover>
-      </AriaComboBox>
-    )
-  },
-)
+export function ComboBox<T extends object>({
+  label,
+  description,
+  errorMessage,
+  children,
+  items,
+  ref,
+  ...props
+}: ComboBoxProps<T>) {
+  return (
+    <AriaComboBox
+      {...props}
+      className={composeTailwindRenderProps(
+        props.className,
+        "group flex flex-col gap-1",
+      )}
+    >
+      <Label>{label}</Label>
+      <FieldGroup>
+        <Input ref={ref} />
+        <Button variant="icon" className="mr-1 rounded">
+          <ChevronDown aria-hidden className="h-4 w-4" />
+        </Button>
+      </FieldGroup>
+      {description && <Description>{description}</Description>}
+      <FieldError>{errorMessage}</FieldError>
+      <Popover className="w-[--trigger-width]">
+        <ListBox
+          items={items}
+          className="max-h-[inherit] overflow-auto p-1 outline-0 [clip-path:inset(0_0_0_0_round_.75rem)]"
+        >
+          {children}
+        </ListBox>
+      </Popover>
+    </AriaComboBox>
+  )
+}

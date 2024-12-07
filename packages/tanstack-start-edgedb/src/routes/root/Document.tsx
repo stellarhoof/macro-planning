@@ -1,7 +1,6 @@
 import { useLocation, useRouter } from "@tanstack/react-router"
 import { ScrollRestoration } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
-import { Body, Head, Html, Meta, Scripts } from "@tanstack/start"
 import type { ReactNode } from "react"
 import { RouterProvider } from "react-aria-components"
 
@@ -30,21 +29,13 @@ function Navigation({ children }: { children: ReactNode }) {
 export function Document({ children }: { children: ReactNode }) {
   const router = useRouter()
   return (
-    <Html>
-      <Head>
-        <Meta />
-      </Head>
-      <Body>
-        <RouterProvider
-          navigate={(to, options = {}) => router.navigate({ to, ...options })}
-          useHref={(to) => router.buildLocation({ to }).href}
-        >
-          <Navigation>{children}</Navigation>
-        </RouterProvider>
-        <ScrollRestoration />
-        <TanStackRouterDevtools position="bottom-right" />
-        <Scripts />
-      </Body>
-    </Html>
+    <RouterProvider
+      navigate={(to, options = {}) => router.navigate({ to, ...options })}
+      useHref={(to) => router.buildLocation({ to }).href}
+    >
+      <Navigation>{children}</Navigation>
+      <ScrollRestoration />
+      <TanStackRouterDevtools position="bottom-right" />
+    </RouterProvider>
   )
 }

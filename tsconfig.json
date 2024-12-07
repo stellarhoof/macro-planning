@@ -12,7 +12,8 @@
     { "path": "./packages/vike-prisma/tsconfig.json" },
     { "path": "./packages/vike-fauna/tsconfig.json" },
     { "path": "./packages/remix-edgedb/tsconfig.json" },
-    { "path": "./packages/json-schema-form/tsconfig.json" },
+    { "path": "./packages/react-hook-form-rats/tsconfig.json" },
+    { "path": "./packages/tanstack-form-rats/tsconfig.json" },
     { "path": "./packages/tanstack-start-edgedb/tsconfig.json" }
   ]
 }
