@@ -75,7 +75,19 @@ function ajvValidator(ajv: Ajv): Validator<unknown, JSONSchema> {
       const valid = ajv.validate(schema, value)
       if (!valid) {
         console.log("sync", ajv.errors)
-        return { form: "Error", fields: { name: "Error" } }
+        return {
+          form: "Error",
+          fields: {
+            name: "Error",
+            bio: "",
+            age: "",
+            subscribed: "",
+            iceCreamFlavor: "",
+            fruit: "",
+            sports: "",
+            pet: "",
+          },
+        }
       }
     },
     async validateAsync({ value }, schema) {
