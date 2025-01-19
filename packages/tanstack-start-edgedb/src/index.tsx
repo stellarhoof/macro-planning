@@ -2,14 +2,14 @@ import {
   type NavigateOptions,
   RouterProvider,
   type ToOptions,
-  createRouter as createTanStackRouter,
+  createRouter,
 } from "@tanstack/react-router"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 
 import { routeTree } from "./routes.gen.ts"
 
-const router = createTanStackRouter({ routeTree })
+const router = createRouter({ routeTree })
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -24,8 +24,8 @@ declare module "react-aria-components" {
   }
 }
 
-const rootElement = document.getElementById("root")!
-if (!rootElement.innerHTML) {
+const rootElement = document.getElementById("root")
+if (rootElement && !rootElement.innerHTML) {
   const root = createRoot(rootElement)
   root.render(
     <StrictMode>

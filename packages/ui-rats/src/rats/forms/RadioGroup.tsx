@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from "react"
+import type { ReactNode } from "react"
 import {
   Radio as RACRadio,
   RadioGroup as RACRadioGroup,
@@ -72,10 +72,10 @@ export function Radio(props: RadioProps) {
       )}
     >
       {(renderProps) => (
-        <Fragment>
+        <>
           <div className={styles(renderProps)} />
           {props.children}
-        </Fragment>
+        </>
       )}
     </RACRadio>
   )

@@ -1745,6 +1745,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@convex-dev/react-query@npm:^0.0.0-alpha.8":
+  version: 0.0.0-alpha.8
+  resolution: "@convex-dev/react-query@npm:0.0.0-alpha.8"
+  peerDependencies:
+    "@tanstack/react-query": ^5.0.0
+    convex: ^1.17.0
+  checksum: 10c0/7d8098495a75e23aa3dac091f93068a6e277bd24681e5d877956e733cd7229d1faef7117ab8c87ec58665bcccd819ecff79916aac6e25d960c1f4cec4ffee9cc
+  languageName: node
+  linkType: hard
+
 "@csstools/postcss-cascade-layers@npm:4.0.6":
   version: 4.0.6
   resolution: "@csstools/postcss-cascade-layers@npm:4.0.6"
@@ -7178,6 +7188,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.64.2":
+  version: 5.64.2
+  resolution: "@tanstack/query-core@npm:5.64.2"
+  checksum: 10c0/96dfaa334d2e3aeb3bcd55a3b8b3f3b4f7283b435d90681302ca6c08d0a597a5745c3c790d0242908266af6188efe804aac3c82ca8ed3fd7cd73c24220d93acc
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-cross-context@npm:^1.97.0":
   version: 1.97.0
   resolution: "@tanstack/react-cross-context@npm:1.97.0"
@@ -7203,6 +7220,17 @@ __metadata:
     "@tanstack/start":
       optional: true
   checksum: 10c0/826e0ac4f834b0da003ca532e18392ea903160a3480f2cfd8574b51ccdd787accdc861f66f6dbb0d3fbda805d8dc31fa53b061a6dc1ad4aa7f149df9254d6c8d
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.64.2":
+  version: 5.64.2
+  resolution: "@tanstack/react-query@npm:5.64.2"
+  dependencies:
+    "@tanstack/query-core": "npm:5.64.2"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/4e81c8e922ced8ef5f2e5975d7784409b532ce007b1771fe8569e380d08666b5323a90fa91de6ef10f9f2f8882d3fdf1be109eeb99a54bd84b1fa2075de9e75b
   languageName: node
   linkType: hard
 
@@ -20535,6 +20563,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"tanstack-router-convex@workspace:packages/tanstack-router-convex":
+  version: 0.0.0-use.local
+  resolution: "tanstack-router-convex@workspace:packages/tanstack-router-convex"
+  dependencies:
+    "@convex-dev/react-query": "npm:^0.0.0-alpha.8"
+    "@tanstack/react-query": "npm:^5.64.2"
+    "@tanstack/react-router": "npm:^1.97.3"
+    "@tanstack/router-plugin": "npm:^1.97.3"
+    "@vitejs/plugin-react": "npm:^4.3.4"
+    alias-hq: "npm:^6.2.4"
+    browserslist: "npm:^4.24.4"
+    browserslist-to-esbuild: "npm:^2.1.1"
+    convex: "npm:^1.18.2"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    vite: "npm:^6.0.7"
+  languageName: unknown
+  linkType: soft
+
 "tanstack-start-edgedb@workspace:packages/tanstack-start-edgedb":
   version: 0.0.0-use.local
   resolution: "tanstack-start-edgedb@workspace:packages/tanstack-start-edgedb"
@@ -20563,7 +20610,6 @@ __metadata:
     tailwindcss: "npm:^3.4.17"
     tailwindcss-animate: "npm:^1.0.7"
     tailwindcss-react-aria-components: "npm:^1.2.0"
-    vinxi: "npm:^0.5.1"
     vite: "npm:^6.0.7"
     zod: "npm:^3.24.1"
   languageName: unknown
@@ -21911,7 +21957,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vinxi@npm:0.5.1, vinxi@npm:^0.5.1":
+"vinxi@npm:0.5.1":
   version: 0.5.1
   resolution: "vinxi@npm:0.5.1"
   dependencies:

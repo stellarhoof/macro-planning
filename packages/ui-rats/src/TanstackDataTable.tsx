@@ -5,11 +5,15 @@ import type {
   SortingState as TanstackSortingState,
   Table as TanstackTable,
 } from "@tanstack/table-core"
-import { Table, TableBody, type TableProps } from "react-aria-components"
+import {
+  Table,
+  TableBody,
+  type TableProps,
+  composeRenderProps,
+} from "react-aria-components"
 
 import { type ForwardedRef, type Ref, forwardRef } from "react"
 import { Cell, Column, Row, TableHeader } from "./rats/collections/Table.tsx"
-import { mergeClassNames } from "./rats/utils.ts"
 
 interface TanstackTableProps {
   // biome-ignore lint:
@@ -24,7 +28,7 @@ function useTanstackTableProps({
   return {
     sortDescriptor: sorting.length
       ? {
-          column: sorting[0]?.id,
+          column: sorting[0]?.id ?? "",
           direction: sorting[0]?.desc ? "descending" : "ascending",
         }
       : undefined,
@@ -92,7 +96,6 @@ export const VirtualizedTanstackDataTable = forwardRef(
       table,
       virtualizer,
       sorting,
-      className,
       ...props
     }: DataTableProps & {
       virtualizer: Virtualizer<HTMLTableElement, Element>
@@ -103,9 +106,9 @@ export const VirtualizedTanstackDataTable = forwardRef(
     return (
       <Table
         ref={ref}
-        className={mergeClassNames(
-          "grid h-[500px] overflow-auto relative",
-          className,
+        className={composeRenderProps(
+          props.className,
+          () => "grid h-[500px] overflow-auto relative",
         )}
         {...useTanstackTableProps({ table, sorting })}
         {...props}

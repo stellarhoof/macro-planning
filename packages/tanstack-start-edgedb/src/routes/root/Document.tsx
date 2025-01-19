@@ -1,5 +1,8 @@
-import { useLocation, useRouter } from "@tanstack/react-router"
-import { ScrollRestoration } from "@tanstack/react-router"
+import {
+  ScrollRestoration,
+  useLocation,
+  useRouter,
+} from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import type { ReactNode } from "react"
 import { RouterProvider } from "react-aria-components"
