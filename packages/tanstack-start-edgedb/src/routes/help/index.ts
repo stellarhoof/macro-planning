@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router"
 
-import { Component } from "./Component.tsx"
+export function Component() {
+  return "Help!!"
+}
 
 export const Route = createFileRoute("/help")({
   component: Component,

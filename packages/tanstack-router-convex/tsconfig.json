@@ -9,7 +9,8 @@
     "paths": {
       "#lib/*": ["../lib/src/*"],
       "#ui-rats/*": ["../ui-rats/src/*"],
-      "#src/*": ["./src/*"]
+      "#src/*": ["./src/*"],
+      "#convex/*": ["./convex/*"]
     },
     "types": ["vite/client"],
     "noEmit": true

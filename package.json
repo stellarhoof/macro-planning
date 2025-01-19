@@ -3,9 +3,7 @@
   "private": true,
   "type": "module",
   "packageManager": "yarn@4.5.0",
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": ["packages/*"],
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc --build --verbose",

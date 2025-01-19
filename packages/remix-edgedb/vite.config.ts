@@ -1,8 +1,8 @@
 import { vitePlugin as remix } from "@remix-run/dev"
 import unpluginTypia from "@ryoppippi/unplugin-typia/vite"
-import hq from "alias-hq"
 import browserslistToEsbuild from "browserslist-to-esbuild"
 import { defineConfig } from "vite"
+import tsconfigPaths from "vite-tsconfig-paths"
 
 // https://browsersl.ist
 const target = browserslistToEsbuild("defaults")
@@ -10,6 +10,7 @@ const target = browserslistToEsbuild("defaults")
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    tsconfigPaths(),
     unpluginTypia(),
     remix({
       appDirectory: "src",
@@ -20,7 +21,6 @@ export default defineConfig({
       },
     }),
   ],
-  resolve: { alias: hq.get("rollup") },
   optimizeDeps: { esbuildOptions: { target } },
   build: { target },
 })
