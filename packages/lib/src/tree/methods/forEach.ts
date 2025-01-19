@@ -19,9 +19,9 @@ function defaultForEachNode<T>(node: T, fn: (node: T, key: Key) => void) {
     node.forEach(fn)
   }
   if (isPlainObject(node)) {
-    Object.entries(node).forEach(([k, v]) => {
+    for (const [k, v] of Object.entries(node)) {
       fn(v, k)
-    })
+    }
   }
 }
 

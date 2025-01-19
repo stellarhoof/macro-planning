@@ -10,53 +10,53 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/root/index.ts'
-import { Route as RoutesHelpIndexImport } from './routes/help/index.ts'
-import { Route as RoutesFoodsIndexImport } from './routes/foods/index.ts'
-import { Route as RoutesIndexIndexImport } from './routes/index/index.ts'
+import { Route as RoutesFoodsIndexImport } from "./routes/foods/index.ts"
+import { Route as RoutesHelpIndexImport } from "./routes/help/index.ts"
+import { Route as RoutesIndexIndexImport } from "./routes/index/index.ts"
+import { Route as rootRoute } from "./routes/root/index.ts"
 
 // Create/Update Routes
 
 const RoutesHelpIndexRoute = RoutesHelpIndexImport.update({
-  id: '/help',
-  path: '/help',
+  id: "/help",
+  path: "/help",
   getParentRoute: () => rootRoute,
 } as any)
 
 const RoutesFoodsIndexRoute = RoutesFoodsIndexImport.update({
-  id: '/foods',
-  path: '/foods',
+  id: "/foods",
+  path: "/foods",
   getParentRoute: () => rootRoute,
 } as any)
 
 const RoutesIndexIndexRoute = RoutesIndexIndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
+    "/": {
+      id: "/"
+      path: "/"
+      fullPath: "/"
       preLoaderRoute: typeof RoutesIndexIndexImport
       parentRoute: typeof rootRoute
     }
-    '/foods': {
-      id: '/foods'
-      path: '/foods'
-      fullPath: '/foods'
+    "/foods": {
+      id: "/foods"
+      path: "/foods"
+      fullPath: "/foods"
       preLoaderRoute: typeof RoutesFoodsIndexImport
       parentRoute: typeof rootRoute
     }
-    '/help': {
-      id: '/help'
-      path: '/help'
-      fullPath: '/help'
+    "/help": {
+      id: "/help"
+      path: "/help"
+      fullPath: "/help"
       preLoaderRoute: typeof RoutesHelpIndexImport
       parentRoute: typeof rootRoute
     }
@@ -66,30 +66,30 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof RoutesIndexIndexRoute
-  '/foods': typeof RoutesFoodsIndexRoute
-  '/help': typeof RoutesHelpIndexRoute
+  "/": typeof RoutesIndexIndexRoute
+  "/foods": typeof RoutesFoodsIndexRoute
+  "/help": typeof RoutesHelpIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof RoutesIndexIndexRoute
-  '/foods': typeof RoutesFoodsIndexRoute
-  '/help': typeof RoutesHelpIndexRoute
+  "/": typeof RoutesIndexIndexRoute
+  "/foods": typeof RoutesFoodsIndexRoute
+  "/help": typeof RoutesHelpIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof RoutesIndexIndexRoute
-  '/foods': typeof RoutesFoodsIndexRoute
-  '/help': typeof RoutesHelpIndexRoute
+  "/": typeof RoutesIndexIndexRoute
+  "/foods": typeof RoutesFoodsIndexRoute
+  "/help": typeof RoutesHelpIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/foods' | '/help'
+  fullPaths: "/" | "/foods" | "/help"
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/foods' | '/help'
-  id: '__root__' | '/' | '/foods' | '/help'
+  to: "/" | "/foods" | "/help"
+  id: "__root__" | "/" | "/foods" | "/help"
   fileRoutesById: FileRoutesById
 }
 

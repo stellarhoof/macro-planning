@@ -10,8 +10,11 @@ export interface FindOptions<T> {
   ) => void
 }
 
-export function find<T>(node: T, { pre, forEachNode }: FindOptions<T>) {
-  let result
+export function find<T>(
+  node: T,
+  { pre, forEachNode }: FindOptions<T>,
+): T | undefined {
+  let result = undefined
   forEach(node, {
     forEachNode,
     pre(node, ctx) {

@@ -34,3 +34,4 @@ tsconfig.tsbuildinfo
 repl.*
 .envrc
 .nvim.lua
+*storybook.log

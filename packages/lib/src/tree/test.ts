@@ -26,11 +26,11 @@ export const forEachJsonSchema: ForEachNodeFn<JSONSchema7> = (node, fn) => {
     fn(node.items, "items")
   }
   if (node.properties) {
-    Object.entries(node.properties).forEach(([k, v]) => {
+    for (const [k, v] of Object.entries(node.properties)) {
       if (isPlainObject(v)) {
         fn(v, `properties/${k}`)
       }
-    })
+    }
   }
   if (node.allOf) {
     node.allOf.forEach((v, k) => {

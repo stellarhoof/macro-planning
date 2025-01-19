@@ -17,8 +17,16 @@ export function reduce<T, R>(
   let result = cloneDeep(initialValue)
   forEach(node, {
     forEachNode,
-    pre: pre ? (node, ctx) => (result = pre(result, node, ctx)) : undefined,
-    post: post ? (node, ctx) => (result = post(result, node, ctx)) : undefined,
+    pre: pre
+      ? (node, ctx) => {
+          result = pre(result, node, ctx)
+        }
+      : undefined,
+    post: post
+      ? (node, ctx) => {
+          result = post(result, node, ctx)
+        }
+      : undefined,
   })
   return result
 }

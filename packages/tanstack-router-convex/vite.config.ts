@@ -1,8 +1,8 @@
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite"
 import react from "@vitejs/plugin-react"
-import hq from "alias-hq"
 import browserslistToEsbuild from "browserslist-to-esbuild"
 import { defineConfig } from "vite"
+import tsconfigPaths from "vite-tsconfig-paths"
 
 import { routes } from "./src/routes.ts"
 
@@ -12,6 +12,7 @@ const target = browserslistToEsbuild("defaults")
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    tsconfigPaths(),
     // https://tanstack.com/router/latest/docs/framework/react/guide/file-based-routing#options
     TanStackRouterVite({
       routesDirectory: "./src",
@@ -21,7 +22,7 @@ export default defineConfig({
     }),
     react(),
   ],
-  resolve: { alias: hq.get("rollup") },
+  // resolve: { alias: hq.get("rollup") },
   optimizeDeps: { esbuildOptions: { target } },
   build: { target },
 })

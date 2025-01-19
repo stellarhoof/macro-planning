@@ -42,4 +42,3 @@ export function ColorSwatchPickerItem(props: ColorSwatchPickerItemProps) {
     </AriaColorSwatchPickerItem>
   )
 }
-

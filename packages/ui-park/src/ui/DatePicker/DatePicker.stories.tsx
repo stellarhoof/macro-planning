@@ -61,7 +61,7 @@ export const Default: Story = {
                       <DatePicker.TableHead>
                         <DatePicker.TableRow>
                           {api.weekDays.map((weekDay, id) => (
-                            <DatePicker.TableHeader key={id}>
+                            <DatePicker.TableHeader key={id.toString()}>
                               {weekDay.narrow}
                             </DatePicker.TableHeader>
                           ))}
@@ -69,9 +69,12 @@ export const Default: Story = {
                       </DatePicker.TableHead>
                       <DatePicker.TableBody>
                         {api.weeks.map((week, id) => (
-                          <DatePicker.TableRow key={id}>
+                          <DatePicker.TableRow key={id.toString()}>
                             {week.map((day, id) => (
-                              <DatePicker.TableCell key={id} value={day}>
+                              <DatePicker.TableCell
+                                key={id.toString()}
+                                value={day}
+                              >
                                 <DatePicker.TableCellTrigger asChild>
                                   <IconButton variant="ghost">
                                     {day.day}
@@ -113,10 +116,10 @@ export const Default: Story = {
                         {api
                           .getMonthsGrid({ columns: 4, format: "short" })
                           .map((months, id) => (
-                            <DatePicker.TableRow key={id}>
+                            <DatePicker.TableRow key={id.toString()}>
                               {months.map((month, id) => (
                                 <DatePicker.TableCell
-                                  key={id}
+                                  key={id.toString()}
                                   value={month.value}
                                 >
                                   <DatePicker.TableCellTrigger asChild>
@@ -158,9 +161,12 @@ export const Default: Story = {
                     <DatePicker.Table>
                       <DatePicker.TableBody>
                         {api.getYearsGrid({ columns: 4 }).map((years, id) => (
-                          <DatePicker.TableRow key={id}>
+                          <DatePicker.TableRow key={id.toString()}>
                             {years.map((year, id) => (
-                              <DatePicker.TableCell key={id} value={year.value}>
+                              <DatePicker.TableCell
+                                key={id.toString()}
+                                value={year.value}
+                              >
                                 <DatePicker.TableCellTrigger asChild>
                                   <Button variant="ghost">{year.label}</Button>
                                 </DatePicker.TableCellTrigger>

@@ -6,9 +6,22 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.7.0/schema.json",
   "files": {
+    // Biome does not take nested `.gitignore` files into account.
+    // https://github.com/biomejs/biome/issues/2312
     "ignore": [
-      "packages/convex/convex/_generated/**/*",
-      "packages/ui-park/src/panda-gen/**/*"
+      "packages/ui-park/src/panda-gen",
+
+      "packages/convex/convex/_generated",
+
+      "packages/remix-edgedb/dbschema/edgeql-js",
+      "packages/remix-edgedb/dbschema/interfaces.ts",
+
+      "packages/tanstack-start-edgedb/src/routes.gen.ts",
+      "packages/tanstack-start-edgedb/dbschema/edgeql-js",
+      "packages/tanstack-start-edgedb/dbschema/interfaces.ts",
+
+      "packages/tanstack-router-convex/src/routes.gen.ts",
+      "packages/tanstack-router-convex/convex/_generated/**/*"
     ]
   },
   "vcs": {

@@ -8,4 +8,3 @@ import * as projectAnnotations from "./preview.ts"
 const project = setProjectAnnotations([projectAnnotations])
 
 beforeAll(project.beforeAll)
-
