@@ -19786,9 +19786,11 @@ __metadata:
     browserslist-to-esbuild: "npm:^2.1.1"
     convex: "npm:^1.18.2"
     react: "npm:^19.0.0"
+    react-aria-components: "npm:^1.6.0"
     react-dom: "npm:^19.0.0"
     vite: "npm:^6.0.7"
     vite-tsconfig-paths: "npm:^5.1.4"
+    zod: "npm:^3.24.1"
   languageName: unknown
   linkType: soft
 

@@ -4,8 +4,6 @@ import browserslistToEsbuild from "browserslist-to-esbuild"
 import { defineConfig } from "vite"
 import tsconfigPaths from "vite-tsconfig-paths"
 
-import { routes } from "./src/routes.ts"
-
 // https://browsersl.ist
 const target = browserslistToEsbuild("defaults")
 
@@ -15,10 +13,10 @@ export default defineConfig({
     tsconfigPaths(),
     // https://tanstack.com/router/latest/docs/framework/react/guide/file-based-routing#options
     TanStackRouterVite({
-      routesDirectory: "./src",
+      routeFilePrefix: "~",
+      routesDirectory: "./src/routes",
       generatedRouteTree: "./src/routes.gen.ts",
       addExtensions: true,
-      virtualRouteConfig: routes,
     }),
     react(),
   ],

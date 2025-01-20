@@ -10,15 +10,49 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/root/index.ts'
-import { Route as RoutesIndexIndexImport } from './routes/index/index.ts'
+import { Route as rootRoute } from './routes/~__root.tsx'
+import { Route as LogoutImport } from './routes/~logout.tsx'
+import { Route as LoginImport } from './routes/~login.tsx'
+import { Route as AuthImport } from './routes/~_auth.tsx'
+import { Route as IndexImport } from './routes/~index.tsx'
+import { Route as AuthHelpImport } from './routes/~_auth.help.tsx'
+import { Route as AuthFoodsImport } from './routes/~_auth.foods.tsx'
 
 // Create/Update Routes
 
-const RoutesIndexIndexRoute = RoutesIndexIndexImport.update({
+const LogoutRoute = LogoutImport.update({
+  id: '/logout',
+  path: '/logout',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const AuthHelpRoute = AuthHelpImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthFoodsRoute = AuthFoodsImport.update({
+  id: '/foods',
+  path: '/foods',
+  getParentRoute: () => AuthRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -29,42 +63,117 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof RoutesIndexIndexImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
+    }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/logout': {
+      id: '/logout'
+      path: '/logout'
+      fullPath: '/logout'
+      preLoaderRoute: typeof LogoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/_auth/foods': {
+      id: '/_auth/foods'
+      path: '/foods'
+      fullPath: '/foods'
+      preLoaderRoute: typeof AuthFoodsImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/help': {
+      id: '/_auth/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof AuthHelpImport
+      parentRoute: typeof AuthImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface AuthRouteChildren {
+  AuthFoodsRoute: typeof AuthFoodsRoute
+  AuthHelpRoute: typeof AuthHelpRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthFoodsRoute: AuthFoodsRoute,
+  AuthHelpRoute: AuthHelpRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 export interface FileRoutesByFullPath {
-  '/': typeof RoutesIndexIndexRoute
+  '/': typeof IndexRoute
+  '': typeof AuthRouteWithChildren
+  '/login': typeof LoginRoute
+  '/logout': typeof LogoutRoute
+  '/foods': typeof AuthFoodsRoute
+  '/help': typeof AuthHelpRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof RoutesIndexIndexRoute
+  '/': typeof IndexRoute
+  '': typeof AuthRouteWithChildren
+  '/login': typeof LoginRoute
+  '/logout': typeof LogoutRoute
+  '/foods': typeof AuthFoodsRoute
+  '/help': typeof AuthHelpRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof RoutesIndexIndexRoute
+  '/': typeof IndexRoute
+  '/_auth': typeof AuthRouteWithChildren
+  '/login': typeof LoginRoute
+  '/logout': typeof LogoutRoute
+  '/_auth/foods': typeof AuthFoodsRoute
+  '/_auth/help': typeof AuthHelpRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '' | '/login' | '/logout' | '/foods' | '/help'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '' | '/login' | '/logout' | '/foods' | '/help'
+  id:
+    | '__root__'
+    | '/'
+    | '/_auth'
+    | '/login'
+    | '/logout'
+    | '/_auth/foods'
+    | '/_auth/help'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  RoutesIndexIndexRoute: typeof RoutesIndexIndexRoute
+  IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  LogoutRoute: typeof LogoutRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  RoutesIndexIndexRoute: RoutesIndexIndexRoute,
+  IndexRoute: IndexRoute,
+  AuthRoute: AuthRouteWithChildren,
+  LoginRoute: LoginRoute,
+  LogoutRoute: LogoutRoute,
 }
 
 export const routeTree = rootRoute
@@ -75,13 +184,37 @@ export const routeTree = rootRoute
 {
   "routes": {
     "__root__": {
-      "filePath": "./routes/root/index.ts",
+      "filePath": "~__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/_auth",
+        "/login",
+        "/logout"
       ]
     },
     "/": {
-      "filePath": "./routes/index/index.ts"
+      "filePath": "~index.tsx"
+    },
+    "/_auth": {
+      "filePath": "~_auth.tsx",
+      "children": [
+        "/_auth/foods",
+        "/_auth/help"
+      ]
+    },
+    "/login": {
+      "filePath": "~login.tsx"
+    },
+    "/logout": {
+      "filePath": "~logout.tsx"
+    },
+    "/_auth/foods": {
+      "filePath": "~_auth.foods.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/help": {
+      "filePath": "~_auth.help.tsx",
+      "parent": "/_auth"
     }
   }
 }

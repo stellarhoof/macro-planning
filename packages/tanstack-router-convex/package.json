@@ -4,7 +4,7 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "vite --open",
+    "dev": "vite",
     "build": "vite build",
     "start": "vite preview",
     "server": "convex dev",
@@ -17,7 +17,9 @@
     "@tanstack/react-router": "^1.97.3",
     "convex": "^1.18.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-aria-components": "^1.6.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@tanstack/router-plugin": "^1.97.3",
