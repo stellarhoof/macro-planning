@@ -20,8 +20,8 @@
       "packages/tanstack-start-edgedb/dbschema/edgeql-js",
       "packages/tanstack-start-edgedb/dbschema/interfaces.ts",
 
-      "packages/tanstack-router-convex/src/routes.gen.ts",
-      "packages/tanstack-router-convex/convex/_generated/**/*"
+      "packages/tanstack-start-convex/src/routes.gen.ts",
+      "packages/tanstack-start-convex/convex/_generated/**/*"
     ]
   },
   "vcs": {

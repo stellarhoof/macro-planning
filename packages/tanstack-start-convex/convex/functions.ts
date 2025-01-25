@@ -3,20 +3,10 @@ import { mapValues } from "radashi"
 
 import type { IndexNames } from "convex/server"
 import type { DataModel } from "./_generated/dataModel.js"
-import { mutation, query } from "./_generated/server.js"
+import { query } from "./_generated/server.js"
 import { tables } from "./tables.js"
 
 export const getUser = query({
-  args: { email: v.string() },
-  async handler(ctx, args) {
-    return await ctx.db
-      .query("user")
-      .filter((q) => q.eq(q.field("email"), args.email))
-      .first()
-  },
-})
-
-export const signIn = mutation({
   args: { email: v.string() },
   async handler(ctx, args) {
     return await ctx.db
