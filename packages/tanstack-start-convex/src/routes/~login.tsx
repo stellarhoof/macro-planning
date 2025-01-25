@@ -53,12 +53,11 @@ export const Route = createFileRoute("/login")({
   validateSearch: z.object({
     redirect: z.string().optional().catch(""),
   }),
-  beforeLoad({ search }) {
-    console.log("beforeLoad", search)
-    // if (JSON.parse(localStorage.getItem("user") ?? "null")) {
-    //   throw redirect({ to: search.redirect || "/foods" })
-    // }
-  },
+  // beforeLoad({ search }) {
+  //   if (JSON.parse(localStorage.getItem("user") ?? "null")) {
+  //     throw redirect({ to: search.redirect || "/foods" })
+  //   }
+  // },
   component: Component,
 })
 

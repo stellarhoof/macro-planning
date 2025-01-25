@@ -9,8 +9,6 @@
     // Biome does not take nested `.gitignore` files into account.
     // https://github.com/biomejs/biome/issues/2312
     "ignore": [
-      "packages/ui-park/src/panda-gen",
-
       "packages/convex/convex/_generated",
 
       "packages/remix-edgedb/dbschema/edgeql-js",

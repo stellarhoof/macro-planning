@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
 import browserslistToEsbuild from "browserslist-to-esbuild"
 import { defineConfig } from "vite"
@@ -8,7 +9,7 @@ const target = browserslistToEsbuild("defaults")
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [tsconfigPaths(), react()],
+  plugins: [tsconfigPaths(), tailwindcss(), react()],
   optimizeDeps: { esbuildOptions: { target } },
   build: { target },
 })

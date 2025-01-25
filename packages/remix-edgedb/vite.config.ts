@@ -1,5 +1,6 @@
 import { vitePlugin as remix } from "@remix-run/dev"
 import unpluginTypia from "@ryoppippi/unplugin-typia/vite"
+import tailwindcss from "@tailwindcss/vite"
 import browserslistToEsbuild from "browserslist-to-esbuild"
 import { defineConfig } from "vite"
 import tsconfigPaths from "vite-tsconfig-paths"
@@ -10,6 +11,7 @@ const target = browserslistToEsbuild("defaults")
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     tsconfigPaths(),
     unpluginTypia(),
     remix({

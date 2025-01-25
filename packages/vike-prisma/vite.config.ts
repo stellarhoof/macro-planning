@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
 import browserslistToEsbuild from "browserslist-to-esbuild"
 import { telefunc } from "telefunc/vite"
@@ -11,6 +12,7 @@ const target = browserslistToEsbuild("defaults")
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     tsconfigPaths(),
     react(),
     vike({ redirects: { "/": "/foods" } }),

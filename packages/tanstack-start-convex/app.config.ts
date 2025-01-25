@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "@tanstack/start/config"
 import browserslistToEsbuild from "browserslist-to-esbuild"
 import tsconfigPaths from "vite-tsconfig-paths"
@@ -11,6 +12,8 @@ export default defineConfig({
     plugins: [
       // @ts-expect-error: Some vinxi types error.
       tsconfigPaths(),
+      // @ts-expect-error: Some vinxi types error.
+      tailwindcss(),
     ],
     optimizeDeps: { esbuildOptions: { target } },
     build: { target },
