@@ -8,28 +8,28 @@
     "start:sb": "storybook dev -p 6006"
   },
   "dependencies": {
-    "@tanstack/react-form": "^0.41.3",
+    "@tanstack/react-form": "^0.43.2",
     "ajv": "^8.17.1",
-    "es-toolkit": "^1.31.0",
+    "es-toolkit": "^1.32.0",
     "json-schema-to-ts": "^3.1.1",
     "react-aria": "^3.37.0",
     "react-aria-components": "^1.6.0",
     "safe-stable-stringify": "^2.5.0"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^8.5.1",
-    "@storybook/addon-interactions": "^8.5.1",
-    "@storybook/addon-links": "^8.5.1",
-    "@storybook/blocks": "^8.5.1",
-    "@storybook/react-vite": "^8.5.1",
+    "@storybook/addon-essentials": "^8.5.8",
+    "@storybook/addon-interactions": "^8.5.8",
+    "@storybook/addon-links": "^8.5.8",
+    "@storybook/blocks": "^8.5.8",
+    "@storybook/react-vite": "^8.5.8",
     "@storybook/testing-library": "^0.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "storybook": "^8.5.1",
-    "tailwindcss": "^4.0.0",
+    "storybook": "^8.5.8",
+    "tailwindcss": "^4.0.8",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^1.2.0",
-    "vite": "^6.0.11"
+    "vite": "^6.1.1"
   },
   "peerDependencies": {
     "react": "^19.0.0",

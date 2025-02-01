@@ -7,9 +7,9 @@
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable"],
     "paths": {
+      "#src/*": ["./src/*"],
       "#lib/*": ["../lib/src/*"],
-      "#ui-rats/*": ["../ui-rats/src/*"],
-      "#src/*": ["./src/*"]
+      "#ui-rats/*": ["../ui-rats/src/*"]
     },
     "types": ["@remix-run/node", "vite/client"],
     "noEmit": true,

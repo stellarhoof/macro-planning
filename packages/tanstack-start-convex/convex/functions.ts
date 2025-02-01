@@ -1,5 +1,5 @@
 import { v } from "convex/values"
-import { mapValues } from "radashi"
+import { mapValues } from "es-toolkit"
 
 import type { IndexNames } from "convex/server"
 import type { DataModel } from "./_generated/dataModel.js"

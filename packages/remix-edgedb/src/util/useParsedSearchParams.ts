@@ -1,5 +1,5 @@
 import { useSearchParams } from "@remix-run/react"
-import { mapValues } from "radashi"
+import { mapValues } from "es-toolkit"
 
 export type UseParsedSearchParams<T> = [T, (searchParams: T) => void]
 

@@ -7,10 +7,10 @@
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable"],
     "paths": {
-      "#lib/*": ["../lib/src/*"],
-      "#ui-rats/*": ["../ui-rats/src/*"],
       "#src/*": ["./src/*"],
-      "#dbschema/*": ["./dbschema/*"]
+      "#dbschema/*": ["./dbschema/*"],
+      "#lib/*": ["../lib/src/*"],
+      "#ui-rats/*": ["../ui-rats/src/*"]
     },
     "types": ["vite/client"],
     "noEmit": true,

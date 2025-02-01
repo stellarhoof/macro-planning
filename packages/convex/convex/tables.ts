@@ -1,6 +1,6 @@
 import type { TableDefinition } from "convex/server"
 import type { Validator } from "convex/values"
-import { mapValues } from "radashi"
+import { mapValues } from "es-toolkit"
 import schema from "./schema.js"
 
 type Index = {

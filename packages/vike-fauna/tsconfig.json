@@ -7,9 +7,9 @@
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable"],
     "paths": {
+      "#pages/*": ["./src/pages/*"],
       "#lib/*": ["../lib/src/*"],
-      "#ui-rats/*": ["../ui-rats/src/*"],
-      "#pages/*": ["./src/pages/*"]
+      "#ui-rats/*": ["../ui-rats/src/*"]
     },
     "noEmit": true
   }

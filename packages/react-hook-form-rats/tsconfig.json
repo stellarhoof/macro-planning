@@ -8,9 +8,9 @@
     "lib": ["esnext", "dom", "dom.iterable"],
     "jsx": "react-jsx",
     "paths": {
+      "#src/*": ["./src/*"],
       "#lib/*": ["../lib/src/*"],
-      "#ui-rats/*": ["../ui-rats/src/*"],
-      "#src/*": ["./src/*"]
+      "#ui-rats/*": ["../ui-rats/src/*"]
     },
     "noEmit": true
   }

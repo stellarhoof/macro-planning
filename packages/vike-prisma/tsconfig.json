@@ -7,10 +7,10 @@
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable"],
     "paths": {
-      "#lib/*": ["../lib/src/*"],
-      "#ui-rats/*": ["../ui-rats/src/*"],
       "#pages/*": ["./src/pages/*"],
-      "#prisma/*": ["./src/prisma/*"]
+      "#prisma/*": ["./src/prisma/*"],
+      "#lib/*": ["../lib/src/*"],
+      "#ui-rats/*": ["../ui-rats/src/*"]
     },
     "noEmit": true
   }
