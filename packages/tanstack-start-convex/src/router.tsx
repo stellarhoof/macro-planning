@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router"
 import { ConvexProvider, ConvexReactClient } from "convex/react"
 import { RouterProvider as RACRouterProvider } from "react-aria-components"
+
 import { routeTree } from "./routes.gen.ts"
 
 export function createRouter() {

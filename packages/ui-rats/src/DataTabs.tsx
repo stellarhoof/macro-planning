@@ -1,5 +1,6 @@
 import { startCase } from "es-toolkit"
 import type { ReactNode } from "react"
+
 import type { TabsProps } from "./rats/navigation/Tabs.tsx"
 import { Tab, TabList, TabPanel, Tabs } from "./rats/navigation/Tabs.tsx"
 

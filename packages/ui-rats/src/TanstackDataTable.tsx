@@ -12,6 +12,7 @@ import {
   TableBody,
   type TableProps,
 } from "react-aria-components"
+
 import { Cell, Column, Row, TableHeader } from "./rats/collections/Table.tsx"
 
 interface TanstackTableProps {

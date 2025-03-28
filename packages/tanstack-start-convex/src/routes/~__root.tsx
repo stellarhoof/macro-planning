@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router"
 import { Meta, Scripts } from "@tanstack/start"
 import type { ConvexReactClient } from "convex/react"
+
 import css from "./__root.css?url"
 
 interface RouterContext {

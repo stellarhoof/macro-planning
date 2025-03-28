@@ -11,7 +11,9 @@ import {
   ScrollRestoration,
   useLocation,
 } from "@remix-run/react"
+
 import { Tab, TabList, TabPanel, Tabs } from "#ui-rats/rats/navigation/Tabs.tsx"
+
 import rootCss from "./root.css?url"
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: rootCss }]

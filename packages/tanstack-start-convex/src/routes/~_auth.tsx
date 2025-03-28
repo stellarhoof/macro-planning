@@ -4,6 +4,7 @@ import {
   redirect,
   useLocation,
 } from "@tanstack/react-router"
+
 import { Tab, TabList, TabPanel, Tabs } from "#ui-rats/rats/navigation/Tabs.tsx"
 
 export const Route = createFileRoute("/_auth")({

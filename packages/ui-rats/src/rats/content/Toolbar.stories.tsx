@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { BoldIcon, ItalicIcon, UnderlineIcon } from "lucide-react"
 import { Group } from "react-aria-components"
+
 import { Button } from "../buttons/Button.tsx"
 import { ToggleButton } from "../buttons/ToggleButton.tsx"
 import { Checkbox } from "../forms/Checkbox.tsx"

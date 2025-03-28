@@ -1,5 +1,6 @@
 import { useLoaderData } from "@remix-run/react"
 import typia from "typia"
+
 import { useParsedSearchParams } from "#src/util/useParsedSearchParams.ts"
 
 export interface CursorPaginationSearchParams {

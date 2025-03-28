@@ -48,6 +48,8 @@
               ":BLANK_LINE:",
               ":PACKAGE:",
               ":BLANK_LINE:",
+              ":ALIAS:",
+              ":BLANK_LINE:",
               ":PATH:"
             ]
           }

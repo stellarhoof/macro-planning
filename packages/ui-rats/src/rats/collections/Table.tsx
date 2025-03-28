@@ -20,6 +20,7 @@ import {
   useTableOptions,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
+
 import { Checkbox } from "../forms/Checkbox.tsx"
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 

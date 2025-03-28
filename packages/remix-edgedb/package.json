@@ -22,7 +22,7 @@
   "devDependencies": {
     "@edgedb/generate": "^0.6.1",
     "@remix-run/dev": "^2.16.2",
-    "@ryoppippi/unplugin-typia": "^2.1.3",
+    "@ryoppippi/unplugin-typia": "^2.1.4",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "browserslist": "^4.24.4",

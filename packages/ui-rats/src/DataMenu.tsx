@@ -1,6 +1,7 @@
 import { startCase } from "es-toolkit"
 import { Iterator } from "iterator-helpers-polyfill"
 import type { ReactNode } from "react"
+
 import { Menu, MenuItem, type MenuProps } from "./rats/collections/Menu.tsx"
 
 export type DataMenuItem = {

@@ -2,6 +2,7 @@ import {
   ColorArea as AriaColorArea,
   type ColorAreaProps as AriaColorAreaProps,
 } from "react-aria-components"
+
 import { composeTailwindRenderProps } from "../utils.ts"
 import { ColorThumb } from "./ColorThumb.tsx"
 

@@ -1,16 +1,41 @@
-import { useForm, type Validator } from "@tanstack/react-form"
-import { Ajv } from "ajv"
+import { createFormHook, createFormHookContexts } from "@tanstack/react-form"
 import { startCase } from "es-toolkit"
-import type { FromSchema, JSONSchema } from "json-schema-to-ts"
+import type { JSONSchema7 as JSONSchema } from "json-schema"
+import type { FromSchema } from "json-schema-to-ts"
+import type { CheckboxProps } from "react-aria-components"
+
 import { Button } from "#ui-rats/rats/buttons/Button.tsx"
 import { Checkbox } from "#ui-rats/rats/forms/Checkbox.tsx"
-import { CheckboxGroup } from "#ui-rats/rats/forms/CheckboxGroup.tsx"
+import {
+  CheckboxGroup,
+  type CheckboxGroupProps,
+} from "#ui-rats/rats/forms/CheckboxGroup.tsx"
 import { Form } from "#ui-rats/rats/forms/Form.tsx"
-import { NumberField } from "#ui-rats/rats/forms/NumberField.tsx"
-import { Radio, RadioGroup } from "#ui-rats/rats/forms/RadioGroup.tsx"
-import { TextAreaField, TextField } from "#ui-rats/rats/forms/TextField.tsx"
-import { ComboBox, ComboBoxItem } from "#ui-rats/rats/pickers/ComboBox.tsx"
-import { Select, SelectItem } from "#ui-rats/rats/pickers/Select.tsx"
+import {
+  NumberField,
+  type NumberFieldProps,
+} from "#ui-rats/rats/forms/NumberField.tsx"
+import {
+  Radio,
+  RadioGroup,
+  type RadioGroupProps,
+} from "#ui-rats/rats/forms/RadioGroup.tsx"
+import {
+  TextAreaField,
+  type TextAreaProps,
+  TextField,
+  type TextFieldProps,
+} from "#ui-rats/rats/forms/TextField.tsx"
+import {
+  ComboBox,
+  ComboBoxItem,
+  type ComboBoxProps,
+} from "#ui-rats/rats/pickers/ComboBox.tsx"
+import {
+  Select,
+  SelectItem,
+  type SelectProps,
+} from "#ui-rats/rats/pickers/Select.tsx"
 
 const jsonSchema = {
   type: "object",
@@ -66,46 +91,153 @@ const jsonSchema = {
   },
 } as const satisfies JSONSchema
 
-interface FormValue extends FromSchema<typeof jsonSchema> {}
+interface Person extends FromSchema<typeof jsonSchema> {}
 
-function ajvValidator(ajv: Ajv): Validator<unknown, JSONSchema> {
-  return () => ({
-    validate({ value, validationSource }, schema) {
-      console.log(validationSource)
-      const valid = ajv.validate(schema, value)
-      if (!valid) {
-        console.log("sync", ajv.errors)
-        return {
-          form: "Error",
-          fields: {
-            name: "Error",
-            bio: "",
-            age: "",
-            subscribed: "",
-            iceCreamFlavor: "",
-            fruit: "",
-            sports: "",
-            pet: "",
-          },
-        }
-      }
-    },
-    async validateAsync({ value }, schema) {
-      const valid = ajv.validate(schema, value)
-      if (!valid) {
-        console.log("async", ajv.errors)
-        return { form: "Error", fields: { name: "Error" } }
-      }
-    },
-  })
+function FormTextField(props: TextFieldProps) {
+  const field = useFieldContext<string>()
+  return (
+    <TextField
+      {...props}
+      name={field.name}
+      value={field.state.value}
+      onChange={field.handleChange}
+      onBlur={field.handleBlur}
+      isInvalid={field.state.meta.errors.length > 0}
+      errorMessage={field.state.meta.errors.join(", ")}
+    />
+  )
 }
 
+function FormTextAreaField(props: TextAreaProps) {
+  const field = useFieldContext<string>()
+  return (
+    <TextAreaField
+      {...props}
+      name={field.name}
+      value={field.state.value}
+      onChange={field.handleChange}
+      onBlur={field.handleBlur}
+      isInvalid={field.state.meta.errors.length > 0}
+      errorMessage={field.state.meta.errors.join(", ")}
+    />
+  )
+}
+
+function FormNumberField(props: NumberFieldProps) {
+  const field = useFieldContext<number>()
+  return (
+    <NumberField
+      {...props}
+      name={field.name}
+      value={field.state.value}
+      onChange={field.handleChange}
+      onBlur={field.handleBlur}
+      isInvalid={field.state.meta.errors.length > 0}
+      errorMessage={field.state.meta.errors.join(", ")}
+    />
+  )
+}
+
+function FormSelectField<T extends object>(props: SelectProps<T>) {
+  const field = useFieldContext<string>()
+  return (
+    <Select
+      {...props}
+      name={field.name}
+      selectedKey={field.state.value}
+      // @ts-expect-error
+      onSelectionChange={field.handleChange}
+      onBlur={field.handleBlur}
+      isInvalid={field.state.meta.errors.length > 0}
+      errorMessage={field.state.meta.errors.join(", ")}
+    />
+  )
+}
+
+function FormCheckboxField(props: CheckboxProps) {
+  const field = useFieldContext<boolean>()
+  return (
+    <Checkbox
+      {...props}
+      name={field.name}
+      isSelected={field.state.value}
+      onChange={field.handleChange}
+      onBlur={field.handleBlur}
+      isInvalid={field.state.meta.errors.length > 0}
+      // errorMessage={field.state.meta.errors.join(", ")}
+    />
+  )
+}
+
+function FormCheckboxGroupField(props: CheckboxGroupProps) {
+  const field = useFieldContext<string[]>()
+  return (
+    <CheckboxGroup
+      {...props}
+      name={field.name}
+      value={field.state.value}
+      onChange={field.handleChange}
+      onBlur={field.handleBlur}
+      isInvalid={field.state.meta.errors.length > 0}
+      errorMessage={field.state.meta.errors.join(", ")}
+    />
+  )
+}
+
+function FormRadioGroupField(props: RadioGroupProps) {
+  const field = useFieldContext<string>()
+  return (
+    <RadioGroup
+      {...props}
+      name={field.name}
+      value={field.state.value}
+      onChange={field.handleChange}
+      onBlur={field.handleBlur}
+      isInvalid={field.state.meta.errors.length > 0}
+      errorMessage={field.state.meta.errors.join(", ")}
+    />
+  )
+}
+
+function FormComboBoxField<T extends object>(props: ComboBoxProps<T>) {
+  const field = useFieldContext<string>()
+  return (
+    <ComboBox
+      {...props}
+      name={field.name}
+      selectedKey={field.state.value}
+      // @ts-expect-error
+      onSelectionChange={field.handleChange}
+      onBlur={field.handleBlur}
+      isInvalid={field.state.meta.errors.length > 0}
+      errorMessage={field.state.meta.errors.join(", ")}
+    />
+  )
+}
+
+const { fieldContext, formContext, useFieldContext } = createFormHookContexts()
+
+const { useAppForm } = createFormHook({
+  fieldContext,
+  formContext,
+  fieldComponents: {
+    TextField: FormTextField,
+    TextAreaField: FormTextAreaField,
+    NumberField: FormNumberField,
+    SelectField: FormSelectField,
+    CheckboxField: FormCheckboxField,
+    CheckboxGroupField: FormCheckboxGroupField,
+    RadioGroupField: FormRadioGroupField,
+    ComboBoxField: FormComboBoxField,
+  },
+  formComponents: {},
+})
+
 export default function App() {
-  const validatorAdapter = ajvValidator(new Ajv())
-  const form = useForm<FormValue, typeof validatorAdapter>({
-    validators: { onSubmit: jsonSchema },
-    validatorAdapter,
+  const form = useAppForm({
+    defaultValues: {} as Person,
   })
+
   return (
     <Form
       onSubmit={(e) => {
@@ -114,221 +246,172 @@ export default function App() {
         form.handleSubmit()
       }}
     >
-      <form.Field
-        name="name"
-        // biome-ignore lint/correctness/noChildrenProp: ignore
-        children={(field) => {
+      <form.AppField name="name">
+        {(field) => {
           const schema =
             jsonSchema.properties[
               field.name as keyof typeof jsonSchema.properties
             ]
           return (
-            <TextField
+            <field.TextField
               label={schema.title}
               description={schema.description}
-              name={field.name}
-              value={field.state.value ?? ""}
-              onChange={field.handleChange}
-              onBlur={field.handleBlur}
-              isInvalid={field.state.meta.errors.length > 0}
-              errorMessage={field.state.meta.errors.join(", ")}
             />
           )
         }}
-      />
+      </form.AppField>
 
-      <form.Field
-        name="bio"
-        // biome-ignore lint/correctness/noChildrenProp: ignore
-        children={(field) => {
+      <form.AppField name="bio">
+        {(field) => {
           const schema =
             jsonSchema.properties[
               field.name as keyof typeof jsonSchema.properties
             ]
           return (
-            <TextAreaField
+            <field.TextAreaField
               label={schema.title}
               description={schema.description}
-              name={field.name}
-              value={field.state.value ?? ""}
-              onChange={field.handleChange}
-              onBlur={field.handleBlur}
-              isInvalid={field.state.meta.errors.length > 0}
-              errorMessage={field.state.meta.errors.join(", ")}
             />
           )
         }}
-      />
+      </form.AppField>
 
-      <form.Field
-        name="age"
-        // biome-ignore lint/correctness/noChildrenProp: ignore
-        children={(field) => {
+      <form.AppField name="age">
+        {(field) => {
           const schema =
             jsonSchema.properties[
               field.name as keyof typeof jsonSchema.properties
             ]
           return (
-            <NumberField
+            <field.NumberField
               label={schema.title}
               description={schema.description}
-              name={field.name}
-              value={field.state.value}
-              onChange={field.handleChange}
-              onBlur={field.handleBlur}
-              isInvalid={field.state.meta.errors.length > 0}
-              errorMessage={field.state.meta.errors.join(", ")}
             />
           )
         }}
-      />
+      </form.AppField>
 
-      <form.Field
-        name="subscribed"
-        // biome-ignore lint/correctness/noChildrenProp: ignore
-        children={(field) => {
+      <form.AppField name="subscribed">
+        {(field) => {
           const schema =
             jsonSchema.properties[
               field.name as keyof typeof jsonSchema.properties
             ]
-          return (
-            <Checkbox
-              name={field.name}
-              isSelected={field.state.value}
-              onChange={field.handleChange}
-              onBlur={field.handleBlur}
-              isInvalid={field.state.meta.errors.length > 0}
-              // description="Whether this person is subscribed"
-              // errorMessage={field.state.meta.errors.join(", ")}
-            >
-              {schema.title}
-            </Checkbox>
-          )
+          return <field.CheckboxField>{schema.title}</field.CheckboxField>
         }}
-      />
+      </form.AppField>
 
-      <form.Field
-        name="iceCreamFlavor"
-        // biome-ignore lint/correctness/noChildrenProp: ignore
-        children={(field) => {
+      <form.AppField name="iceCreamFlavor">
+        {(field) => {
           const schema =
             jsonSchema.properties[
               field.name as keyof typeof jsonSchema.properties
             ]
-          return (
-            <Select
-              label={schema.title}
-              description={schema.description}
-              name={field.name}
-              selectedKey={field.state.value}
-              // @ts-expect-error
-              onSelectionChange={field.handleChange}
-              onBlur={field.handleBlur}
-              isInvalid={field.state.meta.errors.length > 0}
-              errorMessage={field.state.meta.errors.join(", ")}
-            >
-              {("enum" in schema ? schema.enum : []).map((id) => (
-                <SelectItem key={id} id={id}>
-                  {startCase(id)}
-                </SelectItem>
-              ))}
-            </Select>
-          )
+          if (
+            "enum" in schema &&
+            schema.enum &&
+            typeof schema.enum[0] === "string"
+          ) {
+            return (
+              <field.SelectField
+                label={schema.title}
+                description={schema.description}
+              >
+                {schema.enum.map((id) => (
+                  <SelectItem key={id} id={id}>
+                    {startCase(id)}
+                  </SelectItem>
+                ))}
+              </field.SelectField>
+            )
+          }
+          return null
         }}
-      />
+      </form.AppField>
 
-      <form.Field
-        name="sports"
-        // biome-ignore lint/correctness/noChildrenProp: ignore
-        children={(field) => {
+      <form.AppField name="sports">
+        {(field) => {
           const schema =
             jsonSchema.properties[
               field.name as keyof typeof jsonSchema.properties
             ]
-          return (
-            <CheckboxGroup
-              label={schema.title}
-              description={schema.description}
-              name={field.name}
-              value={field.state.value}
-              // @ts-expect-error
-              onChange={field.handleChange}
-              onBlur={field.handleBlur}
-              isInvalid={field.state.meta.errors.length > 0}
-              errorMessage={field.state.meta.errors.join(", ")}
-            >
-              {("items" in schema && "enum" in schema.items
-                ? schema.items.enum
-                : []
-              ).map((id) => (
-                <Checkbox key={id} value={id}>
-                  {startCase(id)}
-                </Checkbox>
-              ))}
-            </CheckboxGroup>
-          )
+          if (
+            "enum" in schema &&
+            schema.enum &&
+            typeof schema.enum[0] === "string"
+          ) {
+            return (
+              <field.CheckboxGroupField
+                label={schema.title}
+                description={schema.description}
+              >
+                {schema.enum.map((id) => (
+                  <Checkbox key={id} value={id}>
+                    {startCase(id)}
+                  </Checkbox>
+                ))}
+              </field.CheckboxGroupField>
+            )
+          }
+          return null
         }}
-      />
+      </form.AppField>
 
-      <form.Field
-        name="pet"
-        // biome-ignore lint/correctness/noChildrenProp: ignore
-        children={(field) => {
+      <form.AppField name="pet">
+        {(field) => {
           const schema =
             jsonSchema.properties[
               field.name as keyof typeof jsonSchema.properties
             ]
-          return (
-            <RadioGroup
-              label={schema.title}
-              description={schema.description}
-              name={field.name}
-              value={field.state.value}
-              // @ts-expect-error
-              onChange={field.handleChange}
-              onBlur={field.handleBlur}
-              isInvalid={field.state.meta.errors.length > 0}
-              errorMessage={field.state.meta.errors.join(", ")}
-            >
-              {("enum" in schema ? schema.enum : []).map((id) => (
-                <Radio key={id} value={id}>
-                  {startCase(id)}
-                </Radio>
-              ))}
-            </RadioGroup>
-          )
+          if (
+            "enum" in schema &&
+            schema.enum &&
+            typeof schema.enum[0] === "string"
+          ) {
+            return (
+              <field.RadioGroupField
+                label={schema.title}
+                description={schema.description}
+              >
+                {schema.enum.map((id) => (
+                  <Radio key={id} value={id}>
+                    {startCase(id)}
+                  </Radio>
+                ))}
+              </field.RadioGroupField>
+            )
+          }
+          return null
         }}
-      />
+      </form.AppField>
 
-      <form.Field
-        name="fruit"
-        // biome-ignore lint/correctness/noChildrenProp: ignore
-        children={(field) => {
+      <form.AppField name="fruit">
+        {(field) => {
           const schema =
             jsonSchema.properties[
               field.name as keyof typeof jsonSchema.properties
             ]
-          return (
-            <ComboBox
-              label={schema.title}
-              description={schema.description}
-              name={field.name}
-              selectedKey={field.state.value}
-              // @ts-expect-error
-              onSelectionChange={field.handleChange}
-              onBlur={field.handleBlur}
-              isInvalid={field.state.meta.errors.length > 0}
-              errorMessage={field.state.meta.errors.join(", ")}
-            >
-              {("enum" in schema ? schema.enum : []).map((id) => (
-                <ComboBoxItem key={id} id={id}>
-                  {startCase(id)}
-                </ComboBoxItem>
-              ))}
-            </ComboBox>
-          )
+          if (
+            "enum" in schema &&
+            schema.enum &&
+            typeof schema.enum[0] === "string"
+          ) {
+            return (
+              <field.ComboBoxField
+                label={schema.title}
+                description={schema.description}
+              >
+                {schema.enum.map((id) => (
+                  <ComboBoxItem key={id} id={id}>
+                    {startCase(id)}
+                  </ComboBoxItem>
+                ))}
+              </field.ComboBoxField>
+            )
+          }
+          return null
         }}
-      />
+      </form.AppField>
 
       <Button type="submit">Submit</Button>
     </Form>
