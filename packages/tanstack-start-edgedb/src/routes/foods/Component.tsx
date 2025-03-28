@@ -8,8 +8,8 @@ import { useRef } from "react"
 
 import type { Food } from "#dbschema/interfaces.ts"
 import { formatGrams, formatNumber } from "#lib/util.ts"
-import { TanstackDataTable } from "#ui-rats/TanstackDataTable.tsx"
 import { Button } from "#ui-rats/rats/buttons/Button.tsx"
+import { TanstackDataTable } from "#ui-rats/TanstackDataTable.tsx"
 
 import { Actions } from "./Actions.tsx"
 

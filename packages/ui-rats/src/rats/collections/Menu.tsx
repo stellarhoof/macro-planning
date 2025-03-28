@@ -3,10 +3,10 @@ import {
   Menu as AriaMenu,
   MenuItem as AriaMenuItem,
   type MenuProps as AriaMenuProps,
+  composeRenderProps,
   type MenuItemProps,
   Separator,
   type SeparatorProps,
-  composeRenderProps,
 } from "react-aria-components"
 
 import { Popover, type PopoverProps } from "../overlays/Popover.tsx"

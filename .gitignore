@@ -27,9 +27,6 @@ dist-ssr
 .pnp.*
 .yarn
 
-# Typescript
-tsconfig.tsbuildinfo
-
 # Other
 repl.*
 .envrc

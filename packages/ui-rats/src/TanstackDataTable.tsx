@@ -5,14 +5,13 @@ import type {
   SortingState as TanstackSortingState,
   Table as TanstackTable,
 } from "@tanstack/table-core"
+import { type ForwardedRef, forwardRef, type Ref } from "react"
 import {
+  composeRenderProps,
   Table,
   TableBody,
   type TableProps,
-  composeRenderProps,
 } from "react-aria-components"
-
-import { type ForwardedRef, type Ref, forwardRef } from "react"
 import { Cell, Column, Row, TableHeader } from "./rats/collections/Table.tsx"
 
 interface TanstackTableProps {

@@ -4,16 +4,15 @@
   // Do not doubly build files (they're already being built via references).
   "files": [],
   "references": [
+    // Shared
     { "path": "./packages/lib/tsconfig.json" },
     { "path": "./packages/ui-rats/tsconfig.json" },
-    { "path": "./packages/mobx-keystone/tsconfig.json" },
+    // Projects
     { "path": "./packages/convex/tsconfig.json" },
-    // { "path": "./packages/vike-prisma/tsconfig.json" },
-    // { "path": "./packages/vike-fauna/tsconfig.json" },
     { "path": "./packages/remix-edgedb/tsconfig.json" },
-    { "path": "./packages/react-hook-form-rats/tsconfig.json" },
     { "path": "./packages/tanstack-form-rats/tsconfig.json" },
-    // { "path": "./packages/tanstack-start-edgedb/tsconfig.json" },
     { "path": "./packages/tanstack-start-convex/tsconfig.json" }
+    // { "path": "./packages/tanstack-start-edgedb/tsconfig.json" },
+    // { "path": "./packages/vike-prisma/tsconfig.json" },
   ]
 }

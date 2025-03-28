@@ -1,4 +1,6 @@
+import { type ForwardedRef, forwardRef } from "react"
 import {
+  composeRenderProps,
   type FieldErrorProps,
   Group,
   type GroupProps,
@@ -11,12 +13,9 @@ import {
   Text,
   type TextAreaProps,
   type TextProps,
-  composeRenderProps,
 } from "react-aria-components"
 import { twMerge } from "tailwind-merge"
 import { tv } from "tailwind-variants"
-
-import { type ForwardedRef, forwardRef } from "react"
 import { composeTailwindRenderProps, focusRing } from "./utils.ts"
 
 export const Input = forwardRef(

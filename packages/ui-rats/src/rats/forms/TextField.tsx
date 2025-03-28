@@ -1,18 +1,17 @@
+import type { ForwardedRef } from "react"
 import {
   TextField as AriaTextField,
   type TextFieldProps as AriaTextFieldProps,
   type ValidationResult,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
-
-import type { ForwardedRef } from "react"
 import {
   Description,
   FieldError,
+  fieldBorderStyles,
   Input,
   Label,
   TextArea,
-  fieldBorderStyles,
 } from "../Field.tsx"
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 

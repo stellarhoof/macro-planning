@@ -8,9 +8,9 @@ import { tv } from "tailwind-variants"
 import {
   Description,
   FieldError,
+  fieldBorderStyles,
   Input,
   Label,
-  fieldBorderStyles,
 } from "../Field.tsx"
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 

@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import {
+  createRouter as createTanstackRouter,
   type NavigateOptions,
   type ToOptions,
-  createRouter as createTanstackRouter,
 } from "@tanstack/react-router"
 import { ConvexProvider, ConvexReactClient } from "convex/react"
 import { RouterProvider as RACRouterProvider } from "react-aria-components"

@@ -1,7 +1,0 @@
-[.fauna-project]
-schema_directory=src/fauna/schema
-default=development
-
-[environment.development]
-endpoint=local
-database=macro-planning

@@ -1,7 +1,7 @@
 import {
-  type Root as RootNode,
   createRoot,
   hydrateRoot,
+  type Root as RootNode,
 } from "react-dom/client"
 import type { PageContextClient } from "vike/types"
 

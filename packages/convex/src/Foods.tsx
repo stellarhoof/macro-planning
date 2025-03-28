@@ -1,27 +1,26 @@
-import { useQuery } from "convex/react"
-import { FilePenLine, MoreHorizontal, Trash2 } from "lucide-react"
-import { useState } from "react"
-import { Heading, type Key, MenuTrigger } from "react-aria-components"
-
 import { useReactTable } from "@tanstack/react-table"
 import {
   type CellContext,
   type ColumnHelper,
-  type SortingState,
   createColumnHelper,
   getCoreRowModel,
+  type SortingState,
 } from "@tanstack/table-core"
+import { useQuery } from "convex/react"
+import { FilePenLine, MoreHorizontal, Trash2 } from "lucide-react"
+import { useState } from "react"
+import { Heading, type Key, MenuTrigger } from "react-aria-components"
 import { api } from "#convex/_generated/api.js"
 import type { Doc } from "#convex/_generated/dataModel.ts"
 import { type ExportedTable, tables } from "#convex/tables.ts"
 import { def, formatGrams, formatNumber } from "#lib/util.ts"
-import { TanstackDataTable } from "#ui-rats/TanstackDataTable.tsx"
 import { Button } from "#ui-rats/rats/buttons/Button.tsx"
 import { Menu, MenuItem } from "#ui-rats/rats/collections/Menu.tsx"
 import { TextField } from "#ui-rats/rats/forms/TextField.tsx"
 import { AlertDialog } from "#ui-rats/rats/overlays/AlertDialog.tsx"
 import { Dialog } from "#ui-rats/rats/overlays/Dialog.tsx"
 import { Modal } from "#ui-rats/rats/overlays/Modal.tsx"
+import { TanstackDataTable } from "#ui-rats/TanstackDataTable.tsx"
 
 function createColumnHelperPlus<TData extends Record<PropertyKey, unknown>>(
   table: ExportedTable,

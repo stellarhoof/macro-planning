@@ -1,17 +1,14 @@
+import type { CellContext } from "@tanstack/react-table"
 import { FilePenLine, MoreHorizontal, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { Heading, type Key, MenuTrigger } from "react-aria-components"
-
 import { Button } from "#ui-rats/rats/buttons/Button.tsx"
 import { Menu, MenuItem } from "#ui-rats/rats/collections/Menu.tsx"
 import { TextField } from "#ui-rats/rats/forms/TextField.tsx"
 import { AlertDialog } from "#ui-rats/rats/overlays/AlertDialog.tsx"
 import { Dialog } from "#ui-rats/rats/overlays/Dialog.tsx"
 import { Modal } from "#ui-rats/rats/overlays/Modal.tsx"
-
 import type { Food } from "../../../dbschema/interfaces.ts"
-
-import type { CellContext } from "@tanstack/react-table"
 
 const EditFood = (_props: CellContext<Food, unknown>) => {
   return (

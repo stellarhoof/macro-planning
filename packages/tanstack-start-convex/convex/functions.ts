@@ -1,7 +1,6 @@
+import type { IndexNames } from "convex/server"
 import { v } from "convex/values"
 import { mapValues } from "es-toolkit"
-
-import type { IndexNames } from "convex/server"
 import type { DataModel } from "./_generated/dataModel.js"
 import { query } from "./_generated/server.js"
 import { tables } from "./tables.js"

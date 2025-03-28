@@ -1,8 +1,8 @@
 import {
+  createRouter,
   type NavigateOptions,
   RouterProvider,
   type ToOptions,
-  createRouter,
 } from "@tanstack/react-router"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"

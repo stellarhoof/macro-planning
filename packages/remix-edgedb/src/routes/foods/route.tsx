@@ -1,22 +1,19 @@
-import * as edgedb from "edgedb"
-
-import { defaults, formatGrams, formatNumber } from "#lib/util.ts"
-import { TanstackDataTable } from "#ui-rats/TanstackDataTable.tsx"
-import type { Food } from "../../../dbschema/interfaces.ts"
-import { Actions } from "./Actions.tsx"
-
 import type { LoaderFunctionArgs, SerializeFrom } from "@remix-run/node"
 import {
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import * as edgedb from "edgedb"
 import { useRef } from "react"
-
 import typia from "typia"
+import { defaults, formatGrams, formatNumber } from "#lib/util.ts"
 import { useCursorPagination } from "#src/util/useCursorPagination.ts"
 import { useTanstackSorting } from "#src/util/useTanstackSorting.ts"
 import { Button } from "#ui-rats/rats/buttons/Button.tsx"
+import { TanstackDataTable } from "#ui-rats/TanstackDataTable.tsx"
+import type { Food } from "../../../dbschema/interfaces.ts"
+import { Actions } from "./Actions.tsx"
 
 const client = edgedb.createClient()
 

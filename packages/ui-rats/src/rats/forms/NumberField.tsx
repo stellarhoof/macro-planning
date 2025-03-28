@@ -1,4 +1,5 @@
 import { ChevronDown, ChevronUp } from "lucide-react"
+import { type ForwardedRef, forwardRef } from "react"
 import {
   NumberField as AriaNumberField,
   type NumberFieldProps as AriaNumberFieldProps,
@@ -6,15 +7,13 @@ import {
   type ButtonProps,
   type ValidationResult,
 } from "react-aria-components"
-
-import { type ForwardedRef, forwardRef } from "react"
 import {
   Description,
   FieldError,
   FieldGroup,
+  fieldBorderStyles,
   Input,
   Label,
-  fieldBorderStyles,
 } from "../Field.tsx"
 import { composeTailwindRenderProps } from "../utils.ts"
 

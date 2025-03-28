@@ -1,8 +1,8 @@
 import {
   Tooltip as AriaTooltip,
   type TooltipProps as AriaTooltipProps,
-  OverlayArrow,
   composeRenderProps,
+  OverlayArrow,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

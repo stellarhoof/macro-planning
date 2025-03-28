@@ -1,16 +1,15 @@
 import { ChevronDown } from "lucide-react"
+import type { ForwardedRef } from "react"
 import {
   ComboBox as AriaComboBox,
   type ComboBoxProps as AriaComboBoxProps,
   ListBox,
   type ValidationResult,
 } from "react-aria-components"
-
-import type { ForwardedRef } from "react"
-import { Description, FieldError, FieldGroup, Label } from "../Field.tsx"
-import { Input } from "../Field.tsx"
 import { Button } from "../buttons/Button.tsx"
 import { DropdownItem, DropdownSection } from "../collections/ListBox.tsx"
+import { Description, FieldError, FieldGroup, Label } from "../Field.tsx"
+import { Input } from "../Field.tsx"
 import { Popover } from "../overlays/Popover.tsx"
 import { composeTailwindRenderProps } from "../utils.ts"
 

@@ -1,4 +1,4 @@
-import { Outlet, createRootRoute } from "@tanstack/react-router"
+import { createRootRoute, Outlet } from "@tanstack/react-router"
 
 import { Document } from "./Document.tsx"
 import { Error_ } from "./Error.tsx"

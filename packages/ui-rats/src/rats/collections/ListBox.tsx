@@ -4,11 +4,11 @@ import {
   ListBoxItem as AriaListBoxItem,
   type ListBoxProps as AriaListBoxProps,
   Collection,
+  composeRenderProps,
   Header,
   type ListBoxItemProps,
   Section,
   type SectionProps,
-  composeRenderProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

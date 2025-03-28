@@ -1,3 +1,6 @@
 # Convex
 .env.local
 convex/_generated/
+
+# Tanstack Start
+src/routes.gen.ts

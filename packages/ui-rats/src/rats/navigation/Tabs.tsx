@@ -1,4 +1,5 @@
 import {
+  composeRenderProps,
   Tab as RACTab,
   TabList as RACTabList,
   TabPanel as RACTabPanel,
@@ -7,7 +8,6 @@ import {
   type TabListProps,
   type TabPanelProps,
   type TabProps,
-  composeRenderProps,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 

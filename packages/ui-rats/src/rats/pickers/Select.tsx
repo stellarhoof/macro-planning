@@ -1,4 +1,5 @@
 import { ChevronDown } from "lucide-react"
+import type { ForwardedRef } from "react"
 import {
   Select as AriaSelect,
   type SelectProps as AriaSelectProps,
@@ -8,10 +9,8 @@ import {
   type ValidationResult,
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
-
-import type { ForwardedRef } from "react"
-import { Description, FieldError, Label } from "../Field.tsx"
 import { DropdownItem, DropdownSection } from "../collections/ListBox.tsx"
+import { Description, FieldError, Label } from "../Field.tsx"
 import { Popover } from "../overlays/Popover.tsx"
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 
