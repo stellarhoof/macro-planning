@@ -8,23 +8,18 @@ import {
 } from "react-aria-components"
 
 import { Button } from "../buttons/Button.tsx"
-import { DropdownItem, DropdownSection } from "../collections/ListBox.tsx"
 import { Description, FieldError, FieldGroup, Label } from "../Field.tsx"
 import { Input } from "../Field.tsx"
 import { Popover } from "../overlays/Popover.tsx"
 import { composeTailwindRenderProps } from "../utils.ts"
 
-export const ComboBoxItem = DropdownItem
-
-export const ComboBoxSection = DropdownSection
-
 export interface ComboBoxProps<T extends object>
   extends Omit<AriaComboBoxProps<T>, "children"> {
+  ref?: ForwardedRef<HTMLInputElement>
   label?: string
   description?: string | null
   errorMessage?: string | ((validation: ValidationResult) => string)
   children: React.ReactNode | ((item: T) => React.ReactNode)
-  ref?: ForwardedRef<HTMLInputElement>
 }
 
 export function ComboBox<T extends object>({

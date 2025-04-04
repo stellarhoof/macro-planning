@@ -9,7 +9,8 @@
   "dependencies": {
     "@tanstack/react-virtual": "^3.13.5",
     "es-toolkit": "^1.34.1",
-    "iterator-helpers-polyfill": "^3.0.1"
+    "iterator-helpers-polyfill": "^3.0.1",
+    "react-aria": "^3.38.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.6",

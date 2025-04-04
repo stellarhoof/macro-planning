@@ -1,4 +1,5 @@
 import { CalendarIcon } from "lucide-react"
+import type { ForwardedRef } from "react"
 import {
   DatePicker as AriaDatePicker,
   type DatePickerProps as AriaDatePickerProps,
@@ -16,12 +17,14 @@ import { DateInput } from "./DateField.tsx"
 
 export interface DatePickerProps<T extends DateValue>
   extends AriaDatePickerProps<T> {
+  ref?: ForwardedRef<HTMLInputElement>
   label?: string
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
 export function DatePicker<T extends DateValue>({
+  ref,
   label,
   description,
   errorMessage,
@@ -30,6 +33,7 @@ export function DatePicker<T extends DateValue>({
   return (
     <AriaDatePicker
       {...props}
+      ref={ref}
       className={composeTailwindRenderProps(
         props.className,
         "group flex flex-col gap-1",

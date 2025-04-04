@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import type { ForwardedRef, ReactNode } from "react"
 import {
   Radio as RACRadio,
   RadioGroup as RACRadioGroup,
@@ -12,6 +12,7 @@ import { Description, FieldError, Label } from "../Field.tsx"
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 
 export interface RadioGroupProps extends Omit<RACRadioGroupProps, "children"> {
+  ref?: ForwardedRef<HTMLDivElement>
   label?: string
   children?: ReactNode
   description?: string
@@ -19,6 +20,7 @@ export interface RadioGroupProps extends Omit<RACRadioGroupProps, "children"> {
 }
 
 export function RadioGroup({
+  ref,
   label,
   children,
   description,
@@ -29,6 +31,7 @@ export function RadioGroup({
   return (
     <RACRadioGroup
       {...props}
+      ref={ref}
       className={composeTailwindRenderProps(
         className,
         "group flex flex-col gap-2",

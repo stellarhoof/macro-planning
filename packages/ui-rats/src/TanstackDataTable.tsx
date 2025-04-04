@@ -5,7 +5,7 @@ import type {
   SortingState as TanstackSortingState,
   Table as TanstackTable,
 } from "@tanstack/table-core"
-import { type ForwardedRef, forwardRef, type Ref } from "react"
+import { type ForwardedRef } from "react"
 import {
   composeRenderProps,
   Table,
@@ -46,34 +46,90 @@ function useTanstackTableProps({
 interface DataTableProps
   extends Omit<TableProps, "sortDescriptor" | "onSortChange">,
     TanstackTableProps {
-  ref?: Ref<HTMLTableElement>
+  ref?: ForwardedRef<HTMLTableElement>
 }
 
-export const TanstackDataTable = forwardRef(
-  (
-    { table, sorting, ...props }: DataTableProps,
-    ref: ForwardedRef<HTMLTableElement>,
-  ) => {
-    return (
-      <Table
-        ref={ref}
-        {...useTanstackTableProps({ table, sorting })}
-        {...props}
+export function TanstackDataTable({
+  table,
+  sorting,
+  ...props
+}: DataTableProps) {
+  return (
+    <Table {...useTanstackTableProps({ table, sorting })} {...props}>
+      <TableHeader columns={table.getFlatHeaders()}>
+        {(header) => (
+          <Column
+            id={header.id}
+            allowsSorting={header.column.getCanSort()}
+            {...header.column.columnDef.meta?.props?.header}
+          >
+            {flexRender(header.column.columnDef.header, header.getContext())}
+          </Column>
+        )}
+      </TableHeader>
+      <TableBody items={table.getRowModel().rows}>
+        {(row) => (
+          <Row columns={row.getVisibleCells()}>
+            {(cell) => (
+              <Cell
+                textValue={cell.getValue() as string}
+                {...cell.column.columnDef.meta?.props?.cell}
+              >
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </Cell>
+            )}
+          </Row>
+        )}
+      </TableBody>
+    </Table>
+  )
+}
+
+export function VirtualizedTanstackDataTable({
+  table,
+  virtualizer,
+  sorting,
+  ...props
+}: DataTableProps & {
+  virtualizer: Virtualizer<HTMLTableElement, Element>
+}) {
+  const { rows } = table.getRowModel()
+  return (
+    <Table
+      className={composeRenderProps(
+        props.className,
+        () => "grid h-[500px] overflow-auto relative",
+      )}
+      {...useTanstackTableProps({ table, sorting })}
+      {...props}
+    >
+      <TableHeader className="grid" columns={table.getFlatHeaders()}>
+        {(header) => (
+          <Column
+            id={header.id}
+            allowsSorting={header.column.getCanSort()}
+            {...header.column.columnDef.meta?.props?.header}
+          >
+            {flexRender(header.column.columnDef.header, header.getContext())}
+          </Column>
+        )}
+      </TableHeader>
+      <TableBody
+        items={virtualizer.getVirtualItems()}
+        className="grid relative"
+        style={{ height: Math.round(virtualizer.getTotalSize()) }}
       >
-        <TableHeader columns={table.getFlatHeaders()}>
-          {(header) => (
-            <Column
-              id={header.id}
-              allowsSorting={header.column.getCanSort()}
-              {...header.column.columnDef.meta?.props?.header}
+        {(virtualRow) => {
+          // biome-ignore lint:
+          const row = rows[virtualRow.index] as TanstackRow<any>
+          return (
+            <Row
+              ref={virtualizer.measureElement}
+              data-index={virtualRow.index}
+              columns={row.getVisibleCells()}
+              className="absolute w-full"
+              style={{ transform: `translateY(${virtualRow.start}px)` }}
             >
-              {flexRender(header.column.columnDef.header, header.getContext())}
-            </Column>
-          )}
-        </TableHeader>
-        <TableBody items={table.getRowModel().rows}>
-          {(row) => (
-            <Row columns={row.getVisibleCells()}>
               {(cell) => (
                 <Cell
                   textValue={cell.getValue() as string}
@@ -83,76 +139,9 @@ export const TanstackDataTable = forwardRef(
                 </Cell>
               )}
             </Row>
-          )}
-        </TableBody>
-      </Table>
-    )
-  },
-)
-
-export const VirtualizedTanstackDataTable = forwardRef(
-  (
-    {
-      table,
-      virtualizer,
-      sorting,
-      ...props
-    }: DataTableProps & {
-      virtualizer: Virtualizer<HTMLTableElement, Element>
-    },
-    ref: ForwardedRef<HTMLTableElement>,
-  ) => {
-    const { rows } = table.getRowModel()
-    return (
-      <Table
-        ref={ref}
-        className={composeRenderProps(
-          props.className,
-          () => "grid h-[500px] overflow-auto relative",
-        )}
-        {...useTanstackTableProps({ table, sorting })}
-        {...props}
-      >
-        <TableHeader className="grid" columns={table.getFlatHeaders()}>
-          {(header) => (
-            <Column
-              id={header.id}
-              allowsSorting={header.column.getCanSort()}
-              {...header.column.columnDef.meta?.props?.header}
-            >
-              {flexRender(header.column.columnDef.header, header.getContext())}
-            </Column>
-          )}
-        </TableHeader>
-        <TableBody
-          items={virtualizer.getVirtualItems()}
-          className="grid relative"
-          style={{ height: Math.round(virtualizer.getTotalSize()) }}
-        >
-          {(virtualRow) => {
-            // biome-ignore lint:
-            const row = rows[virtualRow.index] as TanstackRow<any>
-            return (
-              <Row
-                ref={virtualizer.measureElement}
-                data-index={virtualRow.index}
-                columns={row.getVisibleCells()}
-                className="absolute w-full"
-                style={{ transform: `translateY(${virtualRow.start}px)` }}
-              >
-                {(cell) => (
-                  <Cell
-                    textValue={cell.getValue() as string}
-                    {...cell.column.columnDef.meta?.props?.cell}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Cell>
-                )}
-              </Row>
-            )
-          }}
-        </TableBody>
-      </Table>
-    )
-  },
-)
+          )
+        }}
+      </TableBody>
+    </Table>
+  )
+}

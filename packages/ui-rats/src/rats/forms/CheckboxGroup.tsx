@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import type { ForwardedRef, ReactNode } from "react"
 import {
   CheckboxGroup as AriaCheckboxGroup,
   type CheckboxGroupProps as AriaCheckboxGroupProps,
@@ -10,16 +10,18 @@ import { composeTailwindRenderProps } from "../utils.ts"
 
 export interface CheckboxGroupProps
   extends Omit<AriaCheckboxGroupProps, "children"> {
+  ref?: ForwardedRef<HTMLDivElement>
   label?: string
   children?: ReactNode
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export function CheckboxGroup(props: CheckboxGroupProps) {
+export function CheckboxGroup({ ref, ...props }: CheckboxGroupProps) {
   return (
     <AriaCheckboxGroup
       {...props}
+      ref={ref}
       className={composeTailwindRenderProps(
         props.className,
         "flex flex-col gap-2",

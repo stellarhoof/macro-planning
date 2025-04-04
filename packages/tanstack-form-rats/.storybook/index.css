@@ -1,2 +1,3 @@
 @import "tailwindcss";
+@plugin "tailwindcss-react-aria-components";
 @source "../../ui-rats/src";

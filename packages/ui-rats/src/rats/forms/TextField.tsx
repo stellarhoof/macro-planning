@@ -4,29 +4,13 @@ import {
   type TextFieldProps as AriaTextFieldProps,
   type ValidationResult,
 } from "react-aria-components"
-import { tv } from "tailwind-variants"
+import { twMerge } from "tailwind-merge"
 
-import {
-  Description,
-  FieldError,
-  fieldBorderStyles,
-  Input,
-  Label,
-  TextArea,
-} from "../Field.tsx"
-import { composeTailwindRenderProps, focusRing } from "../utils.ts"
+import { Description, FieldError, Input, Label, TextArea } from "../Field.tsx"
 
-const inputStyles = tv({
-  extend: focusRing,
-  base: "border-2 rounded-md",
-  variants: {
-    isFocused: fieldBorderStyles.variants.isFocusWithin,
-    ...fieldBorderStyles.variants,
-  },
-})
-
-export interface TextFieldProps extends AriaTextFieldProps {
+export interface TextFieldProps extends Omit<AriaTextFieldProps, "className"> {
   ref?: ForwardedRef<HTMLInputElement>
+  className?: string
   label?: string
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
@@ -42,21 +26,19 @@ export function TextField({
   return (
     <AriaTextField
       {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "flex flex-col gap-1",
-      )}
+      className={twMerge("flex flex-col gap-1", props.className)}
     >
       {label && <Label>{label}</Label>}
-      <Input ref={ref} className={inputStyles} />
+      <Input ref={ref} className="border-2 rounded-md" />
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
     </AriaTextField>
   )
 }
 
-export interface TextAreaProps extends AriaTextFieldProps {
+export interface TextAreaProps extends Omit<AriaTextFieldProps, "className"> {
   ref?: ForwardedRef<HTMLTextAreaElement>
+  className?: string
   label?: string
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
@@ -72,13 +54,10 @@ export function TextAreaField({
   return (
     <AriaTextField
       {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "flex flex-col gap-1",
-      )}
+      className={twMerge("flex flex-col gap-1", props.className)}
     >
       {label && <Label>{label}</Label>}
-      <TextArea ref={ref} className={inputStyles} />
+      <TextArea ref={ref} className="border-2 rounded-md" />
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
     </AriaTextField>

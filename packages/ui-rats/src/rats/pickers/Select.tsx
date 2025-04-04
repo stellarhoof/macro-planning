@@ -10,14 +10,9 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { DropdownItem, DropdownSection } from "../collections/ListBox.tsx"
 import { Description, FieldError, Label } from "../Field.tsx"
 import { Popover } from "../overlays/Popover.tsx"
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
-
-export const SelectItem = DropdownItem
-
-export const SelectSection = DropdownSection
 
 const styles = tv({
   extend: focusRing,
@@ -33,12 +28,12 @@ const styles = tv({
 
 export interface SelectProps<T extends object>
   extends Omit<AriaSelectProps<T>, "children"> {
+  ref?: ForwardedRef<HTMLDivElement>
   label?: string
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
   items?: Iterable<T>
   children: React.ReactNode | ((item: T) => React.ReactNode)
-  ref?: ForwardedRef<HTMLDivElement>
 }
 
 export function Select<T extends object>({

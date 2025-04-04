@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { Form } from "react-aria-components"
+import { Form, Header, ListBoxSection } from "react-aria-components"
 
 import { Button } from "../buttons/Button.tsx"
-import { ComboBox, ComboBoxItem, ComboBoxSection } from "./ComboBox.tsx"
+import { ListBoxItem } from "../collections/ListBox.tsx"
+import { ComboBox } from "./ComboBox.tsx"
 
 export default { component: ComboBox } satisfies Meta<typeof ComboBox>
 
@@ -14,10 +15,10 @@ export const Example: Story = {
   },
   render: (args) => (
     <ComboBox {...args}>
-      <ComboBoxItem>Chocolate</ComboBoxItem>
-      <ComboBoxItem id="mint">Mint</ComboBoxItem>
-      <ComboBoxItem>Strawberry</ComboBoxItem>
-      <ComboBoxItem>Vanilla</ComboBoxItem>
+      <ListBoxItem>Chocolate</ListBoxItem>
+      <ListBoxItem id="mint">Mint</ListBoxItem>
+      <ListBoxItem>Strawberry</ListBoxItem>
+      <ListBoxItem>Vanilla</ListBoxItem>
     </ComboBox>
   ),
 }
@@ -36,26 +37,28 @@ export const Sections: Story = {
   },
   render: (args) => (
     <ComboBox {...args}>
-      <ComboBoxSection title="Fruit">
-        <ComboBoxItem id="Apple">Apple</ComboBoxItem>
-        <ComboBoxItem id="Banana">Banana</ComboBoxItem>
-        <ComboBoxItem id="Orange">Orange</ComboBoxItem>
-        <ComboBoxItem id="Honeydew">Honeydew</ComboBoxItem>
-        <ComboBoxItem id="Grapes">Grapes</ComboBoxItem>
-        <ComboBoxItem id="Watermelon">Watermelon</ComboBoxItem>
-        <ComboBoxItem id="Cantaloupe">Cantaloupe</ComboBoxItem>
-        <ComboBoxItem id="Pear">Pear</ComboBoxItem>
-      </ComboBoxSection>
-      <ComboBoxSection title="Vegetable">
-        <ComboBoxItem id="Cabbage">Cabbage</ComboBoxItem>
-        <ComboBoxItem id="Broccoli">Broccoli</ComboBoxItem>
-        <ComboBoxItem id="Carrots">Carrots</ComboBoxItem>
-        <ComboBoxItem id="Lettuce">Lettuce</ComboBoxItem>
-        <ComboBoxItem id="Spinach">Spinach</ComboBoxItem>
-        <ComboBoxItem id="Bok Choy">Bok Choy</ComboBoxItem>
-        <ComboBoxItem id="Cauliflower">Cauliflower</ComboBoxItem>
-        <ComboBoxItem id="Potatoes">Potatoes</ComboBoxItem>
-      </ComboBoxSection>
+      <ListBoxSection>
+        <Header>Fruit</Header>
+        <ListBoxItem id="Apple">Apple</ListBoxItem>
+        <ListBoxItem id="Banana">Banana</ListBoxItem>
+        <ListBoxItem id="Orange">Orange</ListBoxItem>
+        <ListBoxItem id="Honeydew">Honeydew</ListBoxItem>
+        <ListBoxItem id="Grapes">Grapes</ListBoxItem>
+        <ListBoxItem id="Watermelon">Watermelon</ListBoxItem>
+        <ListBoxItem id="Cantaloupe">Cantaloupe</ListBoxItem>
+        <ListBoxItem id="Pear">Pear</ListBoxItem>
+      </ListBoxSection>
+      <ListBoxSection>
+        <Header>Vegetable</Header>
+        <ListBoxItem id="Cabbage">Cabbage</ListBoxItem>
+        <ListBoxItem id="Broccoli">Broccoli</ListBoxItem>
+        <ListBoxItem id="Carrots">Carrots</ListBoxItem>
+        <ListBoxItem id="Lettuce">Lettuce</ListBoxItem>
+        <ListBoxItem id="Spinach">Spinach</ListBoxItem>
+        <ListBoxItem id="Bok Choy">Bok Choy</ListBoxItem>
+        <ListBoxItem id="Cauliflower">Cauliflower</ListBoxItem>
+        <ListBoxItem id="Potatoes">Potatoes</ListBoxItem>
+      </ListBoxSection>
     </ComboBox>
   ),
 }
@@ -67,10 +70,10 @@ export const Validation: Story = {
   render: (args) => (
     <Form className="flex flex-col items-start gap-2">
       <ComboBox {...args}>
-        <ComboBoxItem>Chocolate</ComboBoxItem>
-        <ComboBoxItem id="mint">Mint</ComboBoxItem>
-        <ComboBoxItem>Strawberry</ComboBoxItem>
-        <ComboBoxItem>Vanilla</ComboBoxItem>
+        <ListBoxItem>Chocolate</ListBoxItem>
+        <ListBoxItem id="mint">Mint</ListBoxItem>
+        <ListBoxItem>Strawberry</ListBoxItem>
+        <ListBoxItem>Vanilla</ListBoxItem>
       </ComboBox>
       <Button type="submit" variant="secondary">
         Submit

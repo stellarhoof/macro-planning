@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { Form } from "react-aria-components"
+import { Form, Header, ListBoxSection } from "react-aria-components"
 
 import { Button } from "../buttons/Button.tsx"
-import { Select, SelectItem, SelectSection } from "./Select.tsx"
+import { ListBoxItem } from "../collections/ListBox.tsx"
+import { Select } from "./Select.tsx"
 
 export default { component: Select } satisfies Meta<typeof Select>
 
@@ -14,10 +15,10 @@ export const Example: Story = {
   },
   render: (args) => (
     <Select {...args}>
-      <SelectItem>Chocolate</SelectItem>
-      <SelectItem id="mint">Mint</SelectItem>
-      <SelectItem>Strawberry</SelectItem>
-      <SelectItem>Vanilla</SelectItem>
+      <ListBoxItem>Chocolate</ListBoxItem>
+      <ListBoxItem id="mint">Mint</ListBoxItem>
+      <ListBoxItem>Strawberry</ListBoxItem>
+      <ListBoxItem>Vanilla</ListBoxItem>
     </Select>
   ),
 }
@@ -36,26 +37,28 @@ export const Sections: Story = {
   },
   render: (args) => (
     <Select {...args}>
-      <SelectSection title="Fruit">
-        <SelectItem id="Apple">Apple</SelectItem>
-        <SelectItem id="Banana">Banana</SelectItem>
-        <SelectItem id="Orange">Orange</SelectItem>
-        <SelectItem id="Honeydew">Honeydew</SelectItem>
-        <SelectItem id="Grapes">Grapes</SelectItem>
-        <SelectItem id="Watermelon">Watermelon</SelectItem>
-        <SelectItem id="Cantaloupe">Cantaloupe</SelectItem>
-        <SelectItem id="Pear">Pear</SelectItem>
-      </SelectSection>
-      <SelectSection title="Vegetable">
-        <SelectItem id="Cabbage">Cabbage</SelectItem>
-        <SelectItem id="Broccoli">Broccoli</SelectItem>
-        <SelectItem id="Carrots">Carrots</SelectItem>
-        <SelectItem id="Lettuce">Lettuce</SelectItem>
-        <SelectItem id="Spinach">Spinach</SelectItem>
-        <SelectItem id="Bok Choy">Bok Choy</SelectItem>
-        <SelectItem id="Cauliflower">Cauliflower</SelectItem>
-        <SelectItem id="Potatoes">Potatoes</SelectItem>
-      </SelectSection>
+      <ListBoxSection>
+        <Header>Fruit</Header>
+        <ListBoxItem id="Apple">Apple</ListBoxItem>
+        <ListBoxItem id="Banana">Banana</ListBoxItem>
+        <ListBoxItem id="Orange">Orange</ListBoxItem>
+        <ListBoxItem id="Honeydew">Honeydew</ListBoxItem>
+        <ListBoxItem id="Grapes">Grapes</ListBoxItem>
+        <ListBoxItem id="Watermelon">Watermelon</ListBoxItem>
+        <ListBoxItem id="Cantaloupe">Cantaloupe</ListBoxItem>
+        <ListBoxItem id="Pear">Pear</ListBoxItem>
+      </ListBoxSection>
+      <ListBoxSection>
+        <Header>Vegetable</Header>
+        <ListBoxItem id="Cabbage">Cabbage</ListBoxItem>
+        <ListBoxItem id="Broccoli">Broccoli</ListBoxItem>
+        <ListBoxItem id="Carrots">Carrots</ListBoxItem>
+        <ListBoxItem id="Lettuce">Lettuce</ListBoxItem>
+        <ListBoxItem id="Spinach">Spinach</ListBoxItem>
+        <ListBoxItem id="Bok Choy">Bok Choy</ListBoxItem>
+        <ListBoxItem id="Cauliflower">Cauliflower</ListBoxItem>
+        <ListBoxItem id="Potatoes">Potatoes</ListBoxItem>
+      </ListBoxSection>
     </Select>
   ),
 }
@@ -67,10 +70,10 @@ export const Validation: Story = {
   render: (args) => (
     <Form className="flex flex-col items-start gap-2">
       <Select {...args}>
-        <SelectItem>Chocolate</SelectItem>
-        <SelectItem id="mint">Mint</SelectItem>
-        <SelectItem>Strawberry</SelectItem>
-        <SelectItem>Vanilla</SelectItem>
+        <ListBoxItem>Chocolate</ListBoxItem>
+        <ListBoxItem id="mint">Mint</ListBoxItem>
+        <ListBoxItem>Strawberry</ListBoxItem>
+        <ListBoxItem>Vanilla</ListBoxItem>
       </Select>
       <Button type="submit" variant="secondary">
         Submit

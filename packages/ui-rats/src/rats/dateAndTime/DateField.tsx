@@ -9,7 +9,7 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { Description, FieldError, fieldGroupStyles, Label } from "../Field.tsx"
+import { Description, FieldError, Label } from "../Field.tsx"
 import { composeTailwindRenderProps } from "../utils.ts"
 
 export interface DateFieldProps<T extends DateValue>
@@ -59,12 +59,7 @@ const segmentStyles = tv({
 export function DateInput(props: Omit<DateInputProps, "children">) {
   return (
     <AriaDateInput
-      className={(renderProps) =>
-        fieldGroupStyles({
-          ...renderProps,
-          class: "block min-w-[150px] px-2 py-1.5 text-sm",
-        })
-      }
+      className="block min-w-[150px] px-2 py-1.5 text-sm"
       {...props}
     >
       {(segment) => <DateSegment segment={segment} className={segmentStyles} />}
