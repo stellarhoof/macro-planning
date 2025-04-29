@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { BoldIcon, ItalicIcon, UnderlineIcon } from "lucide-react"
 import { Group } from "react-aria-components"
 

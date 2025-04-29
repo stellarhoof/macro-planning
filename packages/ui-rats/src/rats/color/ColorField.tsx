@@ -3,25 +3,9 @@ import {
   type ColorFieldProps as AriaColorFieldProps,
   type ValidationResult,
 } from "react-aria-components"
-import { tv } from "tailwind-variants"
 
-import {
-  Description,
-  FieldError,
-  fieldBorderStyles,
-  Input,
-  Label,
-} from "../Field.tsx"
-import { composeTailwindRenderProps, focusRing } from "../utils.ts"
-
-const inputStyles = tv({
-  extend: focusRing,
-  base: "border-2 rounded-md",
-  variants: {
-    isFocused: fieldBorderStyles.variants.isFocusWithin,
-    ...fieldBorderStyles.variants,
-  },
-})
+import { Description, FieldError, Input, Label } from "../Field.tsx"
+import { composeTailwindRenderProps } from "../utils.ts"
 
 export interface ColorFieldProps extends AriaColorFieldProps {
   label?: string
@@ -44,7 +28,7 @@ export function ColorField({
       )}
     >
       {label && <Label>{label}</Label>}
-      <Input className={inputStyles} />
+      <Input />
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
     </AriaColorField>

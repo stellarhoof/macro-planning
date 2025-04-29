@@ -16,7 +16,6 @@ import {
 import { Cell, Column, Row, TableHeader } from "./rats/collections/Table.tsx"
 
 interface TanstackTableProps {
-  // biome-ignore lint:
   table: TanstackTable<any>
   sorting: TanstackSortingState
 }

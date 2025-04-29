@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DialogTrigger } from "react-aria-components"
 
 import { Button } from "../buttons/Button.tsx"

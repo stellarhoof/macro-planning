@@ -1,9 +1,10 @@
-import type { Preview } from "@storybook/react"
-import { themes } from "@storybook/theming"
+import type { Preview } from "@storybook/react-vite"
+import { themes } from "storybook/theming"
 
 import "./index.css"
 
 export default {
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
     controls: {

@@ -1,19 +1,20 @@
+import { dirname, join } from "path"
+
 import type { StorybookConfig } from "@storybook/react-vite"
+
+function getAbsolutePath(value: string): any {
+  return dirname(require.resolve(join(value, "package.json")))
+}
 
 export default {
   stories: ["../src/**/*.stories.@(ts|tsx)"],
   addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@chromatic-com/storybook",
-    "@storybook/addon-interactions",
-    "@storybook/experimental-addon-test",
+    getAbsolutePath("@storybook/addon-links"),
+    getAbsolutePath("@storybook/addon-vitest"),
+    getAbsolutePath("@storybook/addon-docs")
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: getAbsolutePath("@storybook/react-vite"),
     options: {},
-  },
-  docs: {
-    autodocs: true,
   },
 } satisfies StorybookConfig
