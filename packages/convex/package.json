@@ -11,25 +11,25 @@
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/table-core": "^8.21.3",
-    "convex": "^1.24.0",
-    "es-toolkit": "^1.37.1",
-    "lucide-react": "^0.507.0",
+    "convex": "^1.25.4",
+    "es-toolkit": "^1.39.8",
+    "lucide-react": "^0.526.0",
     "react": "19.1.0",
-    "react-aria-components": "^1.8.0",
+    "react-aria-components": "^1.11.0",
     "react-dom": "19.1.0",
-    "react-stately": "^3.37.0"
+    "react-stately": "^3.40.0"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.5",
-    "@vitejs/plugin-react": "^4.4.1",
-    "browserslist": "^4.24.5",
+    "@tailwindcss/vite": "^4.1.11",
+    "@vitejs/plugin-react": "^4.7.0",
+    "browserslist": "^4.25.1",
     "browserslist-to-esbuild": "^2.1.1",
-    "tailwind-merge": "^3.2.0",
-    "tailwind-variants": "^1.0.0",
-    "tailwindcss": "^4.1.5",
+    "tailwind-merge": "^3.3.1",
+    "tailwind-variants": "^2.0.0",
+    "tailwindcss": "^4.1.11",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^2.0.0",
-    "vite": "^6.3.4",
+    "vite": "^7.0.6",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
