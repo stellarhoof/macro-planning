@@ -9,31 +9,31 @@
     "start": "vite preview"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.130.2",
+    "@tanstack/react-router": "^1.132.23",
     "@tanstack/react-table": "^8.21.3",
-    "@tanstack/router-devtools": "^1.130.2",
+    "@tanstack/router-devtools": "^1.132.23",
     "@tanstack/router-zod-adapter": "^1.81.5",
     "@tanstack/start": "^1.120.20",
-    "@tanstack/virtual-file-routes": "^1.129.7",
+    "@tanstack/virtual-file-routes": "^1.132.21",
     "edgedb": "^2.0.1",
-    "lucide-react": "^0.526.0",
-    "react": "^19.1.0",
-    "react-aria-components": "^1.11.0",
-    "react-dom": "^19.1.0",
-    "zod": "^4.0.10"
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.1",
+    "react-aria-components": "^1.12.2",
+    "react-dom": "^19.1.1",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@edgedb/generate": "^0.6.1",
-    "@tanstack/router-plugin": "^1.130.2",
-    "@vitejs/plugin-react": "^4.7.0",
-    "browserslist": "^4.25.1",
+    "@tanstack/router-plugin": "^1.132.23",
+    "@vitejs/plugin-react": "^5.0.4",
+    "browserslist": "^4.26.2",
     "browserslist-to-esbuild": "^2.1.1",
     "tailwind-merge": "^3.3.1",
-    "tailwind-variants": "^2.0.0",
-    "tailwindcss": "^4.1.11",
+    "tailwind-variants": "^3.1.1",
+    "tailwindcss": "^4.1.13",
     "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-react-aria-components": "^2.0.0",
-    "vite": "^7.0.6",
+    "tailwindcss-react-aria-components": "^2.0.1",
+    "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }

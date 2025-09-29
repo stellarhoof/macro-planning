@@ -1,8 +1,8 @@
-import type { JSONSchema7 as JSONSchema } from "json-schema"
-import type { FromSchema } from "json-schema-to-ts"
-import { Form } from "react-aria-components"
+import type { JSONSchema7 as JSONSchema } from "json-schema";
+import type { FromSchema } from "json-schema-to-ts";
+import { Form } from "react-aria-components";
 
-import { useAppForm } from "./form/index.ts"
+import { useAppForm } from "./form/index.ts";
 
 const jsonSchema = {
   type: "object",
@@ -72,7 +72,7 @@ const jsonSchema = {
       },
     },
   },
-} as const satisfies JSONSchema
+} as const satisfies JSONSchema;
 
 interface Person extends FromSchema<typeof jsonSchema> {}
 
@@ -84,25 +84,25 @@ export default function App() {
     } as Person,
     onSubmitMeta: { jsonSchema: jsonSchema as JSONSchema },
     onSubmit({ value }) {
-      console.log(value)
+      console.log(value);
     },
-  })
+  });
 
   return (
     <Form
       className="max-w-lg m-auto flex flex-col gap-4"
       onSubmit={(e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        form.handleSubmit()
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
       }}
     >
+      <form.AppField name="">
+        {(field) => <field.JsonSchemaField />}
+      </form.AppField>
       <form.AppForm>
-        <form.AppField name="">
-          {(field) => <field.JsonSchemaField />}
-        </form.AppField>
         <form.SubmitButton>Submit</form.SubmitButton>
       </form.AppForm>
     </Form>
-  )
+  );
 }
