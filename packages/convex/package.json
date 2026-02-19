@@ -11,25 +11,25 @@
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/table-core": "^8.21.3",
-    "convex": "^1.27.3",
-    "es-toolkit": "^1.39.10",
-    "lucide-react": "^0.544.0",
-    "react": "19.1.1",
-    "react-aria-components": "^1.12.2",
-    "react-dom": "19.1.1",
-    "react-stately": "^3.41.0"
+    "convex": "^1.31.7",
+    "es-toolkit": "^1.44.0",
+    "lucide-react": "^0.574.0",
+    "react": "19.2.4",
+    "react-aria-components": "^1.15.1",
+    "react-dom": "19.2.4",
+    "react-stately": "^3.44.0"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.13",
-    "@vitejs/plugin-react": "^5.0.4",
-    "browserslist": "^4.26.2",
+    "@tailwindcss/vite": "^4.1.18",
+    "@vitejs/plugin-react": "^5.1.4",
+    "browserslist": "^4.28.1",
     "browserslist-to-esbuild": "^2.1.1",
-    "tailwind-merge": "^3.3.1",
-    "tailwind-variants": "^3.1.1",
-    "tailwindcss": "^4.1.13",
+    "tailwind-merge": "^3.4.1",
+    "tailwind-variants": "^3.2.2",
+    "tailwindcss": "^4.1.18",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^2.0.1",
-    "vite": "^7.1.7",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite": "^7.3.1",
+    "vite-tsconfig-paths": "^6.1.1"
   }
 }

@@ -8,28 +8,28 @@
     "start:sb": "storybook dev -p 6006"
   },
   "dependencies": {
-    "@internationalized/date": "^3.9.0",
-    "@tanstack/react-form": "^1.23.4",
-    "ajv": "^8.17.1",
-    "es-toolkit": "^1.39.10",
-    "react-aria": "^3.43.2",
-    "react-aria-components": "^1.12.2",
-    "tailwind-merge": "^3.3.1"
+    "@internationalized/date": "^3.11.0",
+    "@tanstack/react-form": "^1.28.3",
+    "ajv": "^8.18.0",
+    "es-toolkit": "^1.44.0",
+    "react-aria": "^3.46.0",
+    "react-aria-components": "^1.15.1",
+    "tailwind-merge": "^3.4.1"
   },
   "devDependencies": {
-    "@storybook/addon-docs": "^9.1.8",
-    "@storybook/addon-links": "^9.1.8",
-    "@storybook/react-vite": "^9.1.8",
+    "@storybook/addon-docs": "^10.2.9",
+    "@storybook/addon-links": "^10.2.9",
+    "@storybook/react-vite": "^10.2.9",
     "@storybook/testing-library": "^0.2.2",
-    "@tailwindcss/vite": "^4.1.13",
+    "@tailwindcss/vite": "^4.1.18",
     "json-schema-to-ts": "^3.1.1",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "storybook": "^9.1.8",
-    "tailwindcss": "^4.1.13",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "storybook": "^10.2.9",
+    "tailwindcss": "^4.1.18",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^2.0.1",
-    "vite": "^7.1.7"
+    "vite": "^7.3.1"
   },
   "peerDependencies": {
     "react": "^19.0.0",
