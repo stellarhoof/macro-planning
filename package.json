@@ -2,21 +2,22 @@
   "name": "macro-planning",
   "private": true,
   "type": "module",
-  "packageManager": "yarn@4.5.0",
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc --build --verbose",
-    "check": "biome check --write"
+    "test": "vitest run",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.2",
     "@types/json-schema": "^7.0.15",
     "@types/node": "^25.2.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "oxfmt": "^0.36.0",
+    "oxlint": "^1.51.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
   }
