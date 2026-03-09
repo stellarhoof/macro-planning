@@ -13,8 +13,7 @@ import { Input } from "../Field.tsx"
 import { Popover } from "../overlays/Popover.tsx"
 import { composeTailwindRenderProps } from "../utils.ts"
 
-export interface ComboBoxProps<T extends object>
-  extends Omit<AriaComboBoxProps<T>, "children"> {
+export interface ComboBoxProps<T extends object> extends Omit<AriaComboBoxProps<T>, "children"> {
   ref?: ForwardedRef<HTMLInputElement>
   label?: string
   description?: string | null
@@ -34,10 +33,7 @@ export function ComboBox<T extends object>({
   return (
     <AriaComboBox
       {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "group flex flex-col gap-1",
-      )}
+      className={composeTailwindRenderProps(props.className, "group flex flex-col gap-1")}
     >
       <Label>{label}</Label>
       <FieldGroup>

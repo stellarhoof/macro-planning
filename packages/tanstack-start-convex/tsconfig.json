@@ -1,9 +1,6 @@
 {
   "extends": ["../../tsconfig.shared.all.jsonc"],
-  "references": [
-    { "path": "../lib/tsconfig.json" },
-    { "path": "../ui-rats/tsconfig.json" }
-  ],
+  "references": [{ "path": "../lib/tsconfig.json" }, { "path": "../ui-rats/tsconfig.json" }],
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable"],
     "paths": {

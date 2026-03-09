@@ -1,7 +1,4 @@
-import {
-  ColorSwatch as AriaColorSwatch,
-  type ColorSwatchProps,
-} from "react-aria-components"
+import { ColorSwatch as AriaColorSwatch, type ColorSwatchProps } from "react-aria-components"
 
 import { composeTailwindRenderProps } from "../utils.ts"
 

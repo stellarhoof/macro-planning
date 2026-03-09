@@ -61,15 +61,6 @@
     "verbatimModuleSyntax": true,
 
     // -----------------------------------------------------------------
-    // [Language](https://www.typescriptlang.org/tsconfig/#Language_and_Environment_6254)
-    // -----------------------------------------------------------------
-
-    // Enables experimental support for decorators, which is a version of
-    // decorators that predates the TC39 standardization process.
-    // https://www.typescriptlang.org/tsconfig/#experimentalDecorators
-    "experimentalDecorators": true,
-
-    // -----------------------------------------------------------------
     // [Modules](https://www.typescriptlang.org/tsconfig/#Modules_6244)
     // -----------------------------------------------------------------
 
@@ -125,6 +116,6 @@
 
     // Skip type checking libraries declaration files.
     // https://www.typescriptlang.org/tsconfig/#skipLibCheck
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+  },
 }

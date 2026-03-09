@@ -12,8 +12,10 @@ import { tv } from "tailwind-variants"
 import { focusRing } from "../utils.ts"
 import { CalendarGridHeader, CalendarHeader } from "./Calendar.tsx"
 
-export interface RangeCalendarProps<T extends DateValue>
-  extends Omit<AriaRangeCalendarProps<T>, "visibleDuration"> {
+export interface RangeCalendarProps<T extends DateValue> extends Omit<
+  AriaRangeCalendarProps<T>,
+  "visibleDuration"
+> {
   errorMessage?: string
 }
 

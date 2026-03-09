@@ -3,17 +3,10 @@ import { forEach } from "./forEach.ts"
 
 export interface FindOptions<T> {
   pre: (node: T, ctx: Context<T>) => boolean
-  forEachNode?: (
-    node: T,
-    fn: (node: T, key: Key) => void,
-    ctx: Context<T>,
-  ) => void
+  forEachNode?: (node: T, fn: (node: T, key: Key) => void, ctx: Context<T>) => void
 }
 
-export function find<T>(
-  node: T,
-  { pre, forEachNode }: FindOptions<T>,
-): T | undefined {
+export function find<T>(node: T, { pre, forEachNode }: FindOptions<T>): T | undefined {
   let result = undefined
   forEach(node, {
     forEachNode,

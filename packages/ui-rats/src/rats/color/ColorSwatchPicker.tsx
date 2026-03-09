@@ -9,10 +9,7 @@ import { tv } from "tailwind-variants"
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 import { ColorSwatch } from "./ColorSwatch.tsx"
 
-export function ColorSwatchPicker({
-  children,
-  ...props
-}: Omit<ColorSwatchPickerProps, "layout">) {
+export function ColorSwatchPicker({ children, ...props }: Omit<ColorSwatchPickerProps, "layout">) {
   return (
     <AriaColorSwatchPicker
       {...props}
@@ -35,7 +32,7 @@ export function ColorSwatchPickerItem(props: ColorSwatchPickerItemProps) {
         <>
           <ColorSwatch />
           {isSelected && (
-            <div className="absolute top-0 left-0 w-full h-full border border-2 border-black dark:border-white outline outline-2 outline-white dark:outline-black -outline-offset-4 rounded forced-color-adjust-none" />
+            <div className="absolute top-0 left-0 h-full w-full rounded border border-2 border-black outline outline-2 -outline-offset-4 outline-white forced-color-adjust-none dark:border-white dark:outline-black" />
           )}
         </>
       )}

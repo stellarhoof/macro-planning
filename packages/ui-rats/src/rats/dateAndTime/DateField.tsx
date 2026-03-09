@@ -12,8 +12,7 @@ import { tv } from "tailwind-variants"
 import { Description, FieldError, Label } from "../Field.tsx"
 import { composeTailwindRenderProps } from "../utils.ts"
 
-export interface DateFieldProps<T extends DateValue>
-  extends AriaDateFieldProps<T> {
+export interface DateFieldProps<T extends DateValue> extends AriaDateFieldProps<T> {
   label?: string
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)
@@ -28,10 +27,7 @@ export function DateField<T extends DateValue>({
   return (
     <AriaDateField
       {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "flex flex-col gap-1",
-      )}
+      className={composeTailwindRenderProps(props.className, "flex flex-col gap-1")}
     >
       {label && <Label>{label}</Label>}
       <DateInput />
@@ -58,10 +54,7 @@ const segmentStyles = tv({
 
 export function DateInput(props: Omit<DateInputProps, "children">) {
   return (
-    <AriaDateInput
-      className="block min-w-[150px] px-2 py-1.5 text-sm"
-      {...props}
-    >
+    <AriaDateInput className="block min-w-[150px] px-2 py-1.5 text-sm" {...props}>
       {(segment) => <DateSegment segment={segment} className={segmentStyles} />}
     </AriaDateInput>
   )

@@ -14,9 +14,7 @@ export default {
       },
     },
     docs: {
-      theme: window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? themes.dark
-        : themes.light,
+      theme: window.matchMedia("(prefers-color-scheme: dark)").matches ? themes.dark : themes.light,
     },
   },
 } satisfies Preview

@@ -14,18 +14,13 @@ export function ProgressBar({ label, ...props }: ProgressBarProps) {
   return (
     <AriaProgressBar
       {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "flex flex-col gap-1",
-      )}
+      className={composeTailwindRenderProps(props.className, "flex flex-col gap-1")}
     >
       {({ percentage, valueText, isIndeterminate }) => (
         <>
           <div className="flex justify-between gap-2">
             <Label>{label}</Label>
-            <span className="text-sm text-gray-600 dark:text-zinc-400">
-              {valueText}
-            </span>
+            <span className="text-sm text-gray-600 dark:text-zinc-400">{valueText}</span>
           </div>
           <div className="relative h-2 w-64 overflow-hidden rounded-full bg-gray-300 outline outline-1 -outline-offset-1 outline-transparent dark:bg-zinc-700">
             <div

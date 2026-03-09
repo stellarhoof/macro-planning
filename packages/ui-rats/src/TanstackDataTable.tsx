@@ -1,145 +1,132 @@
-import { flexRender } from "@tanstack/react-table";
-import type { Virtualizer } from "@tanstack/react-virtual";
+import { flexRender } from "@tanstack/react-table"
+import type { Virtualizer } from "@tanstack/react-virtual"
 import type {
-	Row as TanstackRow,
-	SortingState as TanstackSortingState,
-	Table as TanstackTable,
-} from "@tanstack/table-core";
-import type { ForwardedRef } from "react";
-import {
-	composeRenderProps,
-	Table,
-	TableBody,
-	type TableProps,
-} from "react-aria-components";
+  Row as TanstackRow,
+  SortingState as TanstackSortingState,
+  Table as TanstackTable,
+} from "@tanstack/table-core"
+import type { ForwardedRef } from "react"
+import { composeRenderProps, Table, TableBody, type TableProps } from "react-aria-components"
 
-import { Cell, Column, Row, TableHeader } from "./rats/collections/Table.tsx";
+import { Cell, Column, Row, TableHeader } from "./rats/collections/Table.tsx"
 
 interface TanstackTableProps {
-	table: TanstackTable<any>;
-	sorting: TanstackSortingState;
+  table: TanstackTable<any>
+  sorting: TanstackSortingState
 }
 
 function useTanstackTableProps({
-	table,
-	sorting,
+  table,
+  sorting,
 }: TanstackTableProps): Pick<TableProps, "sortDescriptor" | "onSortChange"> {
-	return {
-		sortDescriptor: sorting.length
-			? {
-					column: sorting[0]?.id ?? "",
-					direction: sorting[0]?.desc ? "descending" : "ascending",
-				}
-			: undefined,
-		onSortChange: (sortDescriptor) => {
-			table.setSorting([
-				{
-					id: `${sortDescriptor.column}`,
-					desc: sortDescriptor.direction === "descending",
-				},
-			]);
-		},
-	};
+  return {
+    sortDescriptor: sorting.length
+      ? {
+          column: sorting[0]?.id ?? "",
+          direction: sorting[0]?.desc ? "descending" : "ascending",
+        }
+      : undefined,
+    onSortChange: (sortDescriptor) => {
+      table.setSorting([
+        {
+          id: `${sortDescriptor.column}`,
+          desc: sortDescriptor.direction === "descending",
+        },
+      ])
+    },
+  }
 }
 
 interface DataTableProps
-	extends Omit<TableProps, "sortDescriptor" | "onSortChange">,
-		TanstackTableProps {
-	ref?: ForwardedRef<HTMLTableElement>;
+  extends Omit<TableProps, "sortDescriptor" | "onSortChange">, TanstackTableProps {
+  ref?: ForwardedRef<HTMLTableElement>
 }
 
-export function TanstackDataTable({
-	table,
-	sorting,
-	...props
-}: DataTableProps) {
-	return (
-		<Table {...useTanstackTableProps({ table, sorting })} {...props}>
-			<TableHeader columns={table.getFlatHeaders()}>
-				{(header) => (
-					<Column
-						id={header.id}
-						allowsSorting={header.column.getCanSort()}
-						{...header.column.columnDef.meta?.props?.header}
-					>
-						{flexRender(header.column.columnDef.header, header.getContext())}
-					</Column>
-				)}
-			</TableHeader>
-			<TableBody items={table.getRowModel().rows}>
-				{(row) => (
-					<Row columns={row.getVisibleCells()}>
-						{(cell) => (
-							<Cell
-								textValue={cell.getValue() as string}
-								{...cell.column.columnDef.meta?.props?.cell}
-							>
-								{flexRender(cell.column.columnDef.cell, cell.getContext())}
-							</Cell>
-						)}
-					</Row>
-				)}
-			</TableBody>
-		</Table>
-	);
+export function TanstackDataTable({ table, sorting, ...props }: DataTableProps) {
+  return (
+    <Table {...useTanstackTableProps({ table, sorting })} {...props}>
+      <TableHeader columns={table.getFlatHeaders()}>
+        {(header) => (
+          <Column
+            id={header.id}
+            allowsSorting={header.column.getCanSort()}
+            {...header.column.columnDef.meta?.props?.header}
+          >
+            {flexRender(header.column.columnDef.header, header.getContext())}
+          </Column>
+        )}
+      </TableHeader>
+      <TableBody items={table.getRowModel().rows}>
+        {(row) => (
+          <Row columns={row.getVisibleCells()}>
+            {(cell) => (
+              <Cell
+                textValue={cell.getValue() as string}
+                {...cell.column.columnDef.meta?.props?.cell}
+              >
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </Cell>
+            )}
+          </Row>
+        )}
+      </TableBody>
+    </Table>
+  )
 }
 
 export function VirtualizedTanstackDataTable({
-	table,
-	virtualizer,
-	sorting,
-	...props
+  table,
+  virtualizer,
+  sorting,
+  ...props
 }: DataTableProps & {
-	virtualizer: Virtualizer<HTMLTableElement, Element>;
+  virtualizer: Virtualizer<HTMLTableElement, Element>
 }) {
-	const { rows } = table.getRowModel();
-	return (
-		<Table
-			className={composeRenderProps(
-				props.className,
-				() => "grid h-[500px] overflow-auto relative",
-			)}
-			{...useTanstackTableProps({ table, sorting })}
-			{...props}
-		>
-			<TableHeader className="grid" columns={table.getFlatHeaders()}>
-				{(header) => (
-					<Column
-						id={header.id}
-						allowsSorting={header.column.getCanSort()}
-						{...header.column.columnDef.meta?.props?.header}
-					>
-						{flexRender(header.column.columnDef.header, header.getContext())}
-					</Column>
-				)}
-			</TableHeader>
-			<TableBody
-				items={virtualizer.getVirtualItems()}
-				className="grid relative"
-				style={{ height: Math.round(virtualizer.getTotalSize()) }}
-			>
-				{(virtualRow) => {
-					const row = rows[virtualRow.index] as TanstackRow<any>;
-					return (
-						<Row
-							ref={virtualizer.measureElement}
-							data-index={virtualRow.index}
-							columns={row.getVisibleCells()}
-							className="absolute w-full"
-							style={{ transform: `translateY(${virtualRow.start}px)` }}
-						>
-							{(cell) => (
-								<Cell
-									textValue={cell.getValue() as string}
-									{...cell.column.columnDef.meta?.props?.cell}
-								>
-									{flexRender(cell.column.columnDef.cell, cell.getContext())}
-								</Cell>
-							)}
-						</Row>
-					);
-				}}
-			</TableBody>
-		</Table>
-	);
+  const { rows } = table.getRowModel()
+  return (
+    <Table
+      className={composeRenderProps(props.className, () => "grid h-[500px] overflow-auto relative")}
+      {...useTanstackTableProps({ table, sorting })}
+      {...props}
+    >
+      <TableHeader className="grid" columns={table.getFlatHeaders()}>
+        {(header) => (
+          <Column
+            id={header.id}
+            allowsSorting={header.column.getCanSort()}
+            {...header.column.columnDef.meta?.props?.header}
+          >
+            {flexRender(header.column.columnDef.header, header.getContext())}
+          </Column>
+        )}
+      </TableHeader>
+      <TableBody
+        items={virtualizer.getVirtualItems()}
+        className="relative grid"
+        style={{ height: Math.round(virtualizer.getTotalSize()) }}
+      >
+        {(virtualRow) => {
+          const row = rows[virtualRow.index] as TanstackRow<any>
+          return (
+            <Row
+              ref={virtualizer.measureElement}
+              data-index={virtualRow.index}
+              columns={row.getVisibleCells()}
+              className="absolute w-full"
+              style={{ transform: `translateY(${virtualRow.start}px)` }}
+            >
+              {(cell) => (
+                <Cell
+                  textValue={cell.getValue() as string}
+                  {...cell.column.columnDef.meta?.props?.cell}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </Cell>
+              )}
+            </Row>
+          )
+        }}
+      </TableBody>
+    </Table>
+  )
 }

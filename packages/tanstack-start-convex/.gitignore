@@ -3,4 +3,4 @@
 convex/_generated/
 
 # Tanstack Start
-src/routes.gen.ts
+src/routeTree.gen.ts

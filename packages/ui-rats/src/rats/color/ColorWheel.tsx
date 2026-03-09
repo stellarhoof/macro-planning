@@ -6,8 +6,7 @@ import {
 
 import { ColorThumb } from "./ColorThumb.tsx"
 
-export interface ColorWheelProps
-  extends Omit<AriaColorWheelProps, "outerRadius" | "innerRadius"> {}
+export interface ColorWheelProps extends Omit<AriaColorWheelProps, "outerRadius" | "innerRadius"> {}
 
 export function ColorWheel(props: ColorWheelProps) {
   return (

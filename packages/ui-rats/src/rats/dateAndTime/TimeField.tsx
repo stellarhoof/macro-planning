@@ -8,8 +8,7 @@ import {
 import { Description, FieldError, Label } from "../Field.tsx"
 import { DateInput } from "./DateField.tsx"
 
-export interface TimeFieldProps<T extends TimeValue>
-  extends AriaTimeFieldProps<T> {
+export interface TimeFieldProps<T extends TimeValue> extends AriaTimeFieldProps<T> {
   label?: string
   description?: string
   errorMessage?: string | ((validation: ValidationResult) => string)

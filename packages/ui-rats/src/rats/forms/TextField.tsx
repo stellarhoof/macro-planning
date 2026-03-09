@@ -16,20 +16,11 @@ export interface TextFieldProps extends Omit<AriaTextFieldProps, "className"> {
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export function TextField({
-  label,
-  description,
-  errorMessage,
-  ref,
-  ...props
-}: TextFieldProps) {
+export function TextField({ label, description, errorMessage, ref, ...props }: TextFieldProps) {
   return (
-    <AriaTextField
-      {...props}
-      className={twMerge("flex flex-col gap-1", props.className)}
-    >
+    <AriaTextField {...props} className={twMerge("flex flex-col gap-1", props.className)}>
       {label && <Label>{label}</Label>}
-      <Input ref={ref} className="border-2 rounded-md" />
+      <Input ref={ref} className="rounded-md border-2" />
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
     </AriaTextField>
@@ -44,20 +35,11 @@ export interface TextAreaProps extends Omit<AriaTextFieldProps, "className"> {
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export function TextAreaField({
-  label,
-  description,
-  errorMessage,
-  ref,
-  ...props
-}: TextAreaProps) {
+export function TextAreaField({ label, description, errorMessage, ref, ...props }: TextAreaProps) {
   return (
-    <AriaTextField
-      {...props}
-      className={twMerge("flex flex-col gap-1", props.className)}
-    >
+    <AriaTextField {...props} className={twMerge("flex flex-col gap-1", props.className)}>
       {label && <Label>{label}</Label>}
-      <TextArea ref={ref} className="border-2 rounded-md" />
+      <TextArea ref={ref} className="rounded-md border-2" />
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
     </AriaTextField>

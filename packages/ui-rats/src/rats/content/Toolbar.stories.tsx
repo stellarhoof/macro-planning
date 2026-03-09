@@ -26,21 +26,13 @@ export const Example: Story = {
           <UnderlineIcon className="h-4 w-4" />
         </ToggleButton>
       </Group>
-      <Separator
-        orientation={
-          args.orientation === "vertical" ? "horizontal" : "vertical"
-        }
-      />
+      <Separator orientation={args.orientation === "vertical" ? "horizontal" : "vertical"} />
       <Group aria-label="Clipboard" className="contents">
         <Button variant="secondary">Copy</Button>
         <Button variant="secondary">Paste</Button>
         <Button variant="secondary">Cut</Button>
       </Group>
-      <Separator
-        orientation={
-          args.orientation === "vertical" ? "horizontal" : "vertical"
-        }
-      />
+      <Separator orientation={args.orientation === "vertical" ? "horizontal" : "vertical"} />
       <Checkbox>Night Mode</Checkbox>
     </Toolbar>
   ),

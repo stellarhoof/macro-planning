@@ -26,7 +26,7 @@ import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 
 export function Table(props: TableProps) {
   return (
-    <ResizableTableContainer className="overflow-auto scroll-pt-[2.281rem] relative border dark:border-zinc-600 rounded-lg">
+    <ResizableTableContainer className="relative scroll-pt-[2.281rem] overflow-auto rounded-lg border dark:border-zinc-600">
       <AriaTable {...props} className="border-separate border-spacing-0" />
     </ResizableTableContainer>
   )
@@ -51,33 +51,28 @@ export function Column(props: ColumnProps & { enableResizing?: boolean }) {
         "[&:hover]:z-20 [&:focus-within]:z-20 text-start text-sm font-semibold text-gray-700 dark:text-zinc-300 cursor-default",
       )}
     >
-      {composeRenderProps(
-        props.children,
-        (children, { allowsSorting, sortDirection }) => (
-          <div className="flex items-center">
-            <Group role="presentation" tabIndex={-1} className={columnStyles}>
-              <span className="truncate">{children}</span>
-              {allowsSorting && (
-                <span
-                  className={`w-4 h-4 flex items-center justify-center transition ${
-                    sortDirection === "descending" ? "rotate-180" : ""
-                  }`}
-                >
-                  {sortDirection && (
-                    <ArrowUp
-                      aria-hidden
-                      className="w-4 h-4 text-gray-500 dark:text-zinc-400 forced-colors:text-[ButtonText]"
-                    />
-                  )}
-                </span>
-              )}
-            </Group>
-            {!props.width && props.enableResizing && (
-              <ColumnResizer className={resizerStyles} />
+      {composeRenderProps(props.children, (children, { allowsSorting, sortDirection }) => (
+        <div className="flex items-center">
+          <Group role="presentation" tabIndex={-1} className={columnStyles}>
+            <span className="truncate">{children}</span>
+            {allowsSorting && (
+              <span
+                className={`flex h-4 w-4 items-center justify-center transition ${
+                  sortDirection === "descending" ? "rotate-180" : ""
+                }`}
+              >
+                {sortDirection && (
+                  <ArrowUp
+                    aria-hidden
+                    className="h-4 w-4 text-gray-500 dark:text-zinc-400 forced-colors:text-[ButtonText]"
+                  />
+                )}
+              </span>
             )}
-          </div>
-        ),
-      )}
+          </Group>
+          {!props.width && props.enableResizing && <ColumnResizer className={resizerStyles} />}
+        </div>
+      ))}
     </AriaColumn>
   )
 }
@@ -98,7 +93,7 @@ export function TableHeader<T extends object>(props: TableHeaderProps<T>) {
         <AriaColumn
           width={36}
           minWidth={36}
-          className="text-start text-sm font-semibold cursor-default p-2"
+          className="cursor-default p-2 text-start text-sm font-semibold"
         >
           {selectionMode === "multiple" && <Checkbox slot="selection" />}
         </AriaColumn>

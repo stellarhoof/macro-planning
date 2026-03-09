@@ -14,10 +14,7 @@ export interface MapOptions<T, PreT, PostT> {
   mapNode?: MapNodeFn<T, PreT, PostT>
 }
 
-export function defaultMapNode<T, PreT, PostT>(
-  node: PreT,
-  fn: (node: T, key: Key) => PostT,
-) {
+export function defaultMapNode<T, PreT, PostT>(node: PreT, fn: (node: T, key: Key) => PostT) {
   if (Array.isArray(node)) {
     return node.map(fn) as PreT
   }

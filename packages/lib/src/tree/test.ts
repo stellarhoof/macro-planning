@@ -41,10 +41,7 @@ export const forEachJsonSchema: ForEachNodeFn<JSONSchema7> = (node, fn) => {
   }
 }
 
-export const mapJsonSchema: MapNodeFn<JSONSchema7, JSONSchema7, JSONSchema7> = (
-  node,
-  fn,
-) => {
+export const mapJsonSchema: MapNodeFn<JSONSchema7, JSONSchema7, JSONSchema7> = (node, fn) => {
   const result = { ...node }
   if (isPlainObject(node.items) && !Array.isArray(node.items)) {
     result.items = fn(node.items, "items")

@@ -17,8 +17,7 @@ const button = tv({
   variants: {
     variant: {
       primary: "bg-blue-600 hover:bg-blue-700 pressed:bg-blue-800 text-white",
-      secondary:
-        "bg-gray-100 hover:bg-gray-200 pressed:bg-gray-300 text-gray-800",
+      secondary: "bg-gray-100 hover:bg-gray-200 pressed:bg-gray-300 text-gray-800",
       destructive: "bg-red-700 hover:bg-red-800 pressed:bg-red-900 text-white",
       icon: "border-0 p-1 flex items-center justify-center text-gray-600 hover:bg-black/[5%] pressed:bg-black/10 disabled:bg-transparent",
     },

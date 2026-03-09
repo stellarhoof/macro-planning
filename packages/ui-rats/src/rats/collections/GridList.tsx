@@ -10,10 +10,7 @@ import { tv } from "tailwind-variants"
 import { Checkbox } from "../forms/Checkbox.tsx"
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 
-export function GridList<T extends object>({
-  children,
-  ...props
-}: GridListProps<T>) {
+export function GridList<T extends object>({ children, ...props }: GridListProps<T>) {
   return (
     <AriaGridList
       {...props}

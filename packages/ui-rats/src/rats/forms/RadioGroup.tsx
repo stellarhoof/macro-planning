@@ -32,10 +32,7 @@ export function RadioGroup({
     <RACRadioGroup
       {...props}
       ref={ref}
-      className={composeTailwindRenderProps(
-        className,
-        "group flex flex-col gap-2",
-      )}
+      className={composeTailwindRenderProps(className, "group flex flex-col gap-2")}
     >
       <Label>{label}</Label>
       <div className="group-orientation-horizontal:gap-4 group-orientation-vertical:flex-col flex gap-2">

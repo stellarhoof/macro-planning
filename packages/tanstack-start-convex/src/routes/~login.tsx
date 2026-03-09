@@ -1,11 +1,11 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router"
-import { createServerFn } from "@tanstack/start"
-import { type FormEvent, startTransition, useActionState } from "react"
+import { createServerFn } from "@tanstack/react-start"
+import { startTransition, useActionState, type FormEvent } from "react"
+import { Form } from "react-aria-components"
 import { type ZodError, z } from "zod"
 import { zfd } from "zod-form-data"
 
 import { Button } from "#ui-rats/rats/buttons/Button.tsx"
-import { Form } from "#ui-rats/rats/forms/Form.tsx"
 import { TextField } from "#ui-rats/rats/forms/TextField.tsx"
 
 const schema = zfd.formData({
@@ -14,7 +14,7 @@ const schema = zfd.formData({
 
 type Schema = z.infer<typeof schema>
 
-interface Result {
+interface SignInResult {
   data?: Schema
   error?: {
     formErrors?: string[]
@@ -23,17 +23,17 @@ interface Result {
 }
 
 const signIn = createServerFn({ method: "POST" })
-  .validator((formData: unknown): Result => {
+  .inputValidator((formData: unknown): SignInResult => {
     if (!(formData instanceof FormData)) {
       throw new Response("Invalid form data", { status: 400 })
     }
     const { data, error } = schema.safeParse(formData)
     return {
       data,
-      error: error ? { ...(error as ZodError<Schema>).flatten() } : undefined,
+      error: error ? { ...(error as ZodError<Schema>) } : undefined,
     }
   })
-  .handler((ctx): Result => {
+  .handler((ctx): SignInResult => {
     if (ctx.data.error) {
       return ctx.data
     }
@@ -67,7 +67,7 @@ function Component() {
   const router = useRouter()
   const search = Route.useSearch()
 
-  const [result, action, pending] = useActionState<Result, FormData>(
+  const [result, action, pending] = useActionState<SignInResult, FormData>(
     (_state, formData) => signIn({ data: formData }),
     {},
   )
@@ -86,12 +86,8 @@ function Component() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Form
-        className="w-80"
-        onSubmit={onSubmit}
-        validationErrors={result?.error?.fieldErrors}
-      >
+    <div className="flex h-screen items-center justify-center">
+      <Form className="w-80" onSubmit={onSubmit} validationErrors={result?.error?.fieldErrors}>
         <TextField label="Email" name="email" type="email" isRequired />
         <Button type="submit" isPending={pending}>
           Sign in

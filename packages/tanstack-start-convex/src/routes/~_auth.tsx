@@ -1,9 +1,4 @@
-import {
-  createFileRoute,
-  Outlet,
-  redirect,
-  useLocation,
-} from "@tanstack/react-router"
+import { createFileRoute, Outlet, redirect, useLocation } from "@tanstack/react-router"
 
 import { Tab, TabList, TabPanel, Tabs } from "#ui-rats/rats/navigation/Tabs.tsx"
 

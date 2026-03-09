@@ -1,9 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
-import {
-  ColorSwatchPickerItem,
-  ColorSwatchPicker as Component,
-} from "./ColorSwatchPicker.tsx"
+import { ColorSwatchPickerItem, ColorSwatchPicker as Component } from "./ColorSwatchPicker.tsx"
 
 export default { component: Component } satisfies Meta<typeof Component>
 

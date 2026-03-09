@@ -13,19 +13,11 @@ export interface ColorFieldProps extends AriaColorFieldProps {
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export function ColorField({
-  label,
-  description,
-  errorMessage,
-  ...props
-}: ColorFieldProps) {
+export function ColorField({ label, description, errorMessage, ...props }: ColorFieldProps) {
   return (
     <AriaColorField
       {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "flex flex-col gap-1",
-      )}
+      className={composeTailwindRenderProps(props.className, "flex flex-col gap-1")}
     >
       {label && <Label>{label}</Label>}
       <Input />

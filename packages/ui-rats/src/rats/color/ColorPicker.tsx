@@ -36,11 +36,7 @@ export function ColorPicker({ label, children, ...props }: ColorPickerProps) {
           <Dialog className="flex flex-col gap-2">
             {children || (
               <>
-                <ColorArea
-                  colorSpace="hsb"
-                  xChannel="saturation"
-                  yChannel="brightness"
-                />
+                <ColorArea colorSpace="hsb" xChannel="saturation" yChannel="brightness" />
                 <ColorSlider colorSpace="hsb" channel="hue" />
                 <ColorField label="Hex" />
               </>

@@ -8,16 +8,8 @@ const PRUNE = Symbol("PRUNE")
 export interface FilterOptions<T> {
   pre?: (node: T, ctx: Context<T>) => boolean
   post?: (node: T, ctx: Context<T>) => boolean
-  mapNode?: (
-    node: T,
-    fn: (node: T, key: Key) => T | typeof PRUNE,
-    ctx: Context<T>,
-  ) => T
-  filterNode?: (
-    node: T,
-    fn: (node: T, key: Key) => boolean,
-    ctx: Context<T>,
-  ) => T
+  mapNode?: (node: T, fn: (node: T, key: Key) => T | typeof PRUNE, ctx: Context<T>) => T
+  filterNode?: (node: T, fn: (node: T, key: Key) => boolean, ctx: Context<T>) => T
 }
 
 function defaultFilterNode<T>(node: T, fn: (node: T, key: Key) => boolean) {
@@ -55,11 +47,7 @@ export function filter<T>(
       },
       ctx,
     )
-    const filteredResult = filterNode(
-      mappedResult,
-      (child) => child !== PRUNE,
-      ctx,
-    )
+    const filteredResult = filterNode(mappedResult, (child) => child !== PRUNE, ctx)
     if (!post(filteredResult, ctx)) {
       return PRUNE
     }

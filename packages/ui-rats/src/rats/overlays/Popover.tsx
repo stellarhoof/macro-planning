@@ -23,12 +23,7 @@ const styles = tv({
   },
 })
 
-export function Popover({
-  children,
-  showArrow,
-  className,
-  ...props
-}: PopoverProps) {
+export function Popover({ children, showArrow, className, ...props }: PopoverProps) {
   return (
     <AriaPopover
       offset={showArrow ? 12 : 8}

@@ -4,9 +4,7 @@ import { Form } from "react-aria-components"
 import { Button } from "../buttons/Button.tsx"
 import { DateRangePicker } from "./DateRangePicker.tsx"
 
-export default { component: DateRangePicker } satisfies Meta<
-  typeof DateRangePicker
->
+export default { component: DateRangePicker } satisfies Meta<typeof DateRangePicker>
 
 type Story = StoryObj<typeof DateRangePicker>
 

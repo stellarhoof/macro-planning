@@ -26,8 +26,7 @@ const styles = tv({
   },
 })
 
-export interface SelectProps<T extends object>
-  extends Omit<AriaSelectProps<T>, "children"> {
+export interface SelectProps<T extends object> extends Omit<AriaSelectProps<T>, "children"> {
   ref?: ForwardedRef<HTMLDivElement>
   label?: string
   description?: string
@@ -49,17 +48,14 @@ export function Select<T extends object>({
     <AriaSelect
       {...props}
       ref={ref}
-      className={composeTailwindRenderProps(
-        props.className,
-        "group flex flex-col gap-1",
-      )}
+      className={composeTailwindRenderProps(props.className, "group flex flex-col gap-1")}
     >
       {label && <Label>{label}</Label>}
       <Button className={styles}>
         <SelectValue className="flex-1 text-sm placeholder-shown:italic" />
         <ChevronDown
           aria-hidden
-          className="w-4 h-4 text-gray-600 dark:text-zinc-400 forced-colors:text-[ButtonText] group-disabled:text-gray-200 dark:group-disabled:text-zinc-600 forced-colors:group-disabled:text-[GrayText]"
+          className="h-4 w-4 text-gray-600 group-disabled:text-gray-200 dark:text-zinc-400 dark:group-disabled:text-zinc-600 forced-colors:text-[ButtonText] forced-colors:group-disabled:text-[GrayText]"
         />
       </Button>
       {description && <Description>{description}</Description>}

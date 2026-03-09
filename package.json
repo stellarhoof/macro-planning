@@ -7,9 +7,8 @@
     "build": "tsc --build --verbose",
     "test": "vitest run",
     "lint": "oxlint",
-    "lint:fix": "oxlint --fix",
-    "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check"
+    "fix": "oxlint --fix",
+    "fmt": "oxfmt"
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.15",

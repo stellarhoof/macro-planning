@@ -1,10 +1,7 @@
 import { omitBy } from "es-toolkit"
 import { get, set } from "es-toolkit/compat"
 
-export function formatNumber(
-  value: number,
-  options?: Intl.NumberFormatOptions,
-) {
+export function formatNumber(value: number, options?: Intl.NumberFormatOptions) {
   return new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 1,
     ...options,

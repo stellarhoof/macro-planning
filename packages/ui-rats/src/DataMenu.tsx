@@ -14,10 +14,7 @@ interface DataMenuProps<T extends DataMenuItem> extends MenuProps<T> {
   items?: Iterable<T>
 }
 
-export function DataMenu<T extends DataMenuItem>({
-  items,
-  ...props
-}: DataMenuProps<T>) {
+export function DataMenu<T extends DataMenuItem>({ items, ...props }: DataMenuProps<T>) {
   const it = Iterator.from(items ?? []).map((item) => ({
     label: startCase(item.id),
     ...item,

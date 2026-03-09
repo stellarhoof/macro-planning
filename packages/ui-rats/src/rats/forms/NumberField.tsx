@@ -29,18 +29,9 @@ export interface NumberFieldProps extends AriaNumberFieldProps {
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export function NumberField({
-  ref,
-  label,
-  description,
-  errorMessage,
-  ...props
-}: NumberFieldProps) {
+export function NumberField({ ref, label, description, errorMessage, ...props }: NumberFieldProps) {
   return (
-    <AriaNumberField
-      {...props}
-      className={twMerge("group flex flex-col gap-1", props.className)}
-    >
+    <AriaNumberField {...props} className={twMerge("group flex flex-col gap-1", props.className)}>
       <Label>{label}</Label>
       <FieldGroup>
         <Input ref={ref} />

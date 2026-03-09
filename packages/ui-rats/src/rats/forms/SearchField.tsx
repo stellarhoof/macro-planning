@@ -15,12 +15,7 @@ export interface SearchFieldProps extends AriaSearchFieldProps {
   errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
-export function SearchField({
-  label,
-  description,
-  errorMessage,
-  ...props
-}: SearchFieldProps) {
+export function SearchField({ label, description, errorMessage, ...props }: SearchFieldProps) {
   return (
     <AriaSearchField
       {...props}

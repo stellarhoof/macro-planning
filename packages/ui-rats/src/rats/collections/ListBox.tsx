@@ -14,13 +14,9 @@ import { tv } from "tailwind-variants"
 
 import { composeTailwindRenderProps, focusRing } from "../utils.ts"
 
-interface ListBoxProps<T>
-  extends Omit<AriaListBoxProps<T>, "layout" | "orientation"> {}
+interface ListBoxProps<T> extends Omit<AriaListBoxProps<T>, "layout" | "orientation"> {}
 
-export function ListBox<T extends object>({
-  children,
-  ...props
-}: ListBoxProps<T>) {
+export function ListBox<T extends object>({ children, ...props }: ListBoxProps<T>) {
   return (
     <AriaListBox
       {...props}
@@ -51,14 +47,13 @@ export const itemStyles = tv({
 
 export function ListBoxItem(props: ListBoxItemProps) {
   const textValue =
-    props.textValue ||
-    (typeof props.children === "string" ? props.children : undefined)
+    props.textValue || (typeof props.children === "string" ? props.children : undefined)
   return (
     <AriaListBoxItem {...props} textValue={textValue} className={itemStyles}>
       {composeRenderProps(props.children, (children) => (
         <>
           {children}
-          <div className="absolute bottom-0 left-4 right-4 hidden h-px bg-white/20 forced-colors:bg-[HighlightText] [.group[data-selected]:has(+[data-selected])_&]:block" />
+          <div className="absolute right-4 bottom-0 left-4 hidden h-px bg-white/20 forced-colors:bg-[HighlightText] [.group[data-selected]:has(+[data-selected])_&]:block" />
         </>
       ))}
     </AriaListBoxItem>
@@ -80,14 +75,9 @@ export const dropdownItemStyles = tv({
 
 export function DropdownItem(props: ListBoxItemProps) {
   const textValue =
-    props.textValue ||
-    (typeof props.children === "string" ? props.children : undefined)
+    props.textValue || (typeof props.children === "string" ? props.children : undefined)
   return (
-    <AriaListBoxItem
-      {...props}
-      textValue={textValue}
-      className={dropdownItemStyles}
-    >
+    <AriaListBoxItem {...props} textValue={textValue} className={dropdownItemStyles}>
       {composeRenderProps(props.children, (children, { isSelected }) => (
         <>
           <span className="group-selected:font-semibold flex flex-1 items-center gap-2 truncate font-normal">
@@ -106,9 +96,7 @@ export interface DropdownSectionProps<T> extends SectionProps<T> {
   title?: string
 }
 
-export function DropdownSection<T extends object>(
-  props: DropdownSectionProps<T>,
-) {
+export function DropdownSection<T extends object>(props: DropdownSectionProps<T>) {
   return (
     <Section className="after:block after:h-[5px] after:content-[''] first:-mt-[5px]">
       <Header className="sticky -top-[5px] z-10 -mx-1 -mt-px truncate border-y bg-gray-100/60 px-4 py-1 text-sm font-semibold text-gray-500 backdrop-blur-md supports-[-moz-appearance:none]:bg-gray-100 dark:border-y-zinc-700 dark:bg-zinc-700/60 dark:text-zinc-300 [&+*]:mt-1">

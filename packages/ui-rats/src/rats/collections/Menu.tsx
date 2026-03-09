@@ -10,11 +10,7 @@ import {
 } from "react-aria-components"
 
 import { Popover, type PopoverProps } from "../overlays/Popover.tsx"
-import {
-  DropdownSection,
-  type DropdownSectionProps,
-  dropdownItemStyles,
-} from "./ListBox.tsx"
+import { DropdownSection, type DropdownSectionProps, dropdownItemStyles } from "./ListBox.tsx"
 
 export interface MenuProps<T> extends AriaMenuProps<T> {
   placement?: PopoverProps["placement"]
@@ -34,31 +30,25 @@ export function Menu<T extends object>(props: MenuProps<T>) {
 export function MenuItem(props: MenuItemProps) {
   return (
     <AriaMenuItem {...props} className={dropdownItemStyles}>
-      {composeRenderProps(
-        props.children,
-        (children, { selectionMode, isSelected }) => (
-          <>
-            {selectionMode !== "none" && (
-              <span className="flex w-4 items-center">
-                {isSelected && <Check aria-hidden className="h-4 w-4" />}
-              </span>
-            )}
-            <span className="group-selected:font-semibold flex flex-1 items-center gap-2 truncate font-normal">
-              {children}
+      {composeRenderProps(props.children, (children, { selectionMode, isSelected }) => (
+        <>
+          {selectionMode !== "none" && (
+            <span className="flex w-4 items-center">
+              {isSelected && <Check aria-hidden className="h-4 w-4" />}
             </span>
-          </>
-        ),
-      )}
+          )}
+          <span className="group-selected:font-semibold flex flex-1 items-center gap-2 truncate font-normal">
+            {children}
+          </span>
+        </>
+      ))}
     </AriaMenuItem>
   )
 }
 
 export function MenuSeparator(props: SeparatorProps) {
   return (
-    <Separator
-      {...props}
-      className="mx-3 my-1 border-b border-gray-300 dark:border-zinc-700"
-    />
+    <Separator {...props} className="mx-3 my-1 border-b border-gray-300 dark:border-zinc-700" />
   )
 }
 

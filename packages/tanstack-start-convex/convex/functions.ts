@@ -28,13 +28,9 @@ export const getFoods = query({
     orderDirection: v.optional(v.union(v.literal("asc"), v.literal("desc"))),
   },
   handler: async (ctx, args) => {
-    const filtered = ctx.db
-      .query("food")
-      .filter((q) => q.eq(q.field("userId"), args.userId))
+    const filtered = ctx.db.query("food").filter((q) => q.eq(q.field("userId"), args.userId))
     if (args.orderField && args.orderField in fieldToIndex) {
-      const index = fieldToIndex[args.orderField] as IndexNames<
-        DataModel["food"]
-      >
+      const index = fieldToIndex[args.orderField] as IndexNames<DataModel["food"]>
       return await filtered
         .withIndex(index)
         .order(args.orderDirection ?? "asc")

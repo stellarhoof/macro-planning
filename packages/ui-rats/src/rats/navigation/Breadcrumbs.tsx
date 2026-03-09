@@ -12,29 +12,17 @@ import { composeTailwindRenderProps } from "../utils.ts"
 import { Link } from "./Link.tsx"
 
 export function Breadcrumbs<T extends object>(props: BreadcrumbsProps<T>) {
-  return (
-    <AriaBreadcrumbs
-      {...props}
-      className={twMerge("flex gap-1", props.className)}
-    />
-  )
+  return <AriaBreadcrumbs {...props} className={twMerge("flex gap-1", props.className)} />
 }
 
-export function Breadcrumb(
-  props: BreadcrumbProps & Omit<LinkProps, "className">,
-) {
+export function Breadcrumb(props: BreadcrumbProps & Omit<LinkProps, "className">) {
   return (
     <AriaBreadcrumb
       {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "flex items-center gap-1",
-      )}
+      className={composeTailwindRenderProps(props.className, "flex items-center gap-1")}
     >
       <Link variant="secondary" {...props} />
-      {props.href && (
-        <ChevronRight className="h-3 w-3 text-gray-600 dark:text-zinc-400" />
-      )}
+      {props.href && <ChevronRight className="h-3 w-3 text-gray-600 dark:text-zinc-400" />}
     </AriaBreadcrumb>
   )
 }

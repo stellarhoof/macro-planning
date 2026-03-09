@@ -57,9 +57,7 @@ export function Slider<T extends number | number[]>({
     >
       <Label>{label}</Label>
       <SliderOutput className="orientation-vertical:hidden text-sm font-medium text-gray-500 dark:text-zinc-400">
-        {({ state }) =>
-          state.values.map((_, i) => state.getThumbValueLabel(i)).join(" – ")
-        }
+        {({ state }) => state.values.map((_, i) => state.getThumbValueLabel(i)).join(" – ")}
       </SliderOutput>
       <SliderTrack className="orientation-horizontal:h-6 orientation-vertical:h-64 orientation-vertical:w-6 group col-span-2 flex items-center">
         {({ state, ...renderProps }) => (

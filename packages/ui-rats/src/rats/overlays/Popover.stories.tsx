@@ -24,9 +24,7 @@ export const Example: Story = {
           <Heading slot="title" className="mb-2 text-lg font-semibold">
             Help
           </Heading>
-          <p className="text-sm">
-            For help accessing your account, please contact support.
-          </p>
+          <p className="text-sm">For help accessing your account, please contact support.</p>
         </Dialog>
       </Popover>
     </DialogTrigger>

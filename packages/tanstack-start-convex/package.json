@@ -1,33 +1,33 @@
 {
   "name": "tanstack-start-convex",
   "private": true,
-  "sideEffects": false,
   "type": "module",
+  "sideEffects": false,
   "scripts": {
-    "dev": "vinxi dev",
-    "build": "vinxi build",
-    "start": "vinxi start",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
     "server": "convex dev",
     "seed": "convex import --table tasks sampleData.jsonl",
     "postinstall": "convex codegen"
   },
   "dependencies": {
+    "@convex-dev/react-query": "0.1.0",
     "@tanstack/react-query": "^5.90.21",
     "@tanstack/react-router": "^1.160.2",
-    "@tanstack/start": "^1.120.20",
+    "@tanstack/react-start": "^1.166.2",
+    "@vitejs/plugin-react": "^5.1.4",
     "convex": "^1.31.7",
     "es-toolkit": "^1.44.0",
     "react": "^19.2.4",
     "react-aria-components": "^1.15.1",
     "react-dom": "^19.2.4",
-    "vinxi": "^0.5.11",
     "zod": "^4.3.6",
     "zod-form-data": "^3.0.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",
-    "browserslist": "^4.28.1",
-    "browserslist-to-esbuild": "^2.1.1",
+    "babel-plugin-react-compiler": "^1.0.0",
     "tailwindcss": "^4.1.18",
     "vite": "^7.3.1",
     "vite-tsconfig-paths": "^6.1.1"

@@ -8,8 +8,7 @@ import {
 import { Description, FieldError, Label } from "../Field.tsx"
 import { composeTailwindRenderProps } from "../utils.ts"
 
-export interface CheckboxGroupProps
-  extends Omit<AriaCheckboxGroupProps, "children"> {
+export interface CheckboxGroupProps extends Omit<AriaCheckboxGroupProps, "children"> {
   ref?: ForwardedRef<HTMLDivElement>
   label?: string
   children?: ReactNode
@@ -22,10 +21,7 @@ export function CheckboxGroup({ ref, ...props }: CheckboxGroupProps) {
     <AriaCheckboxGroup
       {...props}
       ref={ref}
-      className={composeTailwindRenderProps(
-        props.className,
-        "flex flex-col gap-2",
-      )}
+      className={composeTailwindRenderProps(props.className, "flex flex-col gap-2")}
     >
       <Label>{props.label}</Label>
       {props.children}

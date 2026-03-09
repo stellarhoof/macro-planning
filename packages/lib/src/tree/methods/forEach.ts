@@ -2,11 +2,7 @@ import { isPlainObject } from "es-toolkit"
 
 import { type Context, type Key, StopTraversal } from "../types.ts"
 
-export type ForEachNodeFn<T> = (
-  node: T,
-  fn: (node: T, key: Key) => void,
-  ctx: Context<T>,
-) => void
+export type ForEachNodeFn<T> = (node: T, fn: (node: T, key: Key) => void, ctx: Context<T>) => void
 
 export interface ForEachOptions<T> {
   pre?: (node: T, ctx: Context<T>) => void

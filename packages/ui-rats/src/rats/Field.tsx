@@ -54,10 +54,7 @@ export function Label(props: LabelProps) {
   return (
     <RACLabel
       {...props}
-      className={twMerge(
-        "w-fit cursor-default text-sm font-medium text-gray-500",
-        props.className,
-      )}
+      className={twMerge("w-fit cursor-default text-sm font-medium text-gray-500", props.className)}
     />
   )
 }
@@ -77,12 +74,7 @@ interface FieldErrorProps extends RACFieldErrorProps {
 }
 
 export function FieldError(props: FieldErrorProps) {
-  return (
-    <RACFieldError
-      {...props}
-      className={twMerge("text-sm text-red-600", props.className)}
-    />
-  )
+  return <RACFieldError {...props} className={twMerge("text-sm text-red-600", props.className)} />
 }
 
 interface FieldGroupProps extends RACGroupProps {
@@ -101,8 +93,7 @@ export function FieldGroup(props: FieldGroupProps) {
   )
 }
 
-interface FieldsetProps
-  extends React.FieldsetHTMLAttributes<HTMLFieldSetElement> {
+interface FieldsetProps extends React.FieldsetHTMLAttributes<HTMLFieldSetElement> {
   className?: string
   label?: string
   isInvalid?: boolean
@@ -120,14 +111,15 @@ export function Fieldset({
   className,
   ...props
 }: FieldsetProps) {
-  const { labelProps, fieldProps, descriptionProps, errorMessageProps } =
-    useField({ label, description, isInvalid, errorMessage })
+  const { labelProps, fieldProps, descriptionProps, errorMessageProps } = useField({
+    label,
+    description,
+    isInvalid,
+    errorMessage,
+  })
   return (
     <fieldset
-      className={twMerge(
-        "flex flex-col gap-4 border border-gray-400 p-4 rounded-md",
-        className,
-      )}
+      className={twMerge("flex flex-col gap-4 border border-gray-400 p-4 rounded-md", className)}
       {...fieldProps}
       {...props}
       data-invalid={isInvalid || undefined}
@@ -137,15 +129,9 @@ export function Fieldset({
           {label}
         </Label>
       )}
-      {description && (
-        <Description {...descriptionProps}>{description}</Description>
-      )}
+      {description && <Description {...descriptionProps}>{description}</Description>}
       {errorMessage && (
-        <Text
-          slot="errorMessage"
-          className="text-sm text-red-600"
-          {...errorMessageProps}
-        >
+        <Text slot="errorMessage" className="text-sm text-red-600" {...errorMessageProps}>
           {errorMessage}
         </Text>
       )}

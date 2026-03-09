@@ -15,8 +15,7 @@ import { composeTailwindRenderProps } from "../utils.ts"
 import { Calendar } from "./Calendar.tsx"
 import { DateInput } from "./DateField.tsx"
 
-export interface DatePickerProps<T extends DateValue>
-  extends AriaDatePickerProps<T> {
+export interface DatePickerProps<T extends DateValue> extends AriaDatePickerProps<T> {
   ref?: ForwardedRef<HTMLInputElement>
   label?: string
   description?: string
@@ -34,10 +33,7 @@ export function DatePicker<T extends DateValue>({
     <AriaDatePicker
       {...props}
       ref={ref}
-      className={composeTailwindRenderProps(
-        props.className,
-        "group flex flex-col gap-1",
-      )}
+      className={composeTailwindRenderProps(props.className, "group flex flex-col gap-1")}
     >
       {label && <Label>{label}</Label>}
       <FieldGroup className="w-auto min-w-[208px]">

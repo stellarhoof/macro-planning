@@ -68,24 +68,16 @@ export function Checkbox(props: CheckboxProps) {
                 })}
               >
                 {state.isIndeterminate && (
-                  <Minus
-                    aria-hidden
-                    className="w-4 h-4 text-white group-disabled:text-gray-400"
-                  />
+                  <Minus aria-hidden className="h-4 w-4 text-white group-disabled:text-gray-400" />
                 )}
                 {state.isSelected && (
-                  <Check
-                    aria-hidden
-                    className="w-4 h-4 text-white group-disabled:text-gray-400"
-                  />
+                  <Check aria-hidden className="h-4 w-4 text-white group-disabled:text-gray-400" />
                 )}
               </span>
               <Label {...field.labelProps}>{props.children}</Label>
             </div>
             {props.description && (
-              <Description {...field.descriptionProps}>
-                {props.description}
-              </Description>
+              <Description {...field.descriptionProps}>{props.description}</Description>
             )}
             {props.errorMessage && (
               <Text

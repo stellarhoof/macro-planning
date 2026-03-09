@@ -1,40 +1,37 @@
 import type { QueryClient } from "@tanstack/react-query"
-import {
-  createRootRouteWithContext,
-  Outlet,
-  ScrollRestoration,
-} from "@tanstack/react-router"
-import { Meta, Scripts } from "@tanstack/start"
-import type { ConvexReactClient } from "convex/react"
+import { createRootRouteWithContext, HeadContent } from "@tanstack/react-router"
 
-import css from "./__root.css?url"
+import { ConvexClientProvider } from "#src/integrations/convex/provider.tsx"
+import { RacRouterProvider } from "#src/integrations/react-aria-components/provider.tsx"
+import TanStackQueryProvider from "#src/integrations/tanstack-query/provider.tsx"
+
+import styles from "../styles.css?url"
 
 interface RouterContext {
   queryClient: QueryClient
-  convexClient: ConvexReactClient
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({
-  head() {
-    return {
-      meta: [
-        { charSet: "utf-8" },
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { title: "Macro Planning" },
-      ],
-      links: [{ rel: "stylesheet", href: css }],
-    }
-  },
-  component() {
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: "Macro Planning" },
+    ],
+    links: [{ rel: "stylesheet", href: styles }],
+  }),
+  shellComponent({ children }) {
     return (
       <html lang="en">
         <head>
-          <Meta />
+          <HeadContent />
         </head>
         <body>
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
+          <ConvexClientProvider>
+            <TanStackQueryProvider>
+              <RacRouterProvider>{children}</RacRouterProvider>
+            </TanStackQueryProvider>
+          </ConvexClientProvider>
         </body>
       </html>
     )

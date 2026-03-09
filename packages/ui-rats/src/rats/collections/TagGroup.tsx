@@ -57,7 +57,8 @@ const tagStyles = tv({
 })
 
 export interface TagGroupProps<T>
-  extends Omit<AriaTagGroupProps, "children">,
+  extends
+    Omit<AriaTagGroupProps, "children">,
     Pick<TagListProps<T>, "items" | "children" | "renderEmptyState"> {
   color?: Color
   label?: string
@@ -79,17 +80,10 @@ export function TagGroup<T extends object>({
   ...props
 }: TagGroupProps<T>) {
   return (
-    <AriaTagGroup
-      {...props}
-      className={twMerge("flex flex-col gap-1", props.className)}
-    >
+    <AriaTagGroup {...props} className={twMerge("flex flex-col gap-1", props.className)}>
       <Label>{label}</Label>
       <ColorContext.Provider value={props.color || "gray"}>
-        <TagList
-          items={items}
-          renderEmptyState={renderEmptyState}
-          className="flex flex-wrap gap-1"
-        >
+        <TagList items={items} renderEmptyState={renderEmptyState} className="flex flex-wrap gap-1">
           {children}
         </TagList>
       </ColorContext.Provider>
