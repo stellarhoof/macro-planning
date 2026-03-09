@@ -14,11 +14,6 @@ Started out with a simple manual sqlite approach but it quickly became obvious t
 
 - Abandoned because SQL/ORMs are a pain to write and maintain
 
-## ./packages/vike-fauna
-
-- HTTP GraphQL endpoint at `http://localhost:8084`
-- HTTP FQL endpoint at `http://localhost:8443`
-
 # Vike
 
 - Vike does not have nested routing so it needs a client-side router
@@ -44,17 +39,7 @@ index.html
         └── src/pages/_error/+Page.tsx
 ```
 
-# Interesting readings
+# Interesting things
 
 https://riffle.systems/essays/prelude/
-
-# Some conversions
-
-1cup pea milk = 230g
-1cup chickpea flour = 135g
-1/4 cup maple syrup = 60ml = 40g
-1tbsp maple syrup = 15ml = 10g
-1tbsp butter = 15ml = 12g
-1tsp butter = 5ml = 4g
-1/2 cup steel cut oats = 100g
-1/2 heaping cup brown rice = 100g
+https://livestore.dev/

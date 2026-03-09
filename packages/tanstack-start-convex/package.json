@@ -16,6 +16,7 @@
     "@tanstack/react-router": "^1.160.2",
     "@tanstack/start": "^1.120.20",
     "convex": "^1.31.7",
+    "es-toolkit": "^1.44.0",
     "react": "^19.2.4",
     "react-aria-components": "^1.15.1",
     "react-dom": "^19.2.4",
