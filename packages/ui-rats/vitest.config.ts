@@ -12,8 +12,10 @@ export default defineConfig({
     browser: {
       enabled: true,
       headless: true,
-      name: "chromium",
-      provider: "playwright",
+      // provider: {
+      //   name: "chromium",
+      //   "playwright"
+      // },
     },
     // Make sure to adjust this pattern to match your stories files.
     include: ["**/*.stories.?(m)[jt]s?(x)"],

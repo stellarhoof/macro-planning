@@ -2,7 +2,7 @@
   "name": "lib",
   "type": "module",
   "dependencies": {
-    "es-toolkit": "^1.44.0"
+    "es-toolkit": "^1.47.0"
   },
   "devDependencies": {
     "json-schema": "^0.4.0"
