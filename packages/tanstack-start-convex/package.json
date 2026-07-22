@@ -8,20 +8,19 @@
     "build": "vite build",
     "preview": "vite preview",
     "server": "convex dev",
-    "seed": "convex import --table tasks sampleData.jsonl",
-    "postinstall": "convex codegen"
+    "seed": "convex import --table tasks sampleData.jsonl"
   },
   "dependencies": {
     "@convex-dev/react-query": "0.1.0",
-    "@tanstack/react-query": "^5.101.2",
+    "@tanstack/react-query": "^5.101.4",
     "@tanstack/react-router": "^1.170.18",
-    "@tanstack/react-start": "^1.168.30",
-    "@vitejs/plugin-react": "^6.0.3",
+    "@tanstack/react-start": "^1.168.32",
+    "@vitejs/plugin-react": "^6.0.4",
     "convex": "^1.42.3",
     "es-toolkit": "^1.49.0",
-    "react": "^19.2.7",
+    "react": "^19.2.8",
     "react-aria-components": "^1.19.0",
-    "react-dom": "^19.2.7",
+    "react-dom": "^19.2.8",
     "zod": "^4.4.3",
     "zod-form-data": "^3.0.3"
   },
